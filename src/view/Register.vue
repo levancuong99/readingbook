@@ -2,7 +2,10 @@
   <div class="containers">
     <div class="section">
       <div class="content">
-        <h2>Đọc sách</h2>
+        <div class="mybook">
+          <img src="../assets/logo.png" width="50px" height="50px"/>
+          <h2>My book</h2>
+        </div>
         <p>
           Việc đọc sách rất quan trọng. Nếu bạn biết cách đọc, cả thế giới sẽ mở
           ra cho bạn.
@@ -40,7 +43,8 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.email.required">Email is requied</span>
+            <span v-if="!$v.email.required">Bạn cần nhập email</span>
+            <span v-if="!$v.email.email">Email không hợp lệ</span>
           </div>
         </div>
 
@@ -208,21 +212,29 @@ export default {
 
 <style lang="scss" scoped>
 .containers {
-  background: rgb(241, 241, 241);
+  // background: rgb(241, 241, 241);
+   background-image: url(../assets/newimg3.jpeg);
+   background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+   background-size: 100% 100%;
   height: 100vh;
   display: flex;
   .section {
     width: 50%;
     .content {
-      margin-left: 80px;
-      margin-top: 30%;
+      margin-left: 80px !important;
+      margin-top: 30% !important;
       text-align: left;
-
-      h2 {
+      .mybook {
+        display: flex;
+         h2 {
         font-size: 45px;
         color: blue;
         font-weight: 800;
+        
       }
+      }
+     
       p {
         padding-top: 30px;
         font-size: 28px;
@@ -232,11 +244,11 @@ export default {
   }
   .aside {
     width: 50%;
-    margin-top: 3%;
+    margin-top: 3% !important;
     .formRegister {
       width: 70%;
       height: 96%;
-      margin: 0 auto;
+      margin: 0 auto !important;
       background: #fff;
       border-radius: 15px;
 
@@ -276,7 +288,7 @@ export default {
       }
       .dateAndGender {
         text-align: left;
-        margin-left: 20px;
+        margin-left: 20px !important;
         height: 55px;
         display: flex;
         .date {

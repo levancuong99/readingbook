@@ -2,13 +2,15 @@
   <div class="containers">
     <div class="section">
       <div class="content">
-        <h2>Sách </h2>
+          <div class="mybook">
+          <img src="../assets/logo.png" width="50px" height="50px"/>
+          <h2>My book</h2>
+        </div>
         <p>
          Đọc sách hay cũng giống như trò chuyện với các bộ óc tuyệt vời nhất của những thế kỷ đã trôi qua
         </p>
       </div>
     </div>
-
     <div class="aside">
       <div class="formLogin">
         <div class="form-group padding-field-email ">
@@ -23,7 +25,8 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.email.required">Email is requied</span>
+               <span v-if="!$v.email.required">Bạn cần nhập email</span>
+               <span v-if="!$v.email.email">Email không hợp lệ</span>
           </div>
         </div>
 
@@ -49,7 +52,7 @@
         <div class="btn">
             <button type="button" class="btn btn-primary"  v-on:click="handleSubmit"> 
               <span>Đăng nhập</span>
-              </button>
+            </button>
         </div>
 
         <div class="forgotPass">
@@ -83,6 +86,7 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
+      
     },
   },
   validations: {
@@ -100,41 +104,43 @@ export default {
 
 <style lang="scss" scoped>
 .containers {
-  background:rgb(241, 241, 241);
-  // background-image: url(../assets/img.jpg);
-  //  background-position: center; /* Center the image */
-  // background-repeat: no-repeat; /* Do not repeat the image */
-  // // background-size: cover; /* Resize the background image to cover the entire container */
-  //  background-size: 100% 100%;
+  // background:rgb(241, 241, 241);
+  background-image: url(../assets/newimg3.jpeg);
+   background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+   background-size: 100% 100%;
   height: 100vh;
   display: flex;
   .section {
     width: 50%;
     .content {
-      margin-left: 80px;
-      margin-top: 30%;
+      margin-left: 80px !important;
+      margin-top: 30% !important;
       text-align: left;
-
-      h2 {
+       .mybook {
+        display: flex;
+         h2 {
         font-size: 45px;
         color: blue;
         font-weight: 800;
+        
       }
+      }
+
       p {
         padding-top: 30px;
         font-size: 28px;
         font-weight: 700;
-        // color:rgb(91, 243, 248);
       }
     }
   }
   .aside {
-    width: 50%;
-    margin-top: 10%;
+    width: 50% !important;
+    margin-top: 10% !important;
     .formLogin {
       width: 60%;
       height: 75%;
-      margin: 0 auto;
+      margin: 0 auto !important;
       background: #fff;
       border-radius: 15px;
       .padding-field-email {
