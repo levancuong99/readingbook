@@ -34,7 +34,7 @@
           <input
             class="form-control pos_input"
             type="password"
-            placeholder="Email"
+            placeholder="Mật khẩu"
             v-model.trim="$v.password.$model"
             :class="{
               'is-invalid': $v.password.$error,
@@ -42,9 +42,9 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.password.required">Password is requied</span>
+            <span v-if="!$v.password.required">Bạn cần nhập mật khẩu</span>
             <span v-if="!$v.password.minLength">
-              Password is greater than 6 letters
+              Mật khẩu phải lớn hơn 6 kí tự
             </span>
           </div>
         </div>
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { required, minLength,email } from "vuelidate/lib/validators";
 export default {
   name: "Login",
@@ -81,12 +82,18 @@ export default {
     };
   },
    methods: {
+      ...mapActions({
+      login: "AUTH/login",
+    }),
+    handleLogin() {
+      this.login({ email: this.email, password: this.password });
+    },
     handleSubmit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         return;
       }
-      
+     this.handleLogin();
     },
   },
   validations: {
@@ -185,6 +192,9 @@ export default {
       }
       .forgotPass {
         color:royalblue;
+      }
+      hr{
+        width: 90%;
       }
     }
   }

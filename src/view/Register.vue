@@ -27,7 +27,7 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.name.required">Name is requied</span>
+            <span v-if="!$v.name.required">Bạn cần nhập họ tên</span>
           </div>
         </div>
 
@@ -60,9 +60,9 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.password.required">Password is requied</span>
+            <span v-if="!$v.password.required">Bạn cần nhập mật khẩu</span>
             <span v-if="!$v.password.minLength">
-              Password is greater than 6 letters
+              Mật khẩu phải lớn hơn 6 kí tự
             </span>
           </div>
         </div>
@@ -79,8 +79,8 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.retypePassword.required">Confirm password is requied</span>
-             <span v-if="(password && !$v.retypePassword.sameAsPassword) && $v.retypePassword.required">Password and Confirm Password should match</span>
+            <span v-if="!$v.retypePassword.required">Bạn cần nhập xác nhận mật khẩu</span>
+             <span v-if="(password && !$v.retypePassword.sameAsPassword) && $v.retypePassword.required">Mật khẩu không khớp với mật khẩu trước đó</span>
           </div>
         </div>
 
@@ -99,7 +99,7 @@
             />
             <div class="invalid-feedback">
               <span class="invalid-date" v-if="!$v.dateOfBirth.required">
-               Date of birth is required
+               Bạn cần nhập ngày sinh
               </span>
             </div>
           </div>
@@ -129,7 +129,7 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.address.required">Address is requied</span>
+            <span v-if="!$v.address.required">Bạn cần nhập địa chỉ</span>
           </div>
         </div>
 
@@ -246,6 +246,7 @@ export default {
     width: 50%;
     margin-top: 3% !important;
     .formRegister {
+      box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.1);
       width: 70%;
       height: 96%;
       margin: 0 auto !important;
@@ -288,16 +289,15 @@ export default {
       }
       .dateAndGender {
         text-align: left;
-        margin-left: 20px !important;
+        margin-left: 25px !important;
         height: 55px;
         display: flex;
         .date {
           input {
             width: 200px;
+            height: 33px;
           }
         }
-
-
         .gender {
           padding: 0 40px;
           display: flex;

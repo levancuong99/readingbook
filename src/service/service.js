@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let API_URL='https://spring-fw.herokuapp.com/api'
+let API_URL='http://localhost:8081/api'
 
 const handleOkResponse = (response, resolve) => {
     resolve(response);

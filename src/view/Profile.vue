@@ -12,8 +12,8 @@
             <p>Lê Văn Cường</p>
             <hr>
             <ul>
-               <router-link tag="li" to="/">  Sách đã đọc </router-link >
-               <router-link  tag="li" to="/"> Sách của bạn</router-link>
+               <router-link tag="li" to="/alreadyread">  Sách đã đọc </router-link >
+               <router-link  tag="li" to="/mybook"> Sách của bạn</router-link>
                <router-link tag="li" to="/personalinformation">  Thông tin cá nhân </router-link >
             </ul>
           </div>
@@ -48,13 +48,16 @@ export default {
     display: flex;
    
     .leftContent {
-       width: 300px !important;
-       padding: 0 50px 0 50px;
+       width: 30%!important;
        background: rgb(160, 229, 241);
        min-height: 100vh;
       img {
           margin-top: -100px;
           border-radius:50% ;
+      }
+      hr {
+        margin:0;
+        padding:0;
       }
       p {
         margin-top:20px;
@@ -62,8 +65,12 @@ export default {
         font-weight: 700;
       } 
       ul {
+                  .router-link-exact-active {
+                  background-color: #6db1ce;
+      }
         li {
-          margin-bottom: 20px;
+          height: 50px;
+          line-height: 50px;
           border-bottom: 1px solid gray;
         }
       }

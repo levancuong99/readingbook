@@ -9,12 +9,12 @@
                 <nav class="menu">
                     <ul>
                         <li><router-link to = "/">Trang chủ </router-link></li>
-                        <li><router-link to = "/profile">Giới thiệu </router-link></li>
-                        <li><router-link to = "/">Bài đăng </router-link></li>
+                        <li><router-link to = "/book">Kho sách</router-link></li>
+                        <li><router-link to = "/post">Bài đăng </router-link></li>
                     </ul>
                 </nav>
 
-                <div class="btn">
+                <div class="btn"  v-if= "!token" >
                     <div class="login">
                         <p><router-link to = "/login">Đăng nhập</router-link></p>
                     </div>
@@ -24,14 +24,38 @@
                     </div>
                 </div>
 
+                <div class="btn" v-if= "token">
+                     
+                    <div class="login">
+                     <span>Lê Văn Cường</span>
+                    </div>
+                    <p>|</p>
+                    <div class="register">
+                         <a v-on:click="handleLogout">Đăng xuất </a>
+                    </div>
+                
+                </div>
+
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
     name:"navbar",
+    created() {
+    this.token = JSON.parse(localStorage.getItem("token"));
+  },
+    methods: {
+    ...mapActions({
+      logout: "AUTH/logout",
+    }),
+    handleLogout() {
+      this.logout();
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -87,12 +111,15 @@ export default {
                     color:lightskyblue;
                 } 
                 .login {
-                 
+                  span{
+                      color:#fff;
+                      font-size: 16px;
+                      font-weight: 700;
+                  }
 
                 }
 
                 p { 
-                    
                     padding:5px;
                     color: #fff;
                     font-weight: 700;

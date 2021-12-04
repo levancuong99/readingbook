@@ -2,48 +2,60 @@
   <div class="containers">
     <div class="wrapper">
       <navbar />
-      <div>
-        <b-carousel
-          id="carousel-1"
-          :interval="2000"
-          controls
-          indicators
-          background="#ababab"
-          img-width="1024"
-          img-height="200"
-          style="text-shadow: 1px 1px 2px #333;"
-        >
-          <b-carousel-slide
-            caption="First slide"
-            img-src="../assets/newimg3.jpeg"
-          ></b-carousel-slide>
-
-          <b-carousel-slide img-src="../assets/img.jpg">
-            <h1>Hello world!</h1>
-          </b-carousel-slide>
-
-          <!-- Slides with image only -->
-          <b-carousel-slide img-src="../assets/img.jpg"></b-carousel-slide>
-        </b-carousel>
-      </div>
-
+      <carousel />
       <div class="content">
-        <div class="category">
-          <h2>Danh mục</h2>
-          <hr />
-          <ul class="listCategory">
-            <li v-for="cate in cates" :key="cate.id">
-              {{ cate.name }}
-              <hr />
-            </li>
-          </ul>
-        </div>
-        <div class="mainContent">
-          <div class="search">
-             <b-form-input v-model="text" placeholder="Nhập tên sách, tác giả "></b-form-input>
-              <b-button variant="primary">Tìm kiếm</b-button>
+        <div class="hotbook">
+           <div class="container">
+            <h2>Sách đọc nhiều</h2>
+            <hr>
+           </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
           </div>
         </div>
+
+        <div class="hotbook">
+           <div class="container">
+            <h2>Sách mới</h2>
+            <hr>
+           </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+          </div>
+        </div>
+
+        </div>
+
+
+        <div class="hotbook">
+           <div class="container">
+            <h2>Sách đọc nhiều</h2>
+            <hr>
+           </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+            <div class="col-sm-4"><item /></div>
+          </div>
+        </div>
+
+        </div>
+
+        </div>
+      
       </div>
     </div>
   </div>
@@ -51,30 +63,20 @@
 
 <script>
 import navbar from "../component/navbar.vue";
+import carousel from "../component/carousel.vue";
+import item from "../component/item.vue";
 export default {
-  components: { navbar },
+  components: { navbar, carousel, item },
   name: "homeuser",
   data() {
     return {
-      cates: [
-        {
-          id: 1,
-          name: "Xã hội",
-        },
-        {
-          id: 2,
-          name: "Khoa học",
-        },
-        {
-          id: 3,
-          name: "Kinh tế",
-        },
-      ],
-      text:""
+      text: "",
     };
   },
   component: {
     navbar,
+    carousel,
+    item,
   },
   methods: {},
 };
@@ -82,36 +84,18 @@ export default {
 <style lang="scss" scoped>
 .containers {
   .content {
-    display: flex;
-    .category {
-    width: 300px;
-    height: 800px;
-    overflow: auto;
-    background: rgb(160, 229, 241);
-    ul {
-      li {
-        hr {
-          width: 100px;
-        }
-      }
+    .hotbook {
+      margin-top: 50px ;
+       h2 {
+         font-size: 30px;
+         font-weight: 700;
+         text-align: left;
+       }
+       hr {
+         background-color: blue;
+       }
     }
+   
   }
-  .mainContent {
-    .search {
-      margin: 20px 0 0 100px;
-      width: 800px;
-      
-      display: flex;
-      input {
-        width: 600px ;
-      }
-      button {
-        margin-left: 30px;
-      }
-
-    }
-  }
-  }
-  
 }
 </style>
