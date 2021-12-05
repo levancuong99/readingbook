@@ -106,11 +106,11 @@
 
           <div class="gender">
             <div class="boy">
-               <input type="radio" name="gender" id="nam" value="1" checked/>
+               <input type="radio" name="gender" id="nam" value="false" checked/>
               <label for="nam">Nam</label>
             </div>
             <div class="girl">
-                <input type="radio" name="gender" id="nu" value="0" />
+                <input type="radio" name="gender" id="nu" value="true" />
                 <label for="nu">Nữ</label>
             </div>
             
@@ -154,6 +154,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import {
   required,
   minLength,
@@ -172,14 +173,30 @@ export default {
       dateOfBirth: "",
       gender: "",
       address: "",
+      roleId:2
     };
   },
   methods: {
+      ...mapActions({
+      register: "AUTH/registerUsers",
+    }),
+    handleRegister() {
+      this.register({ 
+        fullName:this.name,
+        email: this.email,
+        password: this.password,
+        address:this.address,
+        dateOfBirth:this.dateOfBirth,
+        gender:this.gender,
+        roleId:this.roleId 
+        });
+    },
     handleSubmit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         return;
       }
+           this.handleRegister();
     },
   },
   validations: {

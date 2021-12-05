@@ -12,6 +12,24 @@
         :current-page="currentPage"
         :filter="infoSearch"
         ref="mainTable">
+          <template v-slot:cell(fullName)="data">
+          <span>
+            {{ data.value }}
+          </span>
+          <div>
+            <ModelUpdateUser :data="data" />
+            <DeleteUser :data="data" />
+          </div>
+        </template>
+         <template v-slot:cell(bookName)="data">
+          <span>
+            {{ data.value }}
+          </span>
+          <div>
+            <ModelUpdateBook :data="data" />
+            <DeleteBook :data="data" />
+          </div>
+        </template>
       </b-table>
       <b-pagination
         v-model="currentPage"
@@ -26,9 +44,19 @@
 </template>
 <script>
 
+import DeleteUser from "./ModelManageUser/DeleteUser.vue";
+import DeleteBook from "./ModelManageBook/DeleteBook.vue";
+import ModelUpdateUser from "./ModelManageUser/ModelUpdateUser.vue";
+import ModelUpdateBook from "./ModelManageBook/ModelUpdateBook.vue";
 
 export default {
   name: "MainTable",
+   components: {
+    DeleteUser,
+    ModelUpdateUser,
+    DeleteBook,
+    ModelUpdateBook
+  },
 
   props: {
     dataArray: {
@@ -59,7 +87,6 @@ export default {
   watch: {
     dataArray() {
         this.$refs.mainTable.refresh();
-
     }
   },
 };

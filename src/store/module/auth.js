@@ -115,6 +115,18 @@ const actions = {
         console.log(err);
       });
   },
+
+  registerUsers({ dispatch }, params) {
+    http.post(`/users/register`, params).then(() => {
+      dispatch("getAllUser");
+      router.push("/login");
+
+    })
+      .catch((err) => {
+        alert("Register user fail !");
+        console.log(err);
+      });
+  },
 };
 export default {
   namespaced: true,

@@ -1,11 +1,11 @@
 <template>
   <div class="addModal">
-    <b-button v-b-modal.modal-prevent class="bg-color">Tạo tài khoản</b-button>
+    <b-button v-b-modal.modal-prevent class="bg-color">Create account</b-button>
     <b-modal
       class="model modal-content"
       id="modal-prevent"
       ref="modal"
-      title="Tạo mới tài khoản"
+      title="Create book"
       cancel-variant="light"
       ok-title="Save"
       @hidden="resetModal"
@@ -13,8 +13,8 @@
       hide-header-close
     >
       <form @submit.prevent="">
-        <div class="form-group">
-          <label for="">Họ tên: </label>
+        <!-- <div>
+          <label for="">Name: </label>
           <input
             class="form-control"
             type="text"
@@ -25,9 +25,12 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.name.required">Bạn cần nhập họ tên</span>
+            <span v-if="!$v.name.required">Name is requied</span>
+            <span v-if="!$v.name.maxLength">
+              Name is less than{{ $v.name.$params.maxLength.max}} letters
+            </span>
           </div>
-        </div>
+        </div> -->
         <div class="form-group">
           <label for="">Email: </label>
           <input
@@ -40,13 +43,13 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.email.required">Bạn cần nhập email</span>
-            <span v-if="!$v.email.email">Email không hợp lệ</span>
+            <span v-if="!$v.email.email">Invalid email</span>
+            <span v-if="!$v.email.required">Email is requied</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="">Mật khẩu: </label>
+          <label for="">Password: </label>
           <input
             class="form-control"
             type="password"
@@ -57,51 +60,15 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.password.required">Bạn cần nhập mật khẩu</span>
+            <span v-if="!$v.password.required">Password is requied</span>
             <span v-if="!$v.password.minLength">
-              Mật khẩu phải lớn hơn 6 kí tự
+              Password is more than{{ $v.password.$params.minLength.min - 1 }} letters
             </span>
           </div>
         </div>
 
-
-      
-           
-          <div class="form-group">
-             <label for="date">Ngày sinh: </label>
-            <input
-              id="date"
-              type="date"
-              max="2011-10-25"
-              v-model.trim="$v.dateOfBirth.$model"
-              :class="{
-                'is-invalid': $v.dateOfBirth.$error,
-                'is-valid': !$v.dateOfBirth.$invalid,
-              }"
-            />
-            <div class="invalid-feedback">
-              <span class="invalid-date" v-if="!$v.dateOfBirth.required">
-               Bạn cần nhập ngày sinh
-              </span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Giới tính:</label>
-            <div class="boy">
-               <input  type="radio" name="gender" id="nam" value="false" checked/>
-               <label class="mg" for="nam">Nam</label>
-            </div>
-            <div class="girl">
-                <input type="radio" name="gender" id="nu" value="true" />
-                <label class="mg" for="nu">Nữ</label>
-            </div>
-            
-          </div>
-        
-
         <div class="form-group">
-          <label for="">Vai trò:</label>
+          <label for="">Role name:</label>
           <select class="red" name="" id="role" v-model="roleId">
             <option v-for="role in roles" v-bind:value="role.id" :key="role.id">
               {{ role.name }}
@@ -126,16 +93,13 @@ export default {
   name:"ModelAddUser",
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      dateOfBirth: "",
-      gender: "",
       roles: [
-        { id: 1, name: "Quản trị viên" },
-        { id: 2, name: "Người dùng" },
+        { id: 1, name: "Admin" },
+        { id: 2, name: "User" },
       ],
-     
+      email: "",
+      name: "",
+      password: "",
       roleId: 2,
     };
   },
@@ -153,9 +117,6 @@ export default {
       required,
       minLength: minLength(7),
       maxLength: maxLength(254),
-    },
-     dateOfBirth: {
-      required,
     },
     roleId: {
       required,
@@ -211,33 +172,12 @@ form {
     display: flex;
     margin: 15px 0;
     flex-wrap: wrap;
-
-    .boy {
-      width: 100px;
-      display: flex;
-      align-items: center;
-      .mg {
-        margin-bottom: 0 !important;
-      }
-    }
-    .girl {
-      width: 100px;
-      display: flex;
-      align-items: center;
-      .mg  {
-        margin-bottom: 0 !important;
-      }
-    }
-
-   
-  
     label {
       flex-basis: 25%;
       text-align: left;
       align-items: center;
     }
     input,
-    
     select {
       width: 100%;
       flex-basis: 70%;
