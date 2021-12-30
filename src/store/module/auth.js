@@ -49,7 +49,7 @@ const actions = {
   },
   logout() {
     localStorage.clear();
-    router.push("/");
+    router.push("/login");
   },
   getInforByToken({ commit }, params) {
     http.post("/user/token", params).then((result) => {
@@ -97,7 +97,7 @@ const actions = {
   },
 
   updateUsersByAdmin({ dispatch }, params) {
-    http.put(`/users/${params.id}`, params.obj).then(() => {
+    http.put(`/user/${params.id}`, params.obj).then(() => {
       dispatch("getAllUser");
     })
       .catch((err) => {
@@ -107,7 +107,7 @@ const actions = {
   },
 
   createUsers({ dispatch }, params) {
-    http.post(`/create`, params).then(() => {
+    http.post(`/users/create`, params).then(() => {
       dispatch("getAllUser");
     })
       .catch((err) => {

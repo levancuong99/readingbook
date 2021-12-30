@@ -18,34 +18,51 @@
     >
       <form @submit.prevent="submit">
         <div class="form-group">
-          <label for="">Name: </label>
+          <label for="">Họ tên: </label>
           <input
             class="form-control"
             type="text"
-            v-model.trim="$v.accountName.$model"
+            v-model.trim="$v.fullName.$model"
             :class="{
-              'is-invalid': $v.accountName.$error,
-              'is-valid': !$v.accountName.$invalid,
+              'is-invalid': $v.fullName.$error,
+              'is-valid': !$v.fullName.$invalid,
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.accountName.required">Name is requied</span>
-            <span v-if="!$v.accountName.maxLength">
-              Name is less than{{
-                $v.accountName.$params.maxLength.max
+            <span v-if="!$v.fullName.required">Bạn cần nhập họ tên</span>
+            <span v-if="!$v.fullName.maxLength">
+             Họ tên phải ít hơn {{
+                $v.fullName.$params.maxLength.max
               }}
-              letters
+              kí tự
             </span>
           </div>
         </div>
+
         <div class="form-group">
           <label for="">Email: </label>
           <input
             class="form-control"
             type="text"
-            v-model="emailAddress"
+            v-model="email"
             disabled
           />
+        </div>
+
+            <div class="form-group">
+          <label for="">Địa chỉ: </label>
+          <input
+            class="form-control"
+            type="text"
+            v-model.trim="$v.address.$model"
+            :class="{
+              'is-invalid': $v.address.$error,
+              'is-valid': !$v.address.$invalid,
+            }"
+          />
+          <div class="invalid-feedback">
+            <span v-if="!$v.address.required">Bạn cần nhập địa chỉ</span>
+          </div>
         </div>
         <div class="form-group">
           <label for="">Role name:</label>
@@ -54,8 +71,8 @@
             name=""
             id="role"
             v-model="roleId"
-            :disabled="account.userId == this.accountId"
           >
+
             <option v-for="role in roles" v-bind:value="role.id" :key="role.id">
               {{ role.name }}
             </option>
@@ -74,14 +91,13 @@ export default {
   data() {
     return {
       dataRow: {},
-      accountId: "",
-      accountName: "",
-      emailAddress: "",
+      fullName: "",
+      email: "",
+      address:"",
       roleId: 1,
       roles: [
-        { id: 1, name: "Admin" },
-        { id: 2, name: "Dac" },
-        { id: 3, name: "Advertiser" },
+        { id: 1, name: "Quản trị viên" },
+        { id: 2, name: "Người dùng" },
       ],
     };
   },
@@ -92,9 +108,12 @@ export default {
     },
   },
   validations: {
-    accountName: {
+    fullName: {
       required,
       maxLength: maxLength(50),
+    },
+     address: {
+      required,
     },
   },
   computed: {
@@ -109,9 +128,9 @@ export default {
     
     showUpdatePlaceModel(index, data) {
       this.dataRow = JSON.parse(JSON.stringify(data));
-      this.accountId = this.dataRow.userId.toString();
-      this.accountName = this.dataRow.userName;
-      this.emailAddress = this.dataRow.userEmailAddress;
+      this.fullName = this.dataRow.fullName;
+      this.email = this.dataRow.email;
+      this.address=this.dataRow.address;
       this.roleId = this.dataRow.roleId.toString();
       this.$refs.UpdatePlaceModal.show();
     },
@@ -124,7 +143,8 @@ export default {
       let params = {
         id: this.dataRow.userId,
         obj: {
-          userName: this.accountName,
+          fullName: this.fullName,
+          address:this.address,
           roleId: this.roleId,
         },
       };

@@ -1,8 +1,8 @@
 <template>
   <div class="addModal">
-    <b-button v-b-modal.modal-prevent class="bg-color">Create account</b-button>
+    <b-button v-b-modal.modal-prevent class="bg-color">Thêm mới sách</b-button>
     <b-modal
-      class="model modal-content"
+      class="model modal-content wh"
       id="modal-prevent"
       ref="modal"
       title="Create book"
@@ -13,65 +13,109 @@
       hide-header-close
     >
       <form @submit.prevent="">
-        <!-- <div>
-          <label for="">Name: </label>
-          <input
-            class="form-control"
-            type="text"
-            v-model.trim="$v.name.$model"
-            :class="{
-              'is-invalid': $v.name.$error,
-              'is-valid': !$v.name.$invalid,
-            }"
-          />
-          <div class="invalid-feedback">
-            <span v-if="!$v.name.required">Name is requied</span>
-            <span v-if="!$v.name.maxLength">
-              Name is less than{{ $v.name.$params.maxLength.max}} letters
-            </span>
-          </div>
-        </div> -->
         <div class="form-group">
-          <label for="">Email: </label>
+          <label for="">Tên sách: </label>
           <input
             class="form-control"
             type="text"
-            v-model.trim="$v.email.$model"
+            v-model.trim="$v.bookName.$model"
             :class="{
-              'is-invalid': $v.email.$error,
-              'is-valid': !$v.email.$invalid,
+              'is-invalid': $v.bookName.$error,
+              'is-valid': !$v.bookName.$invalid,
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.email.email">Invalid email</span>
-            <span v-if="!$v.email.required">Email is requied</span>
+            <span v-if="!$v.bookName.required">Bạn cần nhập email</span>
+          </div>
+        </div>
+
+
+         <div class="form-group">
+          <label for="">Hình ảnh sách: </label>
+          <div class="image">
+            <div class="position_cam" v-on:click="handleClickInputFile">
+              <i class="fa fa-camera"></i>
+            </div>
+
+            <input
+              type="file"
+              @change="onFileChange"
+              ref="fileInputImg"
+              style="display: none"
+            />
+            <img
+              :src="imgBook"
+              :class="{
+                'is-invalid': $v.imgBook.$error,
+                'is-valid': !$v.imgBook.$invalid,
+              }"
+            />
+
+            <div class="invalid-feedback">
+              <span class="invalid-preview" v-if="!$v.imgBook.required">
+                Bạn cần thêm hình ảnh sách
+              </span>
+            </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="">Password: </label>
+          <label for="">Mô tả: </label>
           <input
             class="form-control"
-            type="password"
-            v-model.trim="$v.password.$model"
+            type="text"
+            v-model.trim="$v.description.$model"
             :class="{
-              'is-invalid': $v.password.$error,
-              'is-valid': !$v.password.$invalid,
+              'is-invalid': $v.description.$error,
+              'is-valid': !$v.description.$invalid,
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.password.required">Password is requied</span>
-            <span v-if="!$v.password.minLength">
-              Password is more than{{ $v.password.$params.minLength.min - 1 }} letters
-            </span>
+            <span v-if="!$v.description.required">Bạn cần nhập mô tả</span>
+          </div>
+        </div>
+
+
+
+          <div class="form-group">
+          <label for="">Tiểu sử tác giả: </label>
+          <input
+            class="form-control"
+            type="text"
+            v-model.trim="$v.authorProfile.$model"
+            :class="{
+              'is-invalid': $v.authorProfile.$error,
+              'is-valid': !$v.authorProfile.$invalid,
+            }"
+          />
+          <div class="invalid-feedback">
+            <span v-if="!$v.authorProfile.required">Bạn cần nhập tiểu sử tác giả</span>
+          </div>
+        </div>
+
+
+
+          <div class="form-group">
+          <label for="">Tên tác giả: </label>
+          <input
+            class="form-control"
+            type="text"
+            v-model.trim="$v.authorName.$model"
+            :class="{
+              'is-invalid': $v.authorName.$error,
+              'is-valid': !$v.authorName.$invalid,
+            }"
+          />
+          <div class="invalid-feedback">
+            <span v-if="!$v.authorName.required">Bạn cần nhập tên tác giả</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="">Role name:</label>
-          <select class="red" name="" id="role" v-model="roleId">
-            <option v-for="role in roles" v-bind:value="role.id" :key="role.id">
-              {{ role.name }}
+          <label for="">Thể loại:</label>
+          <select class="red" name="" id="cate" v-model="cateId">
+            <option v-for="cate in cates" v-bind:value="cate.id" :key="cate.id">
+              {{ cate.name }}
             </option>
           </select>
 
@@ -82,43 +126,45 @@
   </div>
 </template>
 <script>
-import {
-  required,
-  maxLength,
-  minLength,
-  email,
-} from "vuelidate/lib/validators";
+import { required, maxLength } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 export default {
-  name:"ModelAddUser",
+  name: "ModelAddUser",
   data() {
     return {
-      roles: [
-        { id: 1, name: "Admin" },
-        { id: 2, name: "User" },
+      cates: [
+        { id: 1, name: "Cuộc sống" },
+        { id: 2, name: "Thể thao" },
+        { id: 3, name: "Truyện ngắn" },
       ],
-      email: "",
-      name: "",
-      password: "",
-      roleId: 2,
+      bookId: "",
+      bookName: "",
+      cateId: 1,
+      imgBook: "",
+      description: "",
+      linkBook: "",
+      authorName: "",
+      authorProfile: "",
     };
   },
   validations: {
-    name: {
+    bookName: {
       required,
-      maxLength: maxLength(50),
+      maxLength: maxLength(250),
     },
-    email: {
+    imgBook: {
       required,
-      maxLength: maxLength(50),
-      email,
     },
-    password: {
+    description: {
       required,
-      minLength: minLength(7),
-      maxLength: maxLength(254),
     },
-    roleId: {
+    linkBook: {
+      required,
+    },
+    authorName: {
+      required,
+    },
+    authorProfile: {
       required,
     },
   },
@@ -138,19 +184,19 @@ export default {
         emailAddress: this.email,
         roleId: this.roleId,
       });
-     
+
       this.$nextTick(() => {
-        this.email="",
-        this.name="",
-        this.password="",
-        this.$bvModal.hide("modal-prevent");
+        (this.email = ""),
+          (this.name = ""),
+          (this.password = ""),
+          this.$bvModal.hide("modal-prevent");
       });
     },
     resetModal() {
-      this.email="",
-      this.name="",
-      this.password="",
-      this.$bvModal.hide("modal-prevent");
+      (this.email = ""),
+        (this.name = ""),
+        (this.password = ""),
+        this.$bvModal.hide("modal-prevent");
     },
   },
   mounted() {},
@@ -165,6 +211,13 @@ export default {
 .bg-color:visited {
   background-color: #468faf;
 }
+
+::v-deep .modal-content {
+  width: 800px;
+  height: 700px;
+  right: 140px;
+}
+
 form {
   width: 100%;
   margin: 0 auto;

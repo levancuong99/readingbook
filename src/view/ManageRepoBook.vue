@@ -5,7 +5,7 @@
         <b-form-input
           class="b_search"
           type="search"
-          placeholder="Search user name..."
+          placeholder="Tìm kiếm tên sách hay tác giả"
           v-model="infoSearch"
         ></b-form-input>
       </div>

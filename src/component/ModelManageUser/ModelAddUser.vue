@@ -64,6 +64,22 @@
           </div>
         </div>
 
+           <div class="form-group">
+          <label for="">Địa chỉ: </label>
+          <input
+            class="form-control"
+            type="text"
+            v-model.trim="$v.address.$model"
+            :class="{
+              'is-invalid': $v.address.$error,
+              'is-valid': !$v.address.$invalid,
+            }"
+          />
+          <div class="invalid-feedback">
+            <span v-if="!$v.address.required">Bạn cần nhập địa chỉ</span>
+          </div>
+        </div>
+
 
       
            
@@ -129,8 +145,9 @@ export default {
       name: "",
       email: "",
       password: "",
+      address:"",
       dateOfBirth: "",
-      gender: "",
+      gender: true,
       roles: [
         { id: 1, name: "Quản trị viên" },
         { id: 2, name: "Người dùng" },
@@ -157,6 +174,9 @@ export default {
      dateOfBirth: {
       required,
     },
+     address: {
+      required,
+    },
     roleId: {
       required,
     },
@@ -172,9 +192,12 @@ export default {
         return;
       }
       this.createUser({
-        userName: this.name,
-        userPassword: this.password,
-        emailAddress: this.email,
+        fullName: this.name,
+        email: this.email,
+        password: this.password,
+        address:this.address,
+        dateOfBirth:this.dateOfBirth,
+        gender:this.gender,
         roleId: this.roleId,
       });
      

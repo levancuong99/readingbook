@@ -4,11 +4,20 @@
             <navbar/>
             <div class="container">
                 <div class="title">
-                    <h2>Thông tin sách</h2>
+                <h2>Thông tin sách</h2>
+               
                 </div>
-                 <div class="row">
-            <div class="col-sm-5"><img src="https://picsum.photos/600/300/?image=25" width="100%" height="500px"/></div>
-            <div class="col-sm-7">Đắc nhân tâm</div>
+            <div class="center_book">
+             <div class="row">
+            <div class="col-sm-5"><img src="https://picsum.photos/600/300/?image=25" width="400px" height="400px"/></div>
+            <div class="col-sm-7">
+                <p class="title_book mg">{{bookItem.bookName}}</p>
+                <p class="title_book">Thể loại:{{bookItem.cateName}}</p>
+                <p class="title_book">Tác giả: {{bookItem.authorName}}</p>
+                <p class="title_book">Tiểu sử tác giả:</p>
+                <div class="authorProfile mg">{{bookItem.authorProfile}}</div>
+            </div>
+          </div>
           </div>
                 
             </div>
@@ -17,16 +26,67 @@
 </template>
 <script>
 import navbar from "../component/navbar.vue";
+import { mapActions, mapGetters} from "vuex";
 export default {
     name:"book detail",
     data() {
         return {
-
+            bookId:"",
+            bookName:"",
+            description:"",
+            imgBook:"",
+            linkBook:"",
+            numberView:0,
+            authorName:"",
+            authorProfile:"",
+            cateName:"",
+            bookItem:{}
         }
     },
     components: {
         navbar
     },
+    props: {
+    id: {
+      type: Number,
+      require: true,
+      default: () => [],
+    },
+    bookItem1: {
+      type: Object,
+      require: true,
+      default: () => [],
+    },
+
+  computed: {
+    ...mapGetters({
+      getBook: "BOOK/setInfoBookById",
+    }),
+  },
+    
+     methods: {
+    ...mapActions({
+      book: "BOOK/getBookById",
+    }),
+    getBookById() {
+      this.book(this.id);
+    },
+        fetch() {
+            if(this.bookItem1) {
+                this.bookItem=this.bookItem1;
+            }else {
+                this.bookItem=this.getBook;
+            }
+        }
+  },
+   
+    mouted() {
+        this.getBookById();
+        this.fetch();
+    }
+
+    
+  },
 
 }
 </script>
@@ -41,10 +101,42 @@ export default {
                    color: red;
                    text-align: left;
                }
+              
+               
+              
+           }
+           .center_book {
+               height: 500px;
+            //    background: rgb(190, 212, 233);
+               display: flex;
+               align-items: center;
                .row {
-                   height: 600px !important;
+                  width: 100%;
+                  margin-left: 30px;
+
+                  .title_book{
+                      color: brown;
+                      text-align: left;
+                      font-size: 24px;
+                      font-weight: 600;
+                      margin:10px 10px 10px 0;
+                  }
+                  .mg {
+                      margin:20px 0 0 0px;
+                  }
+                  .authorProfile{
+                      width: 95%;
+                      height: 100px;
+                      overflow: auto;
+                      border: 0.1px solid gray;
+                      text-align: left;
+                      font-size: 14px;
+
+                  }
+                    
                }
            }
+            
         }
     }
 }

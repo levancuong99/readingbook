@@ -14,7 +14,7 @@
                     </ul>
                 </nav>
 
-                <div class="btn"  v-if= "!token" >
+                <div class="btn"  v-if= "token===''" >
                     <div class="login">
                         <p><router-link to = "/login">Đăng nhập</router-link></p>
                     </div>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <div class="btn" v-if= "token">
+                <div class="btn" v-else>
                      
                     <div class="login">
                      <span>Lê Văn Cường</span>
@@ -45,8 +45,14 @@
 import { mapActions } from "vuex";
 export default {
     name:"navbar",
+    data(){
+        return {
+            token:''
+        }
+    },
     created() {
-    this.token = JSON.parse(localStorage.getItem("token"));
+    this.token = localStorage.getItem('token');
+    console.log(this.token)
   },
     methods: {
     ...mapActions({

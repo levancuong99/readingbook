@@ -23,7 +23,8 @@ const router = new Router({
     { path: "/", component: HomeUser },
     { path: "/login", component: Login },
     { path: "/book", component: Book },
-    { path: "/bookdetail", component: BookDetail },
+    { path: "/bookdetail:id", name: "bookdetail",component: BookDetail, params:true,
+    props: true },
     { path: "/register", component: Register },
     { path: "/post", component: Post },
     {
@@ -72,5 +73,31 @@ const router = new Router({
     ], },
   ],
 });
+
+// router.beforeEach((to, from, next) => {
+//   // let userInfo = JSON.parse(localStorage.getItem('user'))
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     if (!localStorage.getItem('token')) {
+//       next('/')
+//     }
+//     //  else {
+//     //   if (to.matched.some((record) => record.meta.not_system_user)) {
+//     //     if (userInfo.role_id != 1 && to.matched.some((record) => record.name == 'accountmanagement')) {
+//     //       next('/404')
+//     //     }
+//     //   }
+//     //   next()
+//     // }
+//     next();
+//   } else {
+//     if(!localStorage.getItem('token')) {
+//       next()
+//     } else {
+//       next('/')
+//     }
+//     next()
+//   }
+
+// });
 
 export default router;
