@@ -8,6 +8,11 @@ import {BootstrapVue} from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import {IconsPlugin} from 'bootstrap-vue'
+import { PaginationNavPlugin } from 'bootstrap-vue'
+Vue.use(PaginationNavPlugin)
+import CKEditor from 'ckeditor4-vue';
+
+Vue.use(CKEditor);
 Vue.config.productionTip = false
 Vue.use(Vuex);
 Vue.use(BootstrapVue)

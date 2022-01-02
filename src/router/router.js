@@ -45,6 +45,7 @@ const router = new Router({
           name: "alreadyread",
           path: "/alreadyread",
           component: AlreadyRead,
+        
         },
       ],
     },

@@ -30,6 +30,16 @@
             <DeleteBook :data="data" />
           </div>
         </template>
+
+          <template v-slot:cell(title)="data">
+          <span>
+            {{ data.value }}
+          </span>
+          <div>
+            <ModelUpdatePost :data="data" />
+            <DeletePost :data="data" />
+          </div>
+        </template>
       </b-table>
       <b-pagination
         v-model="currentPage"
@@ -46,6 +56,8 @@
 
 import DeleteUser from "./ModelManageUser/DeleteUser.vue";
 import DeleteBook from "./ModelManageBook/DeleteBook.vue";
+import DeletePost from "./ModelManagePost/DeletePost.vue";
+import ModelUpdatePost from "./ModelManagePost/ModelUpdatePost.vue";
 import ModelUpdateUser from "./ModelManageUser/ModelUpdateUser.vue";
 import ModelUpdateBook from "./ModelManageBook/ModelUpdateBook.vue";
 
@@ -55,7 +67,9 @@ export default {
     DeleteUser,
     ModelUpdateUser,
     DeleteBook,
-    ModelUpdateBook
+    ModelUpdateBook,
+    DeletePost,
+    ModelUpdatePost
   },
 
   props: {

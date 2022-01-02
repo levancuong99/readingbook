@@ -29,8 +29,7 @@
           </div>
         </div>
 
-
-         <div class="form-group">
+        <div class="form-group">
           <label for="">Hình ảnh sách: </label>
           <div class="image">
             <div class="position_cam" v-on:click="handleClickInputFile">
@@ -59,43 +58,27 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mgtop">
           <label for="">Mô tả: </label>
-          <input
-            class="form-control"
-            type="text"
-            v-model.trim="$v.description.$model"
+
+          <b-form-textarea
+            class="textarea"
+            v-model="description"
+            placeholder="Enter something..."
+            rows="3"
+            max-rows="6"
             :class="{
               'is-invalid': $v.description.$error,
               'is-valid': !$v.description.$invalid,
             }"
-          />
+          ></b-form-textarea>
+
           <div class="invalid-feedback">
             <span v-if="!$v.description.required">Bạn cần nhập mô tả</span>
           </div>
         </div>
 
-
-
-          <div class="form-group">
-          <label for="">Tiểu sử tác giả: </label>
-          <input
-            class="form-control"
-            type="text"
-            v-model.trim="$v.authorProfile.$model"
-            :class="{
-              'is-invalid': $v.authorProfile.$error,
-              'is-valid': !$v.authorProfile.$invalid,
-            }"
-          />
-          <div class="invalid-feedback">
-            <span v-if="!$v.authorProfile.required">Bạn cần nhập tiểu sử tác giả</span>
-          </div>
-        </div>
-
-
-
-          <div class="form-group">
+        <div class="form-group">
           <label for="">Tên tác giả: </label>
           <input
             class="form-control"
@@ -112,12 +95,46 @@
         </div>
 
         <div class="form-group">
+          <label for="">Tiểu sử tác giả: </label>
+
+          <b-form-textarea
+            class="textarea"
+            v-model="authorProfile"
+            placeholder="Enter something..."
+            rows="3"
+            max-rows="6"
+            :class="{
+              'is-invalid': $v.authorProfile.$error,
+              'is-valid': !$v.authorProfile.$invalid,
+            }"
+          ></b-form-textarea>
+          <div class="invalid-feedback">
+            <span v-if="!$v.authorProfile.required"
+              >Bạn cần nhập tiểu sử tác giả</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="">Thể loại:</label>
           <select class="red" name="" id="cate" v-model="cateId">
             <option v-for="cate in cates" v-bind:value="cate.id" :key="cate.id">
               {{ cate.name }}
             </option>
           </select>
+
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Nội dung sách:</label>
+          <div>
+            <ckeditor
+              v-model="linkBook"
+              :config="editorConfig"
+              :editor-url="editorUrl"
+            ></ckeditor>
+          </div>
 
           <div class="invalid-feedback"></div>
         </div>
@@ -128,6 +145,8 @@
 <script>
 import { required, maxLength } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
+import axios from "axios";
+
 export default {
   name: "ModelAddUser",
   data() {
@@ -145,6 +164,32 @@ export default {
       linkBook: "",
       authorName: "",
       authorProfile: "",
+      editorUrl: "https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js",
+      editorConfig: {
+        toolbarGroups: [
+          { name: "document", groups: ["mode", "document", "doctools"] },
+          { name: "clipboard", groups: ["clipboard", "undo"] },
+          {
+            name: "editing",
+            groups: ["find", "selection", "spellchecker", "editing"],
+          },
+          { name: "forms", groups: ["forms"] },
+          { name: "basicstyles", groups: ["basicstyles", "cleanup"] },
+          {
+            name: "paragraph",
+            groups: ["list", "indent", "blocks", "align", "bidi", "paragraph"],
+          },
+          { name: "links", groups: ["links"] },
+          { name: "insert", groups: ["insert"] },
+          { name: "styles", groups: ["styles"] },
+          { name: "colors", groups: ["colors"] },
+          { name: "tools", groups: ["tools"] },
+          { name: "others", groups: ["others"] },
+          { name: "about", groups: ["about"] },
+        ],
+        removeButtons:
+          "NewPage,Print,Save,Templates,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,CreateDiv,Anchor,Flash,Smiley,PageBreak,ShowBlocks,About,Language,Iframe,Image",
+      },
     };
   },
   validations: {
@@ -170,7 +215,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      createUser: "AUTH/createUsers",
+      createBook: "BOOK/createBook",
     }),
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault();
@@ -178,25 +223,48 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
-      this.createUser({
-        userName: this.name,
-        userPassword: this.password,
-        emailAddress: this.email,
-        roleId: this.roleId,
+      this.createBook({
+      bookId: "",
+      bookName: this.bookName,
+      cateId: this.cateId,
+      imgBook: this.imgBook,
+      description: this.description,
+      linkBook: this.linkBook,
+      authorName: this.authorName,
+      authorProfile: this.authorProfile,
       });
 
       this.$nextTick(() => {
-        (this.email = ""),
-          (this.name = ""),
-          (this.password = ""),
+        (this.bookName = ""),
+          (this.imgBook = ""),
+          (this.description = ""),
+           (this.linkBook = ""),
+          (this.authorName = ""),
+          (this.authorProfile = ""),
           this.$bvModal.hide("modal-prevent");
       });
     },
     resetModal() {
-      (this.email = ""),
-        (this.name = ""),
-        (this.password = ""),
+        (this.bookName = ""),
+          (this.imgBook = ""),
+          (this.description = ""),
+           (this.linkBook = ""),
+          (this.authorName = ""),
+          (this.authorProfile = ""),
         this.$bvModal.hide("modal-prevent");
+    },
+    handleClickInputFile() {
+      this.$refs.fileInputImg.click();
+    },
+    onFileChange(e) {
+      let form = new FormData();
+      form.append("file", e.target.files[0]);
+      form.append("upload_preset", "qjxf98ek");
+      axios
+        .post("https://api.Cloudinary.com/v1_1/dja5fb2gg/image/upload", form)
+        .then((res) => {
+          this.imgBook = res.data.url;
+        });
     },
   },
   mounted() {},
@@ -214,17 +282,50 @@ export default {
 
 ::v-deep .modal-content {
   width: 800px;
-  height: 700px;
+  height: 600px;
   right: 140px;
+  overflow: auto;
+}
+.mgtop {
+  margin-top: 15px !important;
 }
 
 form {
   width: 100%;
   margin: 0 auto;
+
   .form-group {
     display: flex;
     margin: 15px 0;
     flex-wrap: wrap;
+
+    .textarea {
+      width: 523px;
+    }
+
+    .image {
+      width: 520px;
+      height: 200px;
+      text-align: center;
+      border: 1px solid black;
+      position: relative;
+      .position_cam {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: lightgrey;
+        bottom: 0;
+        right: 0;
+        text-align: center;
+        i {
+          padding-top: 10px;
+        }
+      }
+      img {
+        width: 400px;
+        height: 100%;
+      }
+    }
     label {
       flex-basis: 25%;
       text-align: left;
@@ -239,7 +340,10 @@ form {
       padding: 4px;
     }
     .invalid-feedback {
-      margin-left: 120px;
+      margin-left: 185px;
+      .invalid-preview {
+        margin-left: -740px;
+      }
     }
   }
 }

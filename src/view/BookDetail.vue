@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="title">
                 <h2>Thông tin sách</h2>
-               
+                <h2>{{this.id}}</h2>
                 </div>
             <div class="center_book">
              <div class="row">
@@ -25,10 +25,9 @@
     </div>
 </template>
 <script>
-import navbar from "../component/navbar.vue";
 import { mapActions, mapGetters} from "vuex";
 export default {
-    name:"book detail",
+    name:"bookdetail",
     data() {
         return {
             bookId:"",
@@ -43,27 +42,18 @@ export default {
             bookItem:{}
         }
     },
-    components: {
-        navbar
-    },
+
     props: {
     id: {
       type: Number,
       require: true,
-      default: () => [],
     },
-    bookItem1: {
-      type: Object,
-      require: true,
-      default: () => [],
     },
-
   computed: {
     ...mapGetters({
-      getBook: "BOOK/setInfoBookById",
+      getBook: "BOOK/getBookInfor",
     }),
   },
-    
      methods: {
     ...mapActions({
       book: "BOOK/getBookById",
@@ -71,21 +61,10 @@ export default {
     getBookById() {
       this.book(this.id);
     },
-        fetch() {
-            if(this.bookItem1) {
-                this.bookItem=this.bookItem1;
-            }else {
-                this.bookItem=this.getBook;
-            }
-        }
-  },
-   
-    mouted() {
+        
+    mounted() {
         this.getBookById();
-        this.fetch();
     }
-
-    
   },
 
 }

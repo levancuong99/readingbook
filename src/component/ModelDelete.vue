@@ -8,14 +8,14 @@
     ></b-icon>
     <b-modal
       ref="editDelete"
-      title="Confirmation"
+      title="Xác nhận xóa"
       hide-header-close
       cancel-variant="light"
       ok-title="Delete"
       ok-variant="danger"
       @ok.prevent="submitEditPlace"
     >
-      <p>Please confirm that you want to delete everything.</p>
+      <p>Bạn có muốn xóa mọi thứ ?</p>
     </b-modal>
   </div>
 </template>
@@ -41,6 +41,7 @@ export default {
     ...mapActions({
       deleteBook: "BOOK/deleteBookById",
       deleteUser: "AUTH/deleteUserById",
+      deletePost: "POST/deletePostById",
     }),
     showDeletePlaceModel(index, data) {
       this.dataRow = JSON.parse(JSON.stringify(data));
@@ -49,9 +50,15 @@ export default {
     submitEditPlace() {
       if(this.flag=="deleteUser") {
           this.deleteUser(this.dataRow.userId);
-      }else {
-          this.deleteBook(this.dataRow.bookId);
       }
+      if(this.flag=="deleteBook") {
+            this.deleteBook(this.dataRow.bookId);
+      }
+      if(this.flag=="deletePost") {
+            this.deletePost(this.dataRow.postId);
+      }
+        
+      
       this.$nextTick(() => {
         this.$refs.editDelete.hide();
       });

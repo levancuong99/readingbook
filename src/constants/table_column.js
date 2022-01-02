@@ -67,5 +67,25 @@ export const COLUMNS = {
         label: "Số lượng xem",
       },
     ],
+
+    posts: [
+    
+      {
+        key: "title",
+        label: "Tiêu đề",
+      },
+      {
+        key: "content",
+        label: "Nội dung",
+      },
+      {
+        key: "imgPost",
+        label: "Hình ảnh",
+      },
+      {
+        key: "createdAt",
+        label: "Thời gian tạo",
+      },
+    ],
   };
   

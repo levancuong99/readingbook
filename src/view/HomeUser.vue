@@ -15,15 +15,6 @@
                 <item v-bind:bookItem="book" />
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="overflow-auto">
-                <b-pagination-nav
-                  :link-gen="2"
-                  :number-of-pages="10"
-                  use-router
-                ></b-pagination-nav>
-              </div>
-            </div> -->
           </div>
 
           <div class="hotbook">

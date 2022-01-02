@@ -20,8 +20,7 @@
     
     </b-card-text>
 
-    <!-- <b-button href="/bookdetail" variant="info">Xem chi tiết</b-button> -->
-    <router-link :to="{ name: 'bookdetail', params: { id: bookItem.bookId, bookItem1: bookItem} }"> Xem chi tiết
+    <router-link :to="{ name: 'bookdetail', params: { id: bookItem.bookId} }"> Xem chi tiết
     </router-link>
   </b-card>
 </div>
@@ -48,7 +47,6 @@ export default {
       require: true,
       default: () => [],
     },
-    
   },
 }
 </script>
