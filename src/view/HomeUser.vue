@@ -2,7 +2,12 @@
   <div class="containers">
     <div class="wrapper">
       <navbar />
-      <carousel />
+       <img
+        src="../assets/imagesbook.jpg"
+        alt="no n0"
+        width="100%"
+        height="300"
+      />
       <div class="content">
         <div class="hotbook">
           <div class="container">
@@ -56,22 +61,16 @@
 
 <script>
 import navbar from "../component/navbar.vue";
-import carousel from "../component/carousel.vue";
 import item from "../component/item.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  components: { navbar, carousel, item },
   name: "homeuser",
   data() {
     return {
       text: "",
     };
   },
-  component: {
-    navbar,
-    carousel,
-    item,
-  },
+  components: { navbar, item },
   methods: {
     ...mapActions({
       books: "BOOK/getAllBook",
@@ -92,6 +91,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .containers {
+
   .content {
     .hotbook {
       margin-top: 50px;

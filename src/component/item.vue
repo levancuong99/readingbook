@@ -3,11 +3,11 @@
   <b-card
     :title= bookItem.bookName
     body-bg-variant="light"
-    img-src="https://picsum.photos/600/300/?image=25"
+    :img-src=bookItem.imgBook
     img-alt="Image"
     img-height="200px"
     tag="article"
-    style="padding:5px ; width:350px;height:400px; "
+    style="padding:5px ; "
     class="mb-2"
     body-text-variant="primary"
   >
@@ -30,24 +30,27 @@ export default {
     name:"item",
      data() {
     return {
-      bookId:"",
-      bookName:"",
-      description:"",
-      imgBook:"",
-      linkBook:"",
-      numberView:0,
-      authorName:"",
-      authorProfile:"",
-      cateName:""
+      // bookItem: {
+      // bookId:"",
+      // bookName:"",
+      // description:"",
+      // imgBook:"",
+      // linkBook:"",
+      // numberView:0,
+      // authorName:"",
+      // authorProfile:"",
+      // cateName:""
+      // }
+    
     };
   },
    props: {
     bookItem: {
-      type: Array,
+      type:  Object,
       require: true,
-      default: () => [],
+      default: () => {},
     },
-  },
+   }
 }
 </script>
 <style lang="scss" scoped>

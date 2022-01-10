@@ -2,10 +2,12 @@
   <div class="containers">
     <div class="wrapper">
       <navbar />
-      <carousel/>
-
       <div class="content">
-        <p>hello post</p>
+        <h2>Thông báo</h2>
+        <div v-for="post in postArray" :key="post.id">
+          <item-notification v-bind:postItem="post" />
+          <div class="mg"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -13,27 +15,40 @@
 
 <script>
 import navbar from "../component/navbar.vue";
-import carousel from "../component/carousel.vue";
+import ItemNotification from "../component/ItemNotification.vue";
+import { mapGetters, mapActions } from "vuex";
 export default {
-  components: { navbar,carousel },
   name: "post",
   data() {
-    return {
-     
-    };
+    return {};
   },
-  component: {
-    navbar,
+  components: { navbar, ItemNotification },
+
+  methods: {
+    ...mapActions({
+      posts: "POST/getAllPost",
+    }),
+    getAllPosts() {
+      this.posts();
+    },
   },
-  methods: {},
+  computed: {
+    ...mapGetters({
+      postArray: "POST/getAllPost",
+    }),
+  },
+  mounted() {
+    this.getAllPosts();
+  },
 };
 </script>
 <style lang="scss" scoped>
 .containers {
-  .content {
- 
-  
+  h2 {
+    padding: 20px 0 20px 0;
   }
-  
+  .mg{
+    margin-top:20px;
+  }
 }
 </style>

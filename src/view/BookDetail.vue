@@ -9,23 +9,46 @@
                 </div>
             <div class="center_book">
              <div class="row">
-            <div class="col-sm-5"><img src="https://picsum.photos/600/300/?image=25" width="400px" height="400px"/></div>
+            <div class="col-sm-5"><img :src=getBook.imgBook width="300px" height="400px" style="border:1px solid gray"/></div>
             <div class="col-sm-7">
-                <p class="title_book mg">{{bookItem.bookName}}</p>
-                <p class="title_book">Thể loại:{{bookItem.cateName}}</p>
-                <p class="title_book">Tác giả: {{bookItem.authorName}}</p>
-                <p class="title_book">Tiểu sử tác giả:</p>
-                <div class="authorProfile mg">{{bookItem.authorProfile}}</div>
-            </div>
-          </div>
-          </div>
+                <p class="title_book mg">Tên sách:{{getBook.bookName}}</p>
+                <p class="title_book">Thể loại:{{getBook.cateName}}</p>
+                <p class="title_book">Tác giả: {{getBook.authorName}}</p>
+                <p class="title_book">Lượt xem: {{getBook.numberView}}</p>
+                <button style="text-aligh:left">Yêu thích</button>
                 
+                <modelreadbook  v-bind:content="getBook.linkBook" />
+            </div>
+
+          
+          </div>
+          
+          </div>
+                  <div class="des">
+                <h2>Mô tả:</h2>
+                <hr>
+                <p>{{getBook.description}}</p>
+            </div>
+
+            <div class="comment">
+                <h2>Bình luận:</h2>
+                <hr>
+                 <b-form-textarea
+            class="textarea"
+            v-model="comment"
+            placeholder="Enter something..."
+            rows="3"
+            max-rows="6"
+          ></b-form-textarea>
+            </div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import { mapActions, mapGetters} from "vuex";
+import modelreadbook from "../component/ModelReadBook.vue"
+import navbar from "../component/navbar.vue";
 export default {
     name:"bookdetail",
     data() {
@@ -39,16 +62,15 @@ export default {
             authorName:"",
             authorProfile:"",
             cateName:"",
+            comment:"",
             bookItem:{}
         }
     },
+    components:{
+        navbar,modelreadbook
+    },
 
-    props: {
-    id: {
-      type: Number,
-      require: true,
-    },
-    },
+    props:["id"],
   computed: {
     ...mapGetters({
       getBook: "BOOK/getBookInfor",
@@ -61,11 +83,11 @@ export default {
     getBookById() {
       this.book(this.id);
     },
-        
+  },
     mounted() {
         this.getBookById();
+       
     }
-  },
 
 }
 </script>
@@ -92,7 +114,6 @@ export default {
                .row {
                   width: 100%;
                   margin-left: 30px;
-
                   .title_book{
                       color: brown;
                       text-align: left;

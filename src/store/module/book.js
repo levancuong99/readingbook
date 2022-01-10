@@ -87,8 +87,8 @@ const actions = {
       commit("setAllBookViewed", result.data);
     }).catch(() => { });
   },
-  getAllBookLiked({ commit },param1,param2) {
-    http.get(`/books/liked/${param1}/${param2}`).then((result) => {
+  getAllBookLiked({ commit },param1) {
+    http.get(`/books/liked/${param1.userId}/${param1.pageNumber}`).then((result) => {
       commit("setAllBookLiked", result.data);
     }).catch(() => { });
   },

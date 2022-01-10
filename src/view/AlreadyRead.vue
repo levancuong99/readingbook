@@ -2,8 +2,9 @@
     <div class="contain">
         <div class="alreadybook">
           <div class="container">
+            <!-- <h2>{{this.bookArrays}}</h2> -->
             <div class="row">
-              <div class="col-sm-4" v-for="book in bookArrays" :key="book.id">
+              <div class="col-sm-4" v-for="book in bookArrays.books" :key="book.id">
                 <item v-bind:bookItem="book" />
               </div>
             </div>
@@ -34,6 +35,7 @@ export default {
         userId:localStorage.getItem('userId'),
         pageNumber:1
     }
+    console.log(params);
       this.books(params);
     },
   },
@@ -43,7 +45,6 @@ export default {
     }),
   },
   mounted() {
-    
     this.getAllBookViewed();
   },
 

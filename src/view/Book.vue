@@ -2,36 +2,60 @@
   <div class="containers">
     <div class="wrapper">
       <navbar />
-      <carousel/>
+      <img
+        src="../assets/imagesbook.jpg"
+        alt="no no"
+        width="100%"
+        height="300"
+      />
 
       <div class="content">
         <div class="category">
-          <h2>Danh mục</h2>
-          <hr />
-          <ul class="listCategory">
-            <li  v-for="cate in cates" :key="cate.id">
-              {{ cate.name }}
-              
-            </li>
-          </ul>
-        </div>
-        <div class="mainContent">
+          <div class="drop">
+            <b-dropdown
+              id="dropdown-1"
+              variant="primary"
+              text="Danh mục sách"
+              class="m-md-2"
+            >
+              <b-dropdown-item v-for="cate in cates" :key="cate.id">
+                {{ cate.name }}</b-dropdown-item
+              >
+            </b-dropdown>
+          </div>
           <div class="search">
-             <b-form-input v-model="text" placeholder="Nhập tên sách, tác giả "></b-form-input>
-              <b-button variant="primary">Tìm kiếm</b-button>
+            <b-form-input
+              v-model="text"
+              placeholder="Nhập tên sách, tác giả "
+            ></b-form-input>
+            <b-button variant="primary">Tìm kiếm</b-button>
           </div>
         </div>
+        <div class="container">
+          <h2>Sách mới</h2>
+          <hr />
+        </div>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4" v-for="book in bookArray" :key="book.id">
+                <item v-bind:bookItem="book" />
+              </div>
+            </div>
+          </div>
       </div>
+
+     
     </div>
   </div>
 </template>
 
 <script>
+import item from "../component/item.vue";
+import { mapGetters, mapActions } from "vuex";
 import navbar from "../component/navbar.vue";
-import carousel from "../component/carousel.vue";
 export default {
-  components: { navbar,carousel },
-  name: "homeuser",
+  name: "book",
   data() {
     return {
       cates: [
@@ -48,55 +72,54 @@ export default {
           name: "Kinh tế",
         },
       ],
-      text:""
+      text: "",
     };
   },
-  component: {
-    navbar,
+  components: { navbar,item},
+  methods: {
+    ...mapActions({
+      books: "BOOK/getAllBook",
+    }),
+    getAllBooks() {
+      this.books();
+    },
   },
-  methods: {},
+  computed: {
+    ...mapGetters({
+      bookArray: "BOOK/getAllBook",
+    }),
+  },
+  mounted() {
+    this.getAllBooks();
+  },
 };
 </script>
 <style lang="scss" scoped>
 .containers {
   .content {
     min-height: 100vh;
-    display: flex;
     .category {
-    width: 20%;
-    height: 600px;
-    overflow: auto;
-    background: rgb(160, 229, 241);
-    hr {
-      margin:0;
-      padding:0;
-    }
-    ul {
-   
-      li {
-        height: 50px;
-        line-height: 50px;
-       border-bottom: 1px solid #fff;
-
-      }
-    }
-  }
-  .mainContent {
-    .search {
-      margin: 20px 0 0 150px;
-      width: 800px;
-      
+      height: 100px;
       display: flex;
-      input {
-        width: 600px ;
+      justify-content: space-around;
+      align-items: center;
+      .drop {
+        position: relative;
+        z-index: 1;
       }
-      button {
-        margin-left: 30px;
+      .search {
+        width: 800px;
+        display: flex;
+        input {
+          width: 600px;
+        }
+        button {
+          margin-left: 30px;
+        }
       }
-
+    }
+    .container {
     }
   }
-  }
-  
 }
 </style>

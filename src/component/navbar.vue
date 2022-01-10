@@ -10,7 +10,7 @@
                     <ul>
                         <li><router-link to = "/">Trang chủ </router-link></li>
                         <li><router-link to = "/book">Kho sách</router-link></li>
-                        <li><router-link to = "/post">Bài đăng </router-link></li>
+                        <li><router-link to = "/post">Thông báo </router-link></li>
                     </ul>
                 </nav>
 
@@ -27,7 +27,8 @@
                 <div class="btn" v-else>
                      
                     <div class="login">
-                     <span>Lê Văn Cường</span>
+
+                     <router-link to = "/personalinformation"><span>Lê Văn Cường</span></router-link>
                     </div>
                     <p>|</p>
                     <div class="register">
@@ -67,10 +68,10 @@ export default {
 .containers {
     position:sticky;
     top:0;
-    z-index: 1;
+    z-index: 1000;
     .wrapper {
         width: 100%;
-        height: 50px;
+        height: 70px;
         background:#000;
         display: flex;
         justify-content: space-around;
@@ -105,7 +106,6 @@ export default {
                             color: #fff;
                         }
                     }
-
                 }
             }
             .btn {

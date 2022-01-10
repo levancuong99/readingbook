@@ -2,25 +2,54 @@
   <div class="containers">
     <div class="wrapper">
       <navbar />
-      <div class="imgTop">
-       <img src="../assets/newimg2.jpg" width="100%" height="250px"/>
-      </div>
+      <img
+        src="../assets/imagesbook.jpg"
+        alt="no n0"
+        width="100%"
+        height="300"
+      />
       <div class="content">
-        <div class="leftContent">
+        <div class="info">
           <div class="avt">
-            <img src="../assets/avt1.jpg" width="200px" height="200px">
+            <img src="../assets/avt1.jpg" width="200px" height="200px" />
+          </div>
+          <div class="name">
+            <p class="title">Tên người dùng</p>
             <p>Lê Văn Cường</p>
-            <hr>
-            <ul>
-               <router-link tag="li" to="/alreadyread">  Sách đã đọc </router-link >
-               <router-link  tag="li" to="/mybook"> Sách của bạn</router-link>
-               <router-link tag="li" to="/personalinformation">  Thông tin cá nhân </router-link >
-            </ul>
+          </div>
+          <div class="email">
+            <p class="title">Email</p>
+            <p>levancuong@gmail.com</p>
+          </div>
+          <div class="dateofbirth">
+            <p class="title">Ngày sinh</p>
+            <p>15-05-1999</p>
           </div>
         </div>
-        <div class="mainContent">
-           <router-view />
+        <div class="container">
+            <div class="bookalreadyread">
+          <h2>Sách bạn đã đọc</h2>
+          <hr>
+             <div class="row">
+              <div class="col-sm-4" v-for="book in bookArrays.books" :key="book.id">
+                <item v-bind:bookItem="book" />
+              </div>
+            </div>
         </div>
+        </div>
+
+         <div class="container">
+            <div class="bookalreadylike">
+          <h2>Sách của bạn</h2>
+          <hr>
+             <div class="row">
+              <div class="col-sm-4" v-for="book in bookArraysLike.books" :key="book.id">
+                <item v-bind:bookItem="book" />
+              </div>
+            </div>
+        </div>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -28,58 +57,107 @@
 
 <script>
 import navbar from "../component/navbar.vue";
+import item from "../component/item.vue";
+import { mapGetters, mapActions } from "vuex";
 export default {
-  components: { navbar },
-  name: "homeuser",
+  name: "profile",
   data() {
-    return {
-    
-    };
+    return {};
   },
-  component: {
-    navbar,
+   components: {
+    item,navbar
   },
-  methods: {},
+ methods: {
+    ...mapActions({
+      books: "BOOK/getAllBookViewed",
+    }),
+    getAllBookViewed() {
+    let params= {
+        userId:localStorage.getItem('userId'),
+        pageNumber:1
+    }
+      this.books(params);
+    },
+
+    ...mapActions({
+      bookliked: "BOOK/getAllBookLiked",
+    }),
+    getAllBookLiked() {
+    let params= {
+        userId:localStorage.getItem('userId'),
+        pageNumber:1
+    }
+      this.bookliked(params);
+    },
+  },
+  computed: {
+    ...mapGetters({
+      bookArrays: "BOOK/getAllBookViewed",
+    }),
+     ...mapGetters({
+      bookArraysLike: "BOOK/getAllBookLiked",
+    }),
+  },
+  mounted() {
+    this.getAllBookViewed();
+    this.getAllBookLiked();
+  },
 };
 </script>
 <style lang="scss" scoped>
 .containers {
   .content {
-    display: flex;
-   
-    .leftContent {
-       width: 30%!important;
-       background: rgb(160, 229, 241);
-       min-height: 100vh;
-      img {
-          margin-top: -100px;
-          border-radius:50% ;
-      }
-      hr {
-        margin:0;
-        padding:0;
-      }
-      p {
-        margin-top:20px;
-        font-size: 18px;
-        font-weight: 700;
-      } 
-      ul {
-                  .router-link-exact-active {
-                  background-color: #6db1ce;
-      }
-        li {
-          height: 50px;
-          line-height: 50px;
-          border-bottom: 1px solid gray;
+    .info {
+      width: 1000px;
+      height: 200px;
+      margin: 0 auto;
+      border: 1px solid gray;
+      border-radius: 20px;
+      position: absolute;
+      top: 270px;
+      left: 190px;
+      z-index: 1;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+
+      .avt {
+        img {
+          border: 1px solid gray;
+          border-radius: 20px;
         }
       }
+      .title {
+        color: gray;
+      }
+      .name {
+        width: 200px;
+        height: 100%;
+        border-right: 0.1px solid lightgray;
+        padding-top: 50px;
+      }
+      .email {
+        width: 300px;
+        height: 100%;
+        padding-top: 50px;
+      }
+      .dateofbirth {
+        width: 300px;
+        height: 100%;
+        border-left: 0.1px solid lightgray;
+        padding-top: 50px;
+      }
     }
-    .mainContent {
-    margin-left: 80px;
-    width: 100%;
+  }
+  .container{
+    display: flex;
+    .bookalreadyread {
+    margin-top:150px;
+    color:red;
   }
   }
-  
+ 
 }
 </style>

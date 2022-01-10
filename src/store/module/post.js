@@ -34,9 +34,10 @@ const actions = {
       commit("setAllPost", result.data);
     }).catch(() => { });
   },
-  updatePostById({ commit }, params) {
-    http.put(`/post/${params}`).then((result) => {
+  updatePostById({ commit,dispatch }, params) {
+    http.put(`/post/${params.id}`, params.obj).then((result) => {
       commit("setPost", result.data);
+      dispatch("getAllPost");
     })
       .catch((err) => {
         alert("Update post fail!");

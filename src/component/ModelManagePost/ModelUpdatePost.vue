@@ -10,8 +10,8 @@
     <b-modal
       id="modal-update"
       ref="UpdatePlaceModal"
-      title="Update account"
-      ok-title="Save"
+      title="Chỉnh sửa thông báo"
+      ok-title="Lưu"
       cancel-variant="light"
       hide-header-close
       @ok.prevent="submitUpdatePlace"
@@ -94,6 +94,8 @@
 import { mapGetters } from "vuex";
 import { required, maxLength } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -115,29 +117,30 @@ export default {
       required,
     },
   },
-  props: {
+   props: {
     data: {
       type: Object,
       require: true,
     },
   },
+  
  
   computed: {
     ...mapGetters({
-      account: "AUTH/getUserInfor",
+      post: "POST/getPost",
     }),
   },
   methods: {
     ...mapActions({
-      updateUser: "AUTH/updateUsersByAdmin",
+      updatePost: "POST/updatePostById",
     }),
     
-    showUpdatePlaceModel() {
-      // this.dataRow = JSON.parse(JSON.stringify(data));
-      // this.accountId = this.dataRow.userId;
-      // this.accountName = this.dataRow.userName;
-      // this.emailAddress = this.dataRow.userEmailAddress;
-      // this.roleId = this.dataRow.roleId;
+    showUpdatePlaceModel(index, data) {
+      this.dataRow = JSON.parse(JSON.stringify(data));
+      this.postId = this.dataRow.postId;
+      this.title = this.dataRow.title;
+      this.content = this.dataRow.content;
+      this.imgPost = this.dataRow.imgPost;
       this.$refs.UpdatePlaceModal.show();
     },
 
@@ -147,17 +150,36 @@ export default {
         return;
       }
       let params = {
-        id: this.dataRow.userId,
+        id: this.dataRow.postId,
         obj: {
-          userName: this.accountName,
-          roleId: this.roleId,
+          postId:this.postId,
+          title: this.title,
+          content: this.content,
+          imgPost:this.imgPost
         },
       };
-      this.updateUser(params);
+      console.log(params);
+      this.updatePost(params);
       this.$nextTick(() => {
         this.$refs.UpdatePlaceModal.hide();
       });
     },
+
+    handleClickInputFile() {
+      this.$refs.fileInputImg.click();
+    },
+    onFileChange(e) {
+      let form = new FormData();
+      form.append("file", e.target.files[0]);
+      form.append("upload_preset", "qjxf98ek");
+      axios
+        .post("https://api.Cloudinary.com/v1_1/dja5fb2gg/image/upload", form)
+        .then((res) => {
+          this.imgPost = res.data.url;
+        });
+    },
+
+
   },
 };
 </script>
