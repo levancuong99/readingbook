@@ -16,8 +16,11 @@
           </div>
           <div class="container">
             <div class="row">
-              <div class="col-sm-4" v-for="book in bookArray" :key="book.id">
-                <item v-bind:bookItem="book" />
+              <div class="col-sm-3" v-for="book in bookArray" :key="book.id">
+                <item1 v-bind:bookItem="book" />
+                <div v-if= "book.id==3">
+                  <div class="condition"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -29,11 +32,11 @@
             </div>
             <div class="container">
               <div class="row">
-                <div class="col-sm-4"><item /></div>
-                <div class="col-sm-4"><item /></div>
-                <div class="col-sm-4"><item /></div>
-                <div class="col-sm-4"><item /></div>
-                <div class="col-sm-4"><item /></div>
+                <div class="col-sm-4"><item1 /></div>
+                <div class="col-sm-4"><item1 /></div>
+                <div class="col-sm-4"><item1 /></div>
+                <div class="col-sm-4"><item1 /></div>
+                <div class="col-sm-4"><item1 /></div>
               </div>
             </div>
           </div>
@@ -62,6 +65,7 @@
 <script>
 import navbar from "../component/navbar.vue";
 import item from "../component/item.vue";
+import item1 from "../component/item1.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "homeuser",
@@ -70,7 +74,7 @@ export default {
       text: "",
     };
   },
-  components: { navbar, item },
+  components: { navbar, item,item1 },
   methods: {
     ...mapActions({
       books: "BOOK/getAllBook",
@@ -91,6 +95,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .containers {
+  .condition{
+    margin-top:50px !important;
+  }
 
   .content {
     .hotbook {

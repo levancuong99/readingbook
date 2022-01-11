@@ -23,8 +23,7 @@ const router = new Router({
     { path: "/", component: HomeUser },
     { path: "/login", component: Login },
     { path: "/book", component: Book },
-    { path: "/bookdetail:id", name: "bookdetail",component: BookDetail, params:true,
-    props: true },
+    { path: "/bookdetail", name: "bookdetail",component: BookDetail },
     { path: "/register", component: Register },
     { path: "/post", component: Post },
     {

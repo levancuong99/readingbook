@@ -4,8 +4,8 @@
           <div class="container">
             <!-- <h2>{{this.bookArrays}}</h2> -->
             <div class="row">
-              <div class="col-sm-4" v-for="book in bookArrays.books" :key="book.id">
-                <item v-bind:bookItem="book" />
+              <div class="col-sm-3" v-for="book in bookArrays.books" :key="book.id">
+                <item1 v-bind:bookItem="book" />
               </div>
             </div>
           </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import item from "../component/item.vue";
+import item1 from "../component/item1.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "alreadybook",
@@ -24,7 +24,7 @@ export default {
     };
   },
   components: {
-    item,
+    item1,
   },
   methods: {
     ...mapActions({
@@ -35,7 +35,6 @@ export default {
         userId:localStorage.getItem('userId'),
         pageNumber:1
     }
-    console.log(params);
       this.books(params);
     },
   },

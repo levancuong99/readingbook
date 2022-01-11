@@ -12,11 +12,13 @@
             <div class="col-sm-5"><img :src=getBook.imgBook width="300px" height="400px" style="border:1px solid gray"/></div>
             <div class="col-sm-7">
                 <p class="title_book mg">Tên sách:{{getBook.bookName}}</p>
+                 <i class="far fa-address-card"></i>
                 <p class="title_book">Thể loại:{{getBook.cateName}}</p>
                 <p class="title_book">Tác giả: {{getBook.authorName}}</p>
                 <p class="title_book">Lượt xem: {{getBook.numberView}}</p>
                 <button style="text-aligh:left">Yêu thích</button>
-                
+                <i class="fas fa-eye"></i>
+               
                 <modelreadbook  v-bind:content="getBook.linkBook" />
             </div>
 
@@ -70,7 +72,7 @@ export default {
         navbar,modelreadbook
     },
 
-    props:["id"],
+//   props:["id"],
   computed: {
     ...mapGetters({
       getBook: "BOOK/getBookInfor",
@@ -81,7 +83,7 @@ export default {
       book: "BOOK/getBookById",
     }),
     getBookById() {
-      this.book(this.id);
+      this.book(this.$route.params.id);
     },
   },
     mounted() {

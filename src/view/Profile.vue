@@ -31,8 +31,8 @@
           <h2>Sách bạn đã đọc</h2>
           <hr>
              <div class="row">
-              <div class="col-sm-4" v-for="book in bookArrays.books" :key="book.id">
-                <item v-bind:bookItem="book" />
+              <div class="col-sm-3" v-for="book in bookArrays.books" :key="book.id">
+                <item1 v-bind:bookItem="book" />
               </div>
             </div>
         </div>
@@ -43,8 +43,8 @@
           <h2>Sách của bạn</h2>
           <hr>
              <div class="row">
-              <div class="col-sm-4" v-for="book in bookArraysLike.books" :key="book.id">
-                <item v-bind:bookItem="book" />
+              <div class="col-sm-3" v-for="book in bookArraysLike.books" :key="book.id">
+                <item1 v-bind:bookItem="book" />
               </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
 
 <script>
 import navbar from "../component/navbar.vue";
-import item from "../component/item.vue";
+import item1 from "../component/item1.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "profile",
@@ -65,7 +65,7 @@ export default {
     return {};
   },
    components: {
-    item,navbar
+    item1,navbar
   },
  methods: {
     ...mapActions({

@@ -12,6 +12,7 @@ import { PaginationNavPlugin } from 'bootstrap-vue'
 Vue.use(PaginationNavPlugin)
 import CKEditor from 'ckeditor4-vue';
 
+
 Vue.use(CKEditor);
 Vue.config.productionTip = false
 Vue.use(Vuex);
