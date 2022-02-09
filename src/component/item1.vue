@@ -24,17 +24,7 @@ export default {
     name:"item1",
      data() {
     return {
-      // bookItem: {
-      // bookId:"",
-      // bookName:"",
-      // description:"",
-      // imgBook:"",
-      // linkBook:"",
-      // numberView:0,
-      // authorName:"",
-      // authorProfile:"",
-      // cateName:""
-      // }
+   
     
     };
   },
@@ -45,19 +35,39 @@ export default {
       default: () => {},
     },
    },
+     created() {
+    this.token = localStorage.getItem('token');
+  },
     methods:{
    goToHome(){
+     if(!this.token) {
+  this.$router.push("/login")
+     }else {
+
+     
+
      let temp=this.bookItem.bookId;
-     console.log(temp);
-   this.$router.push( {name: 'bookdetail', params: { id: temp}}); 
+     this.$router.push( {name: 'bookdetail', params: { id: temp}}).catch(err => {
+    if (
+      err.name !== 'NavigationDuplicated' &&
+      !err.message.includes('Avoided redundant navigation to current location')
+    ) {
+      // But print any other errors to the console
+      // logError(err);
+    }
+  });
+
       }
+   }
   }
+  
 }
 </script>
 <style lang="scss" scoped>
 .content{
-  width: 260px;
-  height: 400px;
+  margin: 20px !important;
+  width: 260px !important;
+  height: 400px !important;
   border: 1px solid lightgray;
   .wrapper {
     padding:10px ;

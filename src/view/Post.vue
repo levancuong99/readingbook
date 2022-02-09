@@ -9,6 +9,7 @@
           <div class="mg"></div>
         </div>
       </div>
+      <Footer />
     </div>
   </div>
 </template>
@@ -16,13 +17,15 @@
 <script>
 import navbar from "../component/navbar.vue";
 import ItemNotification from "../component/ItemNotification.vue";
+import Footer from "../component/footer.vue";
+
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "post",
   data() {
     return {};
   },
-  components: { navbar, ItemNotification },
+  components: { navbar, ItemNotification,Footer },
 
   methods: {
     ...mapActions({

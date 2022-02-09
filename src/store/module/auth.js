@@ -31,7 +31,7 @@ const actions = {
       if(res.data.roleId==1) {
         router.push("/manageaccount");
       }else {
-        router.push("/");
+        router.push("/homeuser");
       }
       
     //   http.post("/user/token", res.data.token).then((result) => {
@@ -49,7 +49,7 @@ const actions = {
   },
   logout() {
     localStorage.clear();
-    router.push("/login");
+    router.push("/");
   },
   getInforByToken({ commit }, params) {
     http.post("/user/token", params).then((result) => {

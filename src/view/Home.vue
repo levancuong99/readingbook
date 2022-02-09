@@ -48,6 +48,7 @@
 import navbar from "../component/navbar.vue";
 import item1 from "../component/item1.vue";
 import Footer from "../component/footer.vue";
+
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "homeuser",

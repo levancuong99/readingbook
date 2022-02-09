@@ -8,13 +8,14 @@
             <div class="content">
                 <nav class="menu">
                     <ul>
-                        <li><router-link to = "/">Trang chủ </router-link></li>
+                        <li v-if= "!token"><router-link to = "/">Trang chủ </router-link></li>
+                        <li v-else><router-link to = "/homeuser">Trang chủ </router-link></li>
                         <li><router-link to = "/book">Kho sách</router-link></li>
                         <li><router-link to = "/post">Thông báo </router-link></li>
                     </ul>
                 </nav>
 
-                <div class="btn"  v-if= "token===''" >
+                <div class="btn"  v-if= "!token" >
                     <div class="login">
                         <p><router-link to = "/login">Đăng nhập</router-link></p>
                     </div>

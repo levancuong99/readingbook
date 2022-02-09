@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "../view/Login.vue";
 import Register from "../view/Register.vue";
+import Home from "../view/Home.vue";
 import HomeUser from "../view/HomeUser.vue";
 import Profile from "../view/Profile.vue";
 import PersonalInformation from "../view/PersonalInformation.vue";
@@ -20,7 +21,8 @@ Vue.use(Router);
 const router = new Router({
   mode: "history",
   routes: [
-    { path: "/", component: HomeUser },
+    { path: "/", component: Home },
+    { path: "/homeuser", component: HomeUser },
     { path: "/login", component: Login },
     { path: "/book", component: Book },
     { path: "/bookdetail", name: "bookdetail",component: BookDetail },

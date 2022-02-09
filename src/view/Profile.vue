@@ -11,8 +11,18 @@
       <div class="content">
         <div class="info">
           <div class="avt">
-            <img src="../assets/avt1.jpg" width="200px" height="200px" />
+            <img :src=imgAvt width="200px" height="200px" />
+            <div class="position_cam" v-on:click="handleClickInputFile">
+            <i class="fa fa-camera"></i>
           </div>
+          </div>
+          
+          <input
+            type="file"
+            @change="onFileChange"
+            ref="fileInputImg"
+            style="display: none"
+          />
           <div class="name">
             <p class="title">Tên người dùng</p>
             <p>Lê Văn Cường</p>
@@ -26,32 +36,28 @@
             <p>15-05-1999</p>
           </div>
         </div>
-        <div class="container">
-            <div class="bookalreadyread">
-          <h2>Sách bạn đã đọc</h2>
-          <hr>
-             <div class="row">
-              <div class="col-sm-3" v-for="book in bookArrays.books" :key="book.id">
-                <item1 v-bind:bookItem="book" />
-              </div>
-            </div>
-        </div>
-        </div>
+      </div>
 
-         <div class="container">
-            <div class="bookalreadylike">
-          <h2>Sách của bạn</h2>
-          <hr>
-             <div class="row">
-              <div class="col-sm-3" v-for="book in bookArraysLike.books" :key="book.id">
-                <item1 v-bind:bookItem="book" />
-              </div>
-            </div>
+      <div class="container_book">
+        <h2>Sách đã đọc</h2>
+        <div class="containerbook">
+          <div v-for="book in bookArray.books" :key="book.id">
+            <item1 v-bind:bookItem="book" />
+          </div>
         </div>
+      </div>
+
+      <div class="container_book">
+        <h2>Sách đã thích</h2>
+        <div class="containerbook">
+          <div v-for="book in bookArraysLike.books" :key="book.id">
+            <item1 v-bind:bookItem="book" />
+            <div class="style"></div>
+          </div>
         </div>
-        
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -59,23 +65,30 @@
 import navbar from "../component/navbar.vue";
 import item1 from "../component/item1.vue";
 import { mapGetters, mapActions } from "vuex";
+import Footer from "../component/footer.vue";
+import axios from "axios";
+
 export default {
   name: "profile",
   data() {
-    return {};
+    return {
+      imgAvt: "",
+    };
   },
-   components: {
-    item1,navbar
+  components: {
+    item1,
+    navbar,
+    Footer,
   },
- methods: {
+  methods: {
     ...mapActions({
       books: "BOOK/getAllBookViewed",
     }),
     getAllBookViewed() {
-    let params= {
-        userId:localStorage.getItem('userId'),
-        pageNumber:1
-    }
+      let params = {
+        userId: localStorage.getItem("userId"),
+        pageNumber: 1,
+      };
       this.books(params);
     },
 
@@ -83,18 +96,31 @@ export default {
       bookliked: "BOOK/getAllBookLiked",
     }),
     getAllBookLiked() {
-    let params= {
-        userId:localStorage.getItem('userId'),
-        pageNumber:1
-    }
+      let params = {
+        userId: localStorage.getItem("userId"),
+        pageNumber: 1,
+      };
       this.bookliked(params);
+    },
+    handleClickInputFile() {
+      this.$refs.fileInputImg.click();
+    },
+    onFileChange(e) {
+      let form = new FormData();
+      form.append("file", e.target.files[0]);
+      form.append("upload_preset", "qjxf98ek");
+      axios
+        .post("https://api.Cloudinary.com/v1_1/dja5fb2gg/image/upload", form)
+        .then((res) => {
+          this.imgAvt = res.data.url;
+        });
     },
   },
   computed: {
     ...mapGetters({
-      bookArrays: "BOOK/getAllBookViewed",
+      bookArray: "BOOK/getAllBookViewed",
     }),
-     ...mapGetters({
+    ...mapGetters({
       bookArraysLike: "BOOK/getAllBookLiked",
     }),
   },
@@ -122,11 +148,22 @@ export default {
       align-items: center;
       font-size: 18px;
       font-weight: 600;
-
       .avt {
         img {
           border: 1px solid gray;
           border-radius: 20px;
+        }
+        .position_cam {
+          width: 50px;
+          position: absolute;
+          top: 165px;
+          left: 168px;
+          height: 50px;
+          background: gray;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
         }
       }
       .title {
@@ -151,13 +188,18 @@ export default {
       }
     }
   }
-  .container{
-    display: flex;
-    .bookalreadyread {
-    margin-top:150px;
-    color:red;
+  .container_book {
+    padding-top: 150px;
+    width: 1000px;
+    margin: 0 auto;
+    .containerbook {
+      display: flex;
+      flex-wrap: wrap;
+      // justify-content: space-between;
+      .style {
+        margin-left: 20px;
+      }
+    }
   }
-  }
- 
 }
 </style>

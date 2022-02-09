@@ -4,7 +4,8 @@ const state = {
   bookInfo: {},
   books: [],
   bookViewed:[],
-  bookLiked:[]
+  bookLiked:[],
+  // bookSearchByCate:[],
 };
 const getters = {
   getBookInfor() {
@@ -20,12 +21,16 @@ const getters = {
   },
   getAllBookLiked() {
     return state.bookLiked;
-  }
+  },
+  // getAllBookSearchByCate() {
+  //   return state.books;
+  // },
+  // getAllBookSearchByString() {
+  //   return state.books;
+  // }
 };
 const mutations = {
   setInfoBookById(state, data) {
-    console.log("vo set");
-    console.log(data);
     state.bookInfo = data;
   },
   setBooks(state, data) {
@@ -37,6 +42,12 @@ const mutations = {
   setAllBookLiked(state,data) {
     state.bookLiked=data;
   },
+  // setAllBookSearchByCate(state,data) {
+  //   state.books=data;
+  // },
+  // setAllBookSearchByString(state,data) {
+  //   state.books=data;
+  // },
 };
 const actions = {
   getBookById({ commit }, params) {
@@ -92,6 +103,16 @@ const actions = {
       commit("setAllBookLiked", result.data);
     }).catch(() => { });
   },
+  getAllBookSearch({ commit },param) {
+    http.get(`/books/search/${param.cateId}/${param.string}/${param.pageNumber}`).then((result) => {
+      commit("setBooks", result.data);
+    }).catch(() => { });
+  },
+  // getAllBookSearchByString({ commit },param1) {
+  //   http.get(`/books/searchbystring/${param1.str}/${param1.pageNumber}`).then((result) => {
+  //     commit("setBooks", result.data);
+  //   }).catch(() => { });
+  // },
 };
 export default {
   namespaced: true,
