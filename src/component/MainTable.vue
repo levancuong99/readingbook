@@ -40,6 +40,21 @@
             <DeletePost :data="data" />
           </div>
         </template>
+
+        <template v-slot:cell(imgPost)="data">
+          <span>
+            <img
+              style="
+                width: 30px;
+                height: 30px;
+              "
+              :src="data.value"/>
+          </span>
+          <div>
+            <UpdateCampaign :data="data" />
+            <DeleteCampaign :data="data" />
+          </div>
+        </template>
       </b-table>
       <b-pagination
         v-model="currentPage"
@@ -48,6 +63,7 @@
         aria-controls="my-table"
         size="sm"
         align="center"
+        
       />
     </div>
   </div>
@@ -90,7 +106,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      perPage: 2,
+      perPage: 5,
     };
   },
   computed: {
@@ -118,7 +134,7 @@ export default {
   .table {
     font-size: 14px;
     thead {
-      background-color: #468faf;
+      background-color: #000;
       color: white;
     }
     tbody {

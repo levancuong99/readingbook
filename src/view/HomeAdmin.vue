@@ -17,7 +17,7 @@
             <div class="main">
                 <div class="nav">
                     <div class="info">
-                     Lê Văn Cường
+                     {{account.fullName}}
                     </div>
                     <p>|</p>
                     <div class="logout">
@@ -32,15 +32,34 @@
     </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 export default {
+
+      data(){
+        return {
+            fullName:"",
+            avt:""
+        }
+    },
+     computed: {
+    ...mapGetters({
+      account: "AUTH/getUserInfor",
+    }),
+  },
       methods: {
+      getUser() {
+      this.fullName = this.account.fullName;
+      this.avt = this.account.img_avt;
+    },
     ...mapActions({
       logout: "AUTH/logout",
     }),
     handleLogout() {
       this.logout();
     },
+  },
+    mounted() {
+    this.getUser();
   },
 }
 </script>
@@ -49,9 +68,10 @@ export default {
     .wrapper { 
         display: flex;
         .section {
+            color: white;
             width: 20%;
             min-height: 100vh;
-            background: rgb(160, 229, 241);
+            background: #000;
             border-right: 1px solid #fff;
             .logo {
                 padding:5px 0 5px 0;
@@ -59,15 +79,17 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
-                
             }
             hr {
+                border: 0.1px solid #fff;
                 padding:0 !important;
                 margin:0 !important;
             }
             ul {
                  .router-link-exact-active {
-                  background-color: #6db1ce;
+                  background-color: rgb(139, 136, 136);
+                  font-weight: 700;
+                  color: #fff;
       }
                 li {
                     height:56px;
@@ -80,7 +102,7 @@ export default {
            width: 80%;
             .nav {
                 height: 56px;
-                background: rgb(160, 229, 241);
+                background: #000;
                 display: flex;
                 padding-right: 100px;
                 justify-content: flex-end;

@@ -29,7 +29,7 @@
                      
                     <div class="login">
 
-                     <router-link to = "/personalinformation"><span>Lê Văn Cường</span></router-link>
+                     <router-link to = "/profile"><span>{{fullName}}</span></router-link>
                     </div>
                     <p>|</p>
                     <div class="register">
@@ -44,24 +44,39 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 export default {
     name:"navbar",
     data(){
         return {
-            token:''
+            token:'',
+            fullName:"",
+            avt:""
         }
     },
+     computed: {
+    ...mapGetters({
+      account: "AUTH/getUserInfor",
+    }),
+  },
     created() {
     this.token = localStorage.getItem('token');
+    
   },
     methods: {
+    getUser() {
+      this.fullName = this.account.fullName;
+      this.avt = this.account.img_avt;
+    },
     ...mapActions({
       logout: "AUTH/logout",
     }),
     handleLogout() {
       this.logout();
     },
+  },
+    mounted() {
+    this.getUser();
   },
 }
 </script>

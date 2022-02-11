@@ -220,12 +220,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .bg-color {
-  background-color: #468faf;
+  background-color: #000;
 }
 .bg-color:hover,
 .bg-color:active,
 .bg-color:visited {
-  background-color: #468faf;
+  background-color: #000;
 }
 form {
   width: 100%;

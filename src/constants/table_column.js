@@ -29,6 +29,9 @@ export const COLUMNS = {
       {
         key: "createdAt",
         label: "Ngày đăng ký",
+        formatter: (value) => {
+          return value.substring(0,10);
+        },
       },
       
       {
@@ -66,6 +69,10 @@ export const COLUMNS = {
         key: "numberView",
         label: "Số lượng xem",
       },
+      {
+        key: "numberLike",
+        label: "Số lượng thích",
+      },
     ],
 
     posts: [
@@ -85,7 +92,11 @@ export const COLUMNS = {
       {
         key: "createdAt",
         label: "Thời gian tạo",
+        formatter: (value) => {
+          return value.substring(0,10);
+        },
       },
+      
     ],
   };
   

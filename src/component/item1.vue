@@ -13,7 +13,7 @@
 
   <div class="icon">
     <i  class="fas fa-eye icon1">{{bookItem.numberView}}</i>
-    <i  class="fas fa-heart icon2">20</i>
+    <i  class="fas fa-heart icon2">{{bookItem.numberLike}}</i>
   </div>
 
    </div>
@@ -24,7 +24,6 @@ export default {
     name:"item1",
      data() {
     return {
-   
     
     };
   },

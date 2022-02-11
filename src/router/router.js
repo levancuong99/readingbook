@@ -5,10 +5,7 @@ import Register from "../view/Register.vue";
 import Home from "../view/Home.vue";
 import HomeUser from "../view/HomeUser.vue";
 import Profile from "../view/Profile.vue";
-import PersonalInformation from "../view/PersonalInformation.vue";
 import HomeAdmin from "../view/HomeAdmin.vue";
-import MyBook from "../view/MyBook.vue";
-import AlreadyRead from "../view/AlreadyRead.vue";
 import ManageAccount from "../view/ManageAccount.vue";
 import ManageRepoBook from "../view/ManageRepoBook.vue";
 import ManageProposeBook from "../view/ManageProposeBook.vue";
@@ -31,24 +28,6 @@ const router = new Router({
     {
       path: "/profile",
       component: Profile,
-      children: [
-        {
-          name: "personalInformation",
-          path: "/personalinformation",
-          component: PersonalInformation,
-        },
-        {
-          name: "mybook",
-          path: "/mybook",
-          component: MyBook,
-        },
-        {
-          name: "alreadyread",
-          path: "/alreadyread",
-          component: AlreadyRead,
-        
-        },
-      ],
     },
     { path: "/homeadmin", component: HomeAdmin,
     children: [

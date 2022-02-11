@@ -27,19 +27,16 @@ const actions = {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId",res.data.userId);
       localStorage.setItem("roleId",res.data.roleId);
-      commit("setInforUserById", res.data);
-      if(res.data.roleId==1) {
-        router.push("/manageaccount");
-      }else {
-        router.push("/homeuser");
-      }
-      
-    //   http.post("/user/token", res.data.token).then((result) => {
-    //     commit("setInforUserById", result.data);
-    //     localStorage.setItem("users", JSON.stringify(result.data));
-    //     localStorage.removeItem("historyAccount");
-    //     router.push("dashboard");
-    //   });
+      // commit("setInforUserById", res.data);
+      http.post("/user/token", res.data.token).then((result) => {
+        commit("setInforUserById", result.data);
+        console.log(result.data);
+        if(res.data.roleId==1) {
+          router.push("/manageaccount");
+        }else {
+          router.push("/homeuser");
+        }
+      });
     })
       .catch((err) => {
         console.log(err);

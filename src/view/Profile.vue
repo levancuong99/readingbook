@@ -11,12 +11,12 @@
       <div class="content">
         <div class="info">
           <div class="avt">
-            <img :src=imgAvt width="200px" height="200px" />
+            <img :src="img_avt" width="200px" height="200px" />
             <div class="position_cam" v-on:click="handleClickInputFile">
-            <i class="fa fa-camera"></i>
+              <i class="fa fa-camera"></i>
+            </div>
           </div>
-          </div>
-          
+
           <input
             type="file"
             @change="onFileChange"
@@ -25,21 +25,22 @@
           />
           <div class="name">
             <p class="title">Tên người dùng</p>
-            <p>Lê Văn Cường</p>
+            <p>{{account.fullName}}</p>
           </div>
           <div class="email">
             <p class="title">Email</p>
-            <p>levancuong@gmail.com</p>
+            <p>{{account.email}}</p>
           </div>
           <div class="dateofbirth">
             <p class="title">Ngày sinh</p>
-            <p>15-05-1999</p>
+            <p>{{account.dateOfBirth.substring(0, 10)}}</p>
           </div>
         </div>
       </div>
 
       <div class="container_book">
         <h2>Sách đã đọc</h2>
+        <hr>
         <div class="containerbook">
           <div v-for="book in bookArray.books" :key="book.id">
             <item1 v-bind:bookItem="book" />
@@ -49,6 +50,7 @@
 
       <div class="container_book">
         <h2>Sách đã thích</h2>
+         <hr>
         <div class="containerbook">
           <div v-for="book in bookArraysLike.books" :key="book.id">
             <item1 v-bind:bookItem="book" />
@@ -72,7 +74,17 @@ export default {
   name: "profile",
   data() {
     return {
-      imgAvt: "",
+      address: "",
+      createdAt: "",
+      dateOfBirth: "",
+      email: "",
+      fullName: "",
+      gender: "",
+      img_avt: "",
+      img_face: "",
+      isDelete: "",
+      password: "",
+      userId: "",
     };
   },
   components: {
@@ -80,7 +92,9 @@ export default {
     navbar,
     Footer,
   },
+ 
   methods: {
+    
     ...mapActions({
       books: "BOOK/getAllBookViewed",
     }),
@@ -112,11 +126,14 @@ export default {
       axios
         .post("https://api.Cloudinary.com/v1_1/dja5fb2gg/image/upload", form)
         .then((res) => {
-          this.imgAvt = res.data.url;
+          this.img_avt = res.data.url;
         });
     },
   },
   computed: {
+     ...mapGetters({
+      account: "AUTH/getUserInfor",
+    }),
     ...mapGetters({
       bookArray: "BOOK/getAllBookViewed",
     }),
@@ -192,6 +209,10 @@ export default {
     padding-top: 150px;
     width: 1000px;
     margin: 0 auto;
+    h2{
+      text-align: left;
+      margin-left: 15px;
+    }
     .containerbook {
       display: flex;
       flex-wrap: wrap;

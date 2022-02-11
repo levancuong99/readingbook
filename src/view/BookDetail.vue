@@ -22,7 +22,7 @@
             <p class="title_other">Thể loại:{{ getBook.cateName }}</p>
            
             <p class="title_other">Lượt xem: {{ getBook.numberView }}</p>
-            <p class="title_other">Lượt thích: {{ getBook.numberView }}</p>
+            <p class="title_other">Lượt thích: {{ getBook.numberLike }}</p>
             <div class="examine mg">
               <div class="like">
                 <p><i class="far fa-heart"></i>Yêu thích</p>
@@ -83,6 +83,7 @@ export default {
       imgBook: "",
       linkBook: "",
       numberView: 0,
+      numberLike:0,
       authorName: "",
       authorProfile: "",
       cateName: "",
