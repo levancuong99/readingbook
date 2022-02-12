@@ -136,6 +136,7 @@ export default {
     thead {
       background-color: #000;
       color: white;
+      font-weight: 700;
     }
     tbody {
       tr {

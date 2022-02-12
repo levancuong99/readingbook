@@ -4,16 +4,12 @@
 
   <b-modal id="bv-modal-example" hide-footer>
     <template #modal-title>
-      Using <code>$bvModal</code> Methods
+      Nội dung sách
     </template>
     <div class="d-block text-center" >
-      <div ref="input">
-      </div>
-      <!-- {{content}} -->
-      <!-- <iframe width="100%" height="415" src="https://www.youtube.com/embed/Qt_6KN3Z78s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-      <iframe src="https://drive.google.com/file/d/1DNUFW0xIyLMpyaGlEJTHzNQ3x6-z_1xi/preview" width="100%" height="480" allow="autoplay"></iframe>
+      <iframe :src=content width="100%" height="610" allow="autoplay"></iframe>
     </div>
-    <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
+    <!-- <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button> -->
   </b-modal>
 </div>
 </template>
@@ -28,20 +24,16 @@ export default {
   },
  
   methods: {
-    //  getElementById() {
-    //   this.value=this.content;
-    //   let p=document.getElementById("1");
-    //  console.dir(p)
-    // },
+     getElementById() {
+      this.value=this.content;
+      let p=document.getElementById("d-block");
+     console.dir(p)
+    },
   },
    props: ["content"],
   mounted() {
-    // console.log();
-    //  this.getElementById();
-    //  console.log("hh");
-    // console.log(this.content);
+  
     console.log(this.$refs.input.getAttribute("class")); 
-  // p.after(this.content);
    
   },
 };
@@ -49,8 +41,9 @@ export default {
 <style lang="scss" scoped>
 
 ::v-deep .modal-content {
+  top:-20px;
   width: 1300px;
-  height: 700px;
+  height: 720px;
   right: 400px;
   overflow: auto;
 }

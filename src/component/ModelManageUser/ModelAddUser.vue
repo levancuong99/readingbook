@@ -123,7 +123,6 @@
               {{ role.name }}
             </option>
           </select>
-
           <div class="invalid-feedback"></div>
         </div>
       </form>

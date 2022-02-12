@@ -29,7 +29,7 @@
                      
                     <div class="login">
 
-                     <router-link to = "/profile"><span>{{fullName}}</span></router-link>
+                     <router-link to = "/profile"><span>{{account.fullName}}</span></router-link>
                     </div>
                     <p>|</p>
                     <div class="register">
@@ -50,7 +50,6 @@ export default {
     data(){
         return {
             token:'',
-            fullName:"",
             avt:""
         }
     },
@@ -64,19 +63,23 @@ export default {
     
   },
     methods: {
-    getUser() {
-      this.fullName = this.account.fullName;
-      this.avt = this.account.img_avt;
-    },
+    // getUser() {
+    //   this.fullName = this.account.fullName;
+    //   this.avt = this.account.img_avt;
+    // },
     ...mapActions({
       logout: "AUTH/logout",
+    }),
+     ...mapActions({
+      infoUser: "AUTH/getInforUserById",
     }),
     handleLogout() {
       this.logout();
     },
   },
     mounted() {
-    this.getUser();
+    this.infoUser(JSON.parse(localStorage.getItem("userId")))
+    console.log(this.account);
   },
 }
 </script>

@@ -5,9 +5,46 @@ const state = {
   books: [],
   bookViewed:[],
   bookLiked:[],
+  currentPage:"",
+  total:"",
+  perPage:"",
+  currentPageL:"",
+  totalL:"",
+  perPageL:"",
+  currentPageB:"",
+  totalB:"",
+  perPageB:""
+
   // bookSearchByCate:[],
 };
 const getters = {
+  getCurrentPageV() {
+    return state.currentPage;
+  },
+  getTotalV() {
+    return state.total;
+  },
+  getPerPageV() {
+    return state.perPage;
+  },
+  getCurrentPageL() {
+    return state.currentPageL;
+  },
+  getTotalL() {
+    return state.totalL;
+  },
+  getPerPageL() {
+    return state.perPageL;
+  },
+  getCurrentPageB() {
+    return state.currentPageB;
+  },
+  getTotalB() {
+    return state.totalB;
+  },
+  getPerPageB() {
+    return state.perPageB;
+  },
   getBookInfor() {
     console.log(state.bookInfo);
     return state.bookInfo;
@@ -22,14 +59,40 @@ const getters = {
   getAllBookLiked() {
     return state.bookLiked;
   },
-  // getAllBookSearchByCate() {
-  //   return state.books;
-  // },
-  // getAllBookSearchByString() {
-  //   return state.books;
-  // }
+ 
 };
 const mutations = {
+
+  setCurrentPageV(state,data) {
+    state.currentPage=data;
+  },
+  setTotalV(state,data) {
+    state.total=data;
+  },
+  setPerPageV(state,data) {
+   state.perPage=data;
+  },
+
+  setCurrentPageL(state,data) {
+    state.currentPageL=data;
+  },
+  setTotalL(state,data) {
+    state.totalL=data;
+  },
+  setPerPageL(state,data) {
+   state.perPageL=data;
+  },
+
+  setCurrentPageB(state,data) {
+    state.currentPageB=data;
+  },
+  setTotalB(state,data) {
+    state.totalB=data;
+  },
+  setPerPageB(state,data) {
+   state.perPageB=data;
+  },
+
   setInfoBookById(state, data) {
     state.bookInfo = data;
   },
@@ -42,12 +105,7 @@ const mutations = {
   setAllBookLiked(state,data) {
     state.bookLiked=data;
   },
-  // setAllBookSearchByCate(state,data) {
-  //   state.books=data;
-  // },
-  // setAllBookSearchByString(state,data) {
-  //   state.books=data;
-  // },
+ 
 };
 const actions = {
   getBookById({ commit }, params) {
@@ -64,10 +122,18 @@ const actions = {
       commit("setBooks", result.data);
     }).catch(() => { });
   },
-  updateInforBookById({ commit }, params) {
-    http.put(`/books/${JSON.parse(localStorage.getItem("users")).userId}`, params).then((result) => {
+  getAllBookPaging({ commit },params) {
+    http.get(`/books/paging/${params}`).then((result) => {
+      commit("setBooks", result.data);
+      commit("setCurrentPageB", result.data.currentPage);
+      commit("setTotalB", result.data.allRow);
+      commit("setPerPageB", result.data.numberRowCurrentpage);
+    }).catch(() => { });
+  },
+  updateInforBookById({ commit ,dispatch}, params) {
+    http.put(`/books/${params.bookId}`, params.obj).then((result) => {
       commit("setInfoBookById", result.data);
-      localStorage.setItem("users", JSON.stringify(result.data));
+      dispatch("getAllBook");
     })
       .catch((err) => {
         alert("Update user fail!");
@@ -96,23 +162,45 @@ const actions = {
   getAllBookViewed({ commit },param1) {
     http.get(`/books/viewed/${param1.userId}/${param1.pageNumber}`).then((result) => {
       commit("setAllBookViewed", result.data);
+      commit("setCurrentPageV", result.data.currentPage);
+      commit("setTotalV", result.data.allRow);
+      commit("setPerPageV", result.data.numberRowCurrentpage);
     }).catch(() => { });
   },
   getAllBookLiked({ commit },param1) {
     http.get(`/books/liked/${param1.userId}/${param1.pageNumber}`).then((result) => {
       commit("setAllBookLiked", result.data);
+      commit("setCurrentPageL", result.data.currentPage);
+      commit("setTotalL", result.data.allRow);
+      commit("setPerPageL", result.data.numberRowCurrentpage);
+     
     }).catch(() => { });
   },
   getAllBookSearch({ commit },param) {
     http.get(`/books/search/${param.cateId}/${param.string}/${param.pageNumber}`).then((result) => {
       commit("setBooks", result.data);
+      commit("setCurrentPageB", result.data.currentPage);
+      commit("setTotalB", result.data.allRow);
+      commit("setPerPageB", result.data.numberRowCurrentpage);
     }).catch(() => { });
   },
-  // getAllBookSearchByString({ commit },param1) {
-  //   http.get(`/books/searchbystring/${param1.str}/${param1.pageNumber}`).then((result) => {
-  //     commit("setBooks", result.data);
-  //   }).catch(() => { });
-  // },
+  increaseView(params) {
+    http.put(`/books/increaseview/${params}`).then(() => {
+    }).catch(() => { });
+  },
+  increaseLike(params) {
+    http.put(`/books/increaselike/${params}`).then(() => {
+    }).catch(() => { });
+  },
+  bookAlreadyViewByUser(params) {
+    http.post(`/books/viewed/create/${params.idUser}/${params.bookId}`).then(() => {
+    }).catch(() => { });
+  },
+  bookAlreadyLikeByUser({ dispatch },params) {
+    http.post(`/books/liked/create/${params.idUser}/${params.bookId}`).then(() => {
+      dispatch("increaseLike(params.bookId)");
+    }).catch(() => { });
+  }
 };
 export default {
   namespaced: true,

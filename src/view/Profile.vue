@@ -33,7 +33,7 @@
           </div>
           <div class="dateofbirth">
             <p class="title">Ngày sinh</p>
-            <p>{{account.dateOfBirth.substring(0, 10)}}</p>
+            <p>{{account.dateOfBirth}}</p>
           </div>
         </div>
       </div>
@@ -48,6 +48,16 @@
         </div>
       </div>
 
+      <b-pagination
+        size="md"
+        @change="getAllBookViewed($event)"
+        v-model="currentPageV"
+        :total-rows="totalV"
+        :per-page="perPageV"
+        align="center"
+      ></b-pagination>
+
+     
       <div class="container_book">
         <h2>Sách đã thích</h2>
          <hr>
@@ -58,6 +68,15 @@
           </div>
         </div>
       </div>
+
+       <b-pagination
+        size="md"
+        @change="getAllBookLiked($event)"
+        v-model="currentPageL"
+        :total-rows="totalL"
+        :per-page="perPageL"
+        align="center"
+      ></b-pagination>
     </div>
     <Footer />
   </div>
@@ -94,25 +113,32 @@ export default {
   },
  
   methods: {
+  ...mapActions({
+      infoUser: "AUTH/getInforUserById",
+    }),
+  
+  
     
     ...mapActions({
       books: "BOOK/getAllBookViewed",
     }),
-    getAllBookViewed() {
+    getAllBookViewed(e) {
       let params = {
         userId: localStorage.getItem("userId"),
-        pageNumber: 1,
+        pageNumber: e,
       };
       this.books(params);
-    },
+   
 
+    },
+    
     ...mapActions({
       bookliked: "BOOK/getAllBookLiked",
     }),
-    getAllBookLiked() {
+    getAllBookLiked(e) {
       let params = {
         userId: localStorage.getItem("userId"),
-        pageNumber: 1,
+        pageNumber: e,
       };
       this.bookliked(params);
     },
@@ -131,6 +157,7 @@ export default {
     },
   },
   computed: {
+    
      ...mapGetters({
       account: "AUTH/getUserInfor",
     }),
@@ -140,10 +167,26 @@ export default {
     ...mapGetters({
       bookArraysLike: "BOOK/getAllBookLiked",
     }),
+ 
+      ...mapGetters({
+      currentPageV: "BOOK/getCurrentPageV",
+      totalV: "BOOK/getTotalV",
+      perPageV: "BOOK/getPerPageV",
+
+    }),
+       ...mapGetters({
+      currentPageL: "BOOK/getCurrentPageL",
+      totalL: "BOOK/getTotalL",
+      perPageL: "BOOK/getPerPageL",
+
+    }),
   },
   mounted() {
-    this.getAllBookViewed();
-    this.getAllBookLiked();
+    this.getAllBookViewed(1);
+    this.getAllBookLiked(1);
+    this.infoUser(JSON.parse(localStorage.getItem("userId")))
+
+
   },
 };
 </script>

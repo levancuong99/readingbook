@@ -1,5 +1,5 @@
 import http from "../../service/service";
-import router from "../../router/router";
+import router from "../../router";
 
 const state = {
   userInfo: {},
@@ -27,7 +27,6 @@ const actions = {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId",res.data.userId);
       localStorage.setItem("roleId",res.data.roleId);
-      // commit("setInforUserById", res.data);
       http.post("/user/token", res.data.token).then((result) => {
         commit("setInforUserById", result.data);
         console.log(result.data);
@@ -64,7 +63,7 @@ const actions = {
       localStorage.setItem("users", JSON.stringify(result.data));
     })
       .catch(() => {
-        alert("Dont get infor user by id!");
+        // alert("Dont get infor user by id!");
       });
   },
   getAllUser({ commit }) {

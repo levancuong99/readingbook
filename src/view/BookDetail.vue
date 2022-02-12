@@ -5,7 +5,7 @@
       <div class="containerdetail">
         <div class="content"></div>
         <div class="title">
-          <h2>Thông tin sách</h2>
+          <h2>Thông tin sách {{account.fullName}}</h2>
         </div>
         <div class="center_book">
           <div class="image">
@@ -104,21 +104,25 @@ export default {
      ...mapGetters({
       commentArray: "COMMENT/getAllComment",
     }),
+    ...mapGetters({
+      account: "AUTH/getUserInfor",
+    }),
   },
+  props: ["id"],
   methods: {
     ...mapActions({
       book: "BOOK/getBookById",
     }),
     getBookById() {
-      this.book(this.$route.params.id);
+      this.book(this.id);
     },
      ...mapActions({
       comments: "COMMENT/getAllComment",
     }),
     getAllComment() {
       let params={
-        bookId:this.$route.params.id,
-        pageNumber:3
+        bookId:this.id,
+        pageNumber:1
       }
       this.comments(params);
     },
@@ -130,14 +134,15 @@ export default {
       let param={
         commentId:null,
         userId: localStorage.getItem('userId'),
-        bookId:this.$route.params.id,
+        bookId:this.id,
         content:this.comment
       }
       this.create(param);
       console.log(param.userId);
       console.log("vo cmt");
       this.comment="";
-      this.$router.go(0)
+      this.getAllComment();
+
     }
   },
   mounted() {

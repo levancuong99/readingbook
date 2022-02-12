@@ -25,7 +25,7 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.bookName.required">Bạn cần nhập email</span>
+            <span v-if="!$v.bookName.required">Bạn cần nhập tên sách</span>
           </div>
         </div>
 
@@ -126,17 +126,26 @@
           <div class="invalid-feedback"></div>
         </div>
 
+  
         <div class="form-group">
-          <label for="">Nội dung sách:</label>
-          <div>
-            <ckeditor
-              v-model="linkBook"
-              :config="editorConfig"
-              :editor-url="editorUrl"
-            ></ckeditor>
-          </div>
+          <label for="">Link nội dung sách: </label>
 
-          <div class="invalid-feedback"></div>
+          <b-form-textarea
+            class="textarea"
+            v-model="linkBook"
+            placeholder="Nhập link nội dung sách."
+            rows="3"
+            max-rows="6"
+            :class="{
+              'is-invalid': $v.linkBook.$error,
+              'is-valid': !$v.linkBook.$invalid,
+            }"
+          ></b-form-textarea>
+          <div class="invalid-feedback">
+            <span v-if="!$v.linkBook.required"
+              >Bạn cần nhập link sách</span
+            >
+          </div>
         </div>
       </form>
     </b-modal>
@@ -164,32 +173,7 @@ export default {
       linkBook: "",
       authorName: "",
       authorProfile: "",
-      editorUrl: "https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js",
-      editorConfig: {
-        toolbarGroups: [
-          { name: "document", groups: ["mode", "document", "doctools"] },
-          { name: "clipboard", groups: ["clipboard", "undo"] },
-          {
-            name: "editing",
-            groups: ["find", "selection", "spellchecker", "editing"],
-          },
-          { name: "forms", groups: ["forms"] },
-          { name: "basicstyles", groups: ["basicstyles", "cleanup"] },
-          {
-            name: "paragraph",
-            groups: ["list", "indent", "blocks", "align", "bidi", "paragraph"],
-          },
-          { name: "links", groups: ["links"] },
-          { name: "insert", groups: ["insert"] },
-          { name: "styles", groups: ["styles"] },
-          { name: "colors", groups: ["colors"] },
-          { name: "tools", groups: ["tools"] },
-          { name: "others", groups: ["others"] },
-          { name: "about", groups: ["about"] },
-        ],
-        removeButtons:
-          "NewPage,Print,Save,Templates,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,CreateDiv,Anchor,Flash,Smiley,PageBreak,ShowBlocks,About,Language,Iframe,Image",
-      },
+     
     };
   },
   validations: {

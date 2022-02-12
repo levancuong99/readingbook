@@ -13,8 +13,8 @@
             <h2>Sách đọc nhiều</h2>
             <hr />
           <div class="containerbook">
-              <div v-for="book in bookArray" :key="book.id">
-                <item1 v-bind:bookItem="book" />
+              <div v-for="book in bookArray" :key="book.bookId">
+                 <router-link :to="{name:'bookdetail',params:{id:book.bookId}}"><item1 v-bind:bookItem="book" /></router-link>
                 <div class="style"></div>
               </div>
             

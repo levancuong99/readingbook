@@ -158,7 +158,6 @@ export default {
           imgPost:this.imgPost
         },
       };
-      console.log(params);
       this.updatePost(params);
       this.$nextTick(() => {
         this.$refs.UpdatePlaceModal.hide();

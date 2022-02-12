@@ -1,6 +1,6 @@
 <template>
 <div class="content">
-  <div class="wrapper" @click="goToHome()" >
+  <div class="wrapper" >
   <div class="image">
       <img :src=bookItem.imgBook width="240px" height="260px"/>
   </div>
@@ -24,7 +24,6 @@ export default {
     name:"item1",
      data() {
     return {
-    
     };
   },
    props: {
@@ -34,30 +33,28 @@ export default {
       default: () => {},
     },
    },
-     created() {
+   created() {
     this.token = localStorage.getItem('token');
   },
     methods:{
-   goToHome(){
-     if(!this.token) {
-  this.$router.push("/login")
-     }else {
+  //  goToHome(){
+  //    if(!this.token) {
+  //        this.$router.push("/login")
+  //    }else {
 
-     
+    //  let temp=this.bookItem.bookId;
+    //  this.$router.push( {name: 'bookdetail', params: { id: temp}}).catch(err => {
+    // if (
+    //   err.name !== 'NavigationDuplicated' &&
+    //   !err.message.includes('Avoided redundant navigation to current location')
+    // ) {
+    //   // But print any other errors to the console
+    //   // logError(err);
+  //   }
+  // });
 
-     let temp=this.bookItem.bookId;
-     this.$router.push( {name: 'bookdetail', params: { id: temp}}).catch(err => {
-    if (
-      err.name !== 'NavigationDuplicated' &&
-      !err.message.includes('Avoided redundant navigation to current location')
-    ) {
-      // But print any other errors to the console
-      // logError(err);
-    }
-  });
-
-      }
-   }
+  //     }
+  //  }
   }
   
 }

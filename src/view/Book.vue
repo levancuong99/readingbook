@@ -28,12 +28,20 @@
 
         <div class="sub_content">
           <div class="containerbook">
-            <div v-for="book in bookArray" :key="book.id">
-              <item1 v-bind:bookItem="book" />
-              <!-- <div class="style"></div> -->
+            <div v-for="book in bookArray.books" :key="book.bookId">
+              <router-link :to="{name:'bookdetail',params:{id:book.bookId}}"> <item1 v-bind:bookItem="book" /></router-link>
             </div>
           </div>
         </div>
+         <b-pagination
+        size="md"
+        @change="getAllBooks($event)"
+        v-model="currentPage"
+        :total-rows="total"
+        :per-page="perPage"
+      
+        align="center"
+      ></b-pagination>
       </div>
       <Footer/>
     </div>
@@ -56,10 +64,11 @@ export default {
   components: { navbar, item1,Footer },
   methods: {
     ...mapActions({
-      books: "BOOK/getAllBook",
+      books: "BOOK/getAllBookPaging",
     }),
-    getAllBooks() {
-      this.books();
+    getAllBooks(e) {
+      console.log("e",e);
+      this.books(e);
     },
      ...mapActions({
       cates: "CATE/getAllCate",
@@ -98,12 +107,16 @@ export default {
      ...mapGetters({
       listcates: "CATE/getAllCate",
     }),
+     ...mapGetters({
+      currentPage: "BOOK/getCurrentPageB",
+      total: "BOOK/getTotalB",
+      perPage: "BOOK/getPerPageB",
+    }),
    
   },
   mounted() {
-    this.getAllBooks();
+    this.getAllBooks(1);
     this.getAllCates();
-    
   },
 };
 </script>
