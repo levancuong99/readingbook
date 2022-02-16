@@ -71,10 +71,9 @@ const actions = {
       commit("setUsers", result.data);
     }).catch(() => { });
   },
-  updateInforUserById({ commit }, params) {
-    http.put(`/users/${JSON.parse(localStorage.getItem("users")).userId}`, params).then((result) => {
-      commit("setInforUserById", result.data);
-      localStorage.setItem("users", JSON.stringify(result.data));
+  updateInforUserById({ dispatch }, params) {
+    http.put(`/users/${params.id}`,  params.obj).then(() => {
+      dispatch("getAllUser");
     })
       .catch((err) => {
         alert("Update user fail!");
@@ -98,6 +97,18 @@ const actions = {
     })
       .catch((err) => {
         alert("update user fail !");
+        console.log(err);
+      });
+  },
+  updateAvt({dispatch},param) {
+    http.put(`/user/avt/${localStorage.getItem("userId")}`,param).then((res) => {
+      console.log("ss");
+      console.log("acc",res);
+
+      dispatch("getAllUser");
+    })
+      .catch((err) => {
+        alert("update avtuser fail !");
         console.log(err);
       });
   },

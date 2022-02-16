@@ -11,6 +11,7 @@ import ManageRepoBook from "../view/ManageRepoBook.vue";
 import ManageProposeBook from "../view/ManageProposeBook.vue";
 import ManagePost from "../view/ManagePost.vue";
 import BookDetail from "../view/BookDetail.vue";
+import PostDetail from "../view/PostDetail.vue"
 import Post from "../view/Post.vue";
 import Book from "../view/Book.vue";
 Vue.use(Router);
@@ -23,6 +24,7 @@ const router = new Router({
     { path: "/login", component: Login },
     { path: "/book", component: Book },
     { path: "/bookdetail/:id", name: "bookdetail",component: BookDetail, props: true, },
+    { path: "/postdetail/:id", name: "postdetail",component: PostDetail, props: true, },
     { path: "/register", component: Register },
     { path: "/post", component: Post },
     {

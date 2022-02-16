@@ -34,6 +34,11 @@ const actions = {
       commit("setAllPost", result.data);
     }).catch(() => { });
   },
+  getAllPostPaging({ commit },param) {
+    http.get(`/post/paging/${param}`).then((result) => {
+      commit("setAllPost", result.data);
+    }).catch(() => { });
+  },
   updatePostById({ commit,dispatch }, params) {
     http.put(`/post/${params.id}`, params.obj).then((result) => {
       commit("setPost", result.data);

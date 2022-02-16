@@ -2,7 +2,7 @@
   <div class="containers">
     <div class="wrapper">
       <navbar />
-       <img
+      <img
         src="../assets/imagesbook.jpg"
         alt="no n0"
         width="100%"
@@ -10,34 +10,56 @@
       />
       <div class="content">
         <div class="hotbook">
-            <h2>Sách đọc nhiều</h2>
-            <hr />
+          <h2>Sách đọc nhiều</h2>
+          <hr />
           <div class="containerbook">
-              <div v-for="book in bookArray" :key="book.bookId">
-                 <router-link :to="{name:'bookdetail',params:{id:book.bookId}}"><item1 v-bind:bookItem="book" /></router-link>
-                <div class="style"></div>
-              </div>
-            
+            <div v-for="book in bookArray.books" :key="book.bookId">
+              <router-link
+                :to="{ name: 'bookdetail', params: { id: book.bookId } }"
+                ><item1 v-bind:bookItem="book"
+              /></router-link>
+            </div>
           </div>
 
-          <div class="hotbook">
-            <div class="container">
-              <h2>Sách mới</h2>
-              <hr />
-            </div>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-4"><item1 /></div>
-                <div class="col-sm-4"><item1 /></div>
-                <div class="col-sm-4"><item1 /></div>
-                <div class="col-sm-4"><item1 /></div>
-                <div class="col-sm-4"><item1 /></div>
-              </div>
-            </div>
-          </div>
+          <b-pagination
+            size="md"
+            @change="getAllBookBestViewer($event)"
+            v-model="bookArray.currentPage"
+            :total-rows="bookArray.allRow"
+            :per-page="bookArray.numberRowCurrentpage"
+            align="center"
+          ></b-pagination>
 
          
         </div>
+
+         <div class="hotbook">
+            <div class="container">
+              <h2>Sách được yêu thích nhiều</h2>
+              <hr />
+              <div class="containerbook">
+                <div
+                  v-for="book in bookArrayBestLiker.books"
+                  :key="book.bookId"
+                >
+                  <router-link
+                    :to="{ name: 'bookdetail', params: { id: book.bookId } }"
+                    ><item1 v-bind:bookItem="book"
+                  /></router-link>
+                </div>
+              </div>
+
+               <b-pagination
+            size="md"
+            @change="getAllBookBestLiker($event)"
+            v-model="bookArrayBestLiker.currentPage"
+            :total-rows="bookArrayBestLiker.allRow"
+            :per-page="bookArrayBestLiker.numberRowCurrentpage"
+            align="center"
+          ></b-pagination>
+
+            </div>
+          </div>
       </div>
       <Footer />
     </div>
@@ -57,29 +79,42 @@ export default {
       text: "",
     };
   },
-  components: { navbar,item1,Footer },
+  components: { navbar, item1, Footer },
+
   methods: {
     ...mapActions({
-      books: "BOOK/getAllBook",
+      booksBestViewer: "BOOK/getAllBookBestViewer",
     }),
-    getAllBooks() {
-      this.books();
+    getAllBookBestViewer(e) {
+      this.booksBestViewer(e);
     },
+
+    ...mapActions({
+      booksBestLiker: "BOOK/getAllBookBestLiker",
+    }),
+    getAllBookBestLiker(e) {
+      this.booksBestLiker(e);
+    },
+   
   },
   computed: {
     ...mapGetters({
       bookArray: "BOOK/getAllBook",
     }),
+    ...mapGetters({
+      bookArrayBestLiker: "BOOK/getAllBookBestLiker",
+    }),
   },
   mounted() {
-    this.getAllBooks();
+    this.getAllBookBestViewer(1);
+    this.getAllBookBestLiker(1);
   },
 };
 </script>
 <style lang="scss" scoped>
 .containers {
-  .condition{
-    margin-top:50px !important;
+  .condition {
+    margin-top: 50px !important;
   }
 
   .content {
@@ -95,13 +130,12 @@ export default {
       hr {
         background-color: blue;
       }
-      .containerbook{
+      .containerbook {
         display: flex;
         flex-wrap: wrap;
-        .style{
+        .style {
           margin-left: 20px;
         }
-      
       }
     }
   }

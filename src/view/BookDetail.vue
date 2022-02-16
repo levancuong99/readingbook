@@ -5,7 +5,7 @@
       <div class="containerdetail">
         <div class="content"></div>
         <div class="title">
-          <h2>Thông tin sách {{account.fullName}}</h2>
+          <h2>Thông tin sách </h2>
         </div>
         <div class="center_book">
           <div class="image">
@@ -24,14 +24,14 @@
             <p class="title_other">Lượt xem: {{ getBook.numberView }}</p>
             <p class="title_other">Lượt thích: {{ getBook.numberLike }}</p>
             <div class="examine mg">
-              <div class="like">
-                <p><i class="far fa-heart"></i>Yêu thích</p>
+              <div class="like" :class="{active:this.isLiked}" v-on:click="handleLike">
+                <p><i class="far fa-heart"></i>{{this.likeText}}</p>
               </div>
               <a href="#1" ><div class="comment1">
                 <p><i class="far fa-comment"></i>Bình luận</p>
               </div></a>
             </div>
-            <div class="mg">
+            <div class="mg" v-on:click="handleRead" >
                  <modelreadbook v-bind:content="getBook.linkBook" />
             </div>
            
@@ -51,8 +51,8 @@
           class="textarea"
           v-model="comment"
           placeholder="Nhập bình luận..."
-          rows="2"
-          max-rows="2"
+          rows="3"
+          max-rows="4"
         ></b-form-textarea>
 
          <b-button class="button"  v-on:click="handleComment" variant="primary">Gửi</b-button>
@@ -77,6 +77,7 @@ export default {
   name: "bookdetail",
   data() {
     return {
+      likeText:"Yêu thích",
       bookId: "",
       bookName: "",
       description: "",
@@ -107,9 +108,41 @@ export default {
     ...mapGetters({
       account: "AUTH/getUserInfor",
     }),
+     ...mapGetters({
+      isLiked: "BOOK/getIsLiked",
+    }),
   },
   props: ["id"],
   methods: {
+
+     ...mapActions({
+      increaseLike: "BOOK/increaseLike",
+    }),
+    getIncreateLiked() {
+     this.increaseLike(3);
+    },
+
+     ...mapActions({
+      addLiked: "BOOK/bookAlreadyLikeByUser",
+    }),
+    
+    getAddLiked() {
+     let param = {
+       idUser: localStorage.getItem('userId'),
+       bookId:this.id
+     }
+     this.addLiked(param);
+    },
+      ...mapActions({
+      isLikedByUser: "BOOK/getIsLikedBookByUser",
+    }),
+    getIsLikedByUser() {
+     let param = {
+       idUser: localStorage.getItem('userId'),
+       bookId:this.id
+     }
+     this.isLikedByUser(param);
+    },
     ...mapActions({
       book: "BOOK/getBookById",
     }),
@@ -126,11 +159,35 @@ export default {
       }
       this.comments(params);
     },
-
       ...mapActions({
       create: "COMMENT/createComment",
     }),
+    handleLike(){
+      let token=localStorage.getItem('token');
+      if(token!=null) {
+        if(this.isLiked) {
+         this.likeText="Đã Yêu thích";
+       }else {
+          this.isLiked=!this.isLiked;
+          this.likeText="Đã Yêu thích";
+          this.getAddLiked();
+         this.$router.go(0);
+      //  this.getIncreateLiked();
+       }
+      }else {
+        this.$router.push({ path: '/login' })
+      }
+    
+    },
+    handleRead() {
+         let token=localStorage.getItem('token');
+      if(token==null) {
+          this.$router.push({ path: '/login' })
+      }
+    },
     handleComment() {
+        let token=localStorage.getItem('token');
+      if(token!=null) {
       let param={
         commentId:null,
         userId: localStorage.getItem('userId'),
@@ -142,10 +199,15 @@ export default {
       console.log("vo cmt");
       this.comment="";
       this.getAllComment();
-
-    }
+      this.$router.go(0)
+      }else {
+         this.$router.push({ path: '/login' })
+      }
+    },
+    
   },
   mounted() {
+    this.getIsLikedByUser();
     this.getBookById();
     this.getAllComment();
   },
@@ -198,6 +260,12 @@ export default {
           }
           .examine {
             display: flex;
+            .active {
+              background: red;
+              i {
+                color: #fff !important;
+              }
+            }
             .like {
               width: 150px;
               height: 50px;

@@ -9,7 +9,6 @@
     <div class="d-block text-center" >
       <iframe :src=content width="100%" height="610" allow="autoplay"></iframe>
     </div>
-    <!-- <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button> -->
   </b-modal>
 </div>
 </template>
@@ -24,17 +23,10 @@ export default {
   },
  
   methods: {
-     getElementById() {
-      this.value=this.content;
-      let p=document.getElementById("d-block");
-     console.dir(p)
-    },
+    
   },
    props: ["content"],
   mounted() {
-  
-    console.log(this.$refs.input.getAttribute("class")); 
-   
   },
 };
 </script>

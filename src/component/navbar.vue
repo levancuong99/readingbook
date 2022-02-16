@@ -11,7 +11,7 @@
                         <li v-if= "!token"><router-link to = "/">Trang chủ </router-link></li>
                         <li v-else><router-link to = "/homeuser">Trang chủ </router-link></li>
                         <li><router-link to = "/book">Kho sách</router-link></li>
-                        <li><router-link to = "/post">Thông báo </router-link></li>
+                        <li><router-link to = "/post">Blog </router-link></li>
                     </ul>
                 </nav>
 
@@ -23,21 +23,24 @@
                     <div class="register">
                         <p><router-link to = "/register">Đăng ký</router-link></p>
                     </div>
+                  
                 </div>
 
                 <div class="btn" v-else>
-                     
-                    <div class="login">
-
-                     <router-link to = "/profile"><span>{{account.fullName}}</span></router-link>
+                      <div class="avt">
+                    <img :src="account.img_avt" alt="" />
+                    <b-dropdown left>
+                        <b-dropdown-item>
+                        <router-link to="/profile" class="text">Trang cá nhân</router-link>
+                        </b-dropdown-item>
+                         <b-dropdown-item>
+                        <router-link to="/profile" class="text">Đề xuất sách</router-link>
+                        </b-dropdown-item>
+                        <b-dropdown-item v-on:click="handleLogout">Đăng xuất</b-dropdown-item>
+                    </b-dropdown>
                     </div>
-                    <p>|</p>
-                    <div class="register">
-                         <a v-on:click="handleLogout">Đăng xuất </a>
-                    </div>
-                
+                    <p style="color:#fff">{{account.fullName}}</p>
                 </div>
-
             </div>
         </div>
     </div>
@@ -60,7 +63,6 @@ export default {
   },
     created() {
     this.token = localStorage.getItem('token');
-    
   },
     methods: {
     // getUser() {
@@ -151,6 +153,45 @@ export default {
                 .register {
                    
                 }
+        .avt {
+            padding-left: 100px;
+    padding-right: 10px;
+    width: auto;
+    position: relative;
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .dropdown {
+      position: absolute;
+      top: 0;
+      right: 15px;
+      transform: translate(-50%, 0%);
+      .text {
+        text-decoration: none;
+        color: black;
+      }
+      ::v-deep button {
+        background-color: white;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        opacity: 0;
+      }
+      ::v-deep ul {
+        padding: 0;
+        li {
+          a:active {
+            background-color: #468faf;
+            p {
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
                 
             }
         }

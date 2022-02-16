@@ -3,6 +3,7 @@ import http from "../../service/service";
 const state = {
   bookInfo: {},
   books: [],
+  booksBestLiker:[],
   bookViewed:[],
   bookLiked:[],
   currentPage:"",
@@ -13,11 +14,15 @@ const state = {
   perPageL:"",
   currentPageB:"",
   totalB:"",
-  perPageB:""
+  perPageB:"",
+  isLiked:false
 
   // bookSearchByCate:[],
 };
 const getters = {
+  getIsLiked() {
+    return state.isLiked;
+  },
   getCurrentPageV() {
     return state.currentPage;
   },
@@ -50,6 +55,9 @@ const getters = {
     return state.bookInfo;
 
   },
+  getAllBookBestLiker() {
+    return state.booksBestLiker;
+  },
   getAllBook() {
     return state.books;
   },
@@ -62,7 +70,9 @@ const getters = {
  
 };
 const mutations = {
-
+  setIsLiked(state,data) {
+   state.isLiked=data;
+  },
   setCurrentPageV(state,data) {
     state.currentPage=data;
   },
@@ -99,6 +109,9 @@ const mutations = {
   setBooks(state, data) {
     state.books = data;
   },
+  setBooksBestLiker(state,data) {
+    state.booksBestLiker = data;
+  },
   setAllBookViewed(state,data) {
     state.bookViewed=data;
   },
@@ -108,8 +121,8 @@ const mutations = {
  
 };
 const actions = {
+
   getBookById({ commit }, params) {
-    console.log("vo action")
     http.get(`/books/${params}`).then((result) => {
       commit("setInfoBookById", result.data);
     })
@@ -176,6 +189,16 @@ const actions = {
      
     }).catch(() => { });
   },
+  getAllBookBestViewer({ commit },param1) {
+    http.get(`/books/bestviewer/paging/${param1}`).then((result) => {
+      commit("setBooks", result.data);
+    }).catch(() => { });
+  },
+  getAllBookBestLiker({ commit },param1) {
+    http.get(`/books/bestliker/paging/${param1}`).then((result) => {
+      commit("setBooksBestLiker", result.data);
+    }).catch(() => { });
+  },
   getAllBookSearch({ commit },param) {
     http.get(`/books/search/${param.cateId}/${param.string}/${param.pageNumber}`).then((result) => {
       commit("setBooks", result.data);
@@ -188,19 +211,40 @@ const actions = {
     http.put(`/books/increaseview/${params}`).then(() => {
     }).catch(() => { });
   },
-  increaseLike(params) {
-    http.put(`/books/increaselike/${params}`).then(() => {
-    }).catch(() => { });
-  },
+  // increaseLike({dispatch},params) {
+  //   http.put(`/books/increaselike/${params}`).then(() => {
+  //     console.log("ss +");
+  //     dispatch("getAllBook");
+  //   }).catch(() => { });
+  // },
   bookAlreadyViewByUser(params) {
     http.post(`/books/viewed/create/${params.idUser}/${params.bookId}`).then(() => {
     }).catch(() => { });
   },
   bookAlreadyLikeByUser({ dispatch },params) {
-    http.post(`/books/liked/create/${params.idUser}/${params.bookId}`).then(() => {
-      dispatch("increaseLike(params.bookId)");
+      http.post(`/books/liked/create/${params.idUser}/${params.bookId}`).then(() => {
+      http.put(`/books/increaselike/${params.bookId}`).then((res) => {
+        console.log(res.data);
+        dispatch("getAllBook");
+      }).catch(() => { });
+     
+    
     }).catch(() => { });
-  }
+  },
+  // addLiked(params) {
+  //   http.post(`/books/liked/create/${params.idUser}/${params.bookId}`).then(() => {
+  //     console.log("success");
+  //     http.put(`/books/increaselike/${params.bookId}`).then(() => {
+  //     }).catch(() => { });
+  //   }).catch(() => { });
+  // } ,
+
+   getIsLikedBookByUser({commit},params) {
+     http.get(`/books/liked/check/${params.idUser}/${params.bookId}`).then((res) => {
+      commit("setIsLiked", res.data);
+    }).catch(() => { });
+  },
+
 };
 export default {
   namespaced: true,

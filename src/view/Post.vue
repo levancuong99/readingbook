@@ -3,11 +3,30 @@
     <div class="wrapper">
       <navbar />
       <div class="content">
-        <h2>Thông báo</h2>
-        <div v-for="post in postArray" :key="post.id">
-          <item-notification v-bind:postItem="post" />
-          <div class="mg"></div>
+        <div class="container">
+          <div class="row">
+            <div
+              class="col-sm-4"
+              v-for="post in postArray.posts"
+              :key="post.postId"
+            >
+              <router-link
+                    :to="{ name: 'postdetail', params: { id: post.postId } }"
+                    > <item-notification v-bind:postItem="post" /> </router-link>
+            </div>
+            
+          </div>
         </div>
+        <div >
+              <b-pagination
+                size="md"
+                @change="getAllPosts($event)"
+                v-model="postArray.currentPage"
+                :total-rows="postArray.allRow"
+                :per-page="postArray.numberRowCurrentpage"
+                align="center"
+              ></b-pagination>
+            </div>
       </div>
       <Footer />
     </div>
@@ -25,14 +44,14 @@ export default {
   data() {
     return {};
   },
-  components: { navbar, ItemNotification,Footer },
+  components: { navbar, ItemNotification, Footer },
 
   methods: {
     ...mapActions({
-      posts: "POST/getAllPost",
+      posts: "POST/getAllPostPaging",
     }),
-    getAllPosts() {
-      this.posts();
+    getAllPosts(e) {
+      this.posts(e);
     },
   },
   computed: {
@@ -41,17 +60,14 @@ export default {
     }),
   },
   mounted() {
-    this.getAllPosts();
+    this.getAllPosts(1);
   },
 };
 </script>
 <style lang="scss" scoped>
 .containers {
-  h2 {
-    padding: 20px 0 20px 0;
-  }
-  .mg{
-    margin-top:20px;
+  .content {
+    margin-top: 50px;
   }
 }
 </style>

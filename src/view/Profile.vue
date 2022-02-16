@@ -11,7 +11,7 @@
       <div class="content">
         <div class="info">
           <div class="avt">
-            <img :src="img_avt" width="200px" height="200px" />
+            <img :src=account.img_avt width="200px" height="200px" />
             <div class="position_cam" v-on:click="handleClickInputFile">
               <i class="fa fa-camera"></i>
             </div>
@@ -26,14 +26,18 @@
           <div class="name">
             <p class="title">Tên người dùng</p>
             <p>{{account.fullName}}</p>
+            <div class="updateInfo">
+               <model-update-user-profile  />
+            </div>
+           
           </div>
           <div class="email">
             <p class="title">Email</p>
             <p>{{account.email}}</p>
           </div>
           <div class="dateofbirth">
-            <p class="title">Ngày sinh</p>
-            <p>{{account.dateOfBirth}}</p>
+            <p class="title">Địa chỉ</p>
+            <p>{{account.address}}</p>
           </div>
         </div>
       </div>
@@ -43,7 +47,9 @@
         <hr>
         <div class="containerbook">
           <div v-for="book in bookArray.books" :key="book.id">
-            <item1 v-bind:bookItem="book" />
+             <router-link
+                    :to="{ name: 'bookdetail', params: { id: book.bookId } }"
+                    ><item1 v-bind:bookItem="book" /></router-link>
           </div>
         </div>
       </div>
@@ -62,8 +68,10 @@
         <h2>Sách đã thích</h2>
          <hr>
         <div class="containerbook">
-          <div v-for="book in bookArraysLike.books" :key="book.id">
-            <item1 v-bind:bookItem="book" />
+          <div v-for="book in bookArraysLike.books" :key="book.bookId">
+             <router-link
+                    :to="{ name: 'bookdetail', params: { id: book.bookId } }"
+                    ><item1 v-bind:bookItem="book" /></router-link>
             <div class="style"></div>
           </div>
         </div>
@@ -87,6 +95,7 @@ import navbar from "../component/navbar.vue";
 import item1 from "../component/item1.vue";
 import { mapGetters, mapActions } from "vuex";
 import Footer from "../component/footer.vue";
+import ModelUpdateUserProfile from "../component/ModelUpdateUserProfile.vue";
 import axios from "axios";
 
 export default {
@@ -110,6 +119,7 @@ export default {
     item1,
     navbar,
     Footer,
+    ModelUpdateUserProfile
   },
  
   methods: {
@@ -131,7 +141,9 @@ export default {
    
 
     },
-    
+     ...mapActions({
+      updateAvatar: "AUTH/updateAvt",
+    }),
     ...mapActions({
       bookliked: "BOOK/getAllBookLiked",
     }),
@@ -149,11 +161,18 @@ export default {
       let form = new FormData();
       form.append("file", e.target.files[0]);
       form.append("upload_preset", "qjxf98ek");
-      axios
-        .post("https://api.Cloudinary.com/v1_1/dja5fb2gg/image/upload", form)
+      axios.post("https://api.Cloudinary.com/v1_1/dja5fb2gg/image/upload", form)
         .then((res) => {
-          this.img_avt = res.data.url;
+          this.account.img_avt = res.data.url;
+          console.log("avtbe",this.account.img_avt);
+          let param = {
+          avt: this.account.img_avt
+        }
+        this.updateAvatar(param);
         });
+     
+      
+
     },
   },
   computed: {
@@ -229,19 +248,22 @@ export default {
       .title {
         color: gray;
       }
+      .updateInfo{
+        margin-top:50px;
+      }
       .name {
-        width: 200px;
+        width: 230px;
         height: 100%;
         border-right: 0.1px solid lightgray;
         padding-top: 50px;
       }
       .email {
-        width: 300px;
+        width: 285px;
         height: 100%;
         padding-top: 50px;
       }
       .dateofbirth {
-        width: 300px;
+        width: 285px;
         height: 100%;
         border-left: 0.1px solid lightgray;
         padding-top: 50px;

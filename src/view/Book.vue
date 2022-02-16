@@ -89,14 +89,21 @@ export default {
       this.bookSearchByString();
     },
     handleSearchByString() {
+      let s="";
+      if(this.text=="") {
+        s="$";
+
+      }else {
+        s=this.text;
+      }
       let params = {
         cateId: this.selected,
-        string: this.text,
+        string:s ,
         pageNumber: 1,
       };
       console.log(params);
       // this.getAllBookSearchByString(params);
-     console.log(this.bookSearchByString(params));
+      this.bookSearchByString(params);
       // console.log(this.bookArray);
     }
   },
