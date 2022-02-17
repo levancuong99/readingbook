@@ -34,6 +34,9 @@
           <div class="email">
             <p class="title">Email</p>
             <p>{{account.email}}</p>
+             <div class="updateInfo">
+               <model-add-prop  />
+            </div>
           </div>
           <div class="dateofbirth">
             <p class="title">Địa chỉ</p>
@@ -85,6 +88,15 @@
         :per-page="perPageL"
         align="center"
       ></b-pagination>
+
+      <div class="container_book">
+          <h2>Sách đã đề xuất</h2>
+
+           <div v-for="prop in propsArray.proposals" :key="prop.propId">
+                    <itemprop v-bind:itemProp="prop" />
+          </div>
+
+      </div>
     </div>
     <Footer />
   </div>
@@ -93,9 +105,11 @@
 <script>
 import navbar from "../component/navbar.vue";
 import item1 from "../component/item1.vue";
+import itemprop from "../component/itemprop.vue";
 import { mapGetters, mapActions } from "vuex";
 import Footer from "../component/footer.vue";
 import ModelUpdateUserProfile from "../component/ModelUpdateUserProfile.vue";
+import ModelAddProp from "../component/ModelManageProp/ModelAddProp.vue";
 import axios from "axios";
 
 export default {
@@ -119,10 +133,16 @@ export default {
     item1,
     navbar,
     Footer,
-    ModelUpdateUserProfile
+    ModelUpdateUserProfile,
+    ModelAddProp,
+    itemprop
   },
  
   methods: {
+
+    ...mapActions({
+      getAllProp: "PROP/getAllProp",
+    }),
   ...mapActions({
       infoUser: "AUTH/getInforUserById",
     }),
@@ -176,7 +196,9 @@ export default {
     },
   },
   computed: {
-    
+       ...mapGetters({
+      propsArray: "PROP/getAllProp",
+    }),
      ...mapGetters({
       account: "AUTH/getUserInfor",
     }),
@@ -209,6 +231,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .containers {
   .content {

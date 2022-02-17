@@ -42,6 +42,7 @@ export default {
       deleteBook: "BOOK/deleteBookById",
       deleteUser: "AUTH/deleteUserById",
       deletePost: "POST/deletePostById",
+      deleteProp: "PROP/deletePropById",
     }),
     showDeletePlaceModel(index, data) {
       this.dataRow = JSON.parse(JSON.stringify(data));
@@ -56,6 +57,9 @@ export default {
       }
       if(this.flag=="deletePost") {
             this.deletePost(this.dataRow.postId);
+      }
+       if(this.flag=="deleteProp") {
+            this.deleteProp(this.dataRow.propId);
       }
         
       

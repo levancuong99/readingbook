@@ -13,7 +13,15 @@
         :filter="infoSearch"
         ref="mainTable">
           <template v-slot:cell(fullName)="data">
-          <span>
+           <span>
+            <img
+              style="
+                width: 30px;
+                height: 30px;
+                margin-right: 15px;
+                line-height: 30px;
+              "
+              :src="data.item.img_avt"/>
             {{ data.value }}
           </span>
           <div>
@@ -23,6 +31,14 @@
         </template>
          <template v-slot:cell(bookName)="data">
           <span>
+             <img
+              style="
+                width: 30px;
+                height: 30px;
+                margin-right: 15px;
+                line-height: 30px;
+              "
+              :src="data.item.imgBook"/>
             {{ data.value }}
           </span>
           <div>
@@ -30,9 +46,24 @@
             <DeleteBook :data="data" />
           </div>
         </template>
-
+        <template v-slot:cell(bookNameProp)="data">
+          <span>
+            {{ data.value }}
+          </span>
+          <div>
+            <DeleteProp :data="data" />
+          </div>
+        </template>
           <template v-slot:cell(title)="data">
           <span>
+              <img
+              style="
+                width: 30px;
+                height: 30px;
+                margin-right: 15px;
+                line-height: 30px;
+              "
+              :src="data.item.imgPost"/>
             {{ data.value }}
           </span>
           <div>
@@ -41,20 +72,6 @@
           </div>
         </template>
 
-        <template v-slot:cell(imgPost)="data">
-          <span>
-            <img
-              style="
-                width: 30px;
-                height: 30px;
-              "
-              :src="data.value"/>
-          </span>
-          <div>
-            <UpdateCampaign :data="data" />
-            <DeleteCampaign :data="data" />
-          </div>
-        </template>
       </b-table>
       <b-pagination
         v-model="currentPage"
@@ -76,6 +93,7 @@ import DeletePost from "./ModelManagePost/DeletePost.vue";
 import ModelUpdatePost from "./ModelManagePost/ModelUpdatePost.vue";
 import ModelUpdateUser from "./ModelManageUser/ModelUpdateUser.vue";
 import ModelUpdateBook from "./ModelManageBook/ModelUpdateBook.vue";
+import DeleteProp from "./ModelManageProp/DeleteProp.vue";
 
 export default {
   name: "MainTable",
@@ -85,7 +103,8 @@ export default {
     DeleteBook,
     ModelUpdateBook,
     DeletePost,
-    ModelUpdatePost
+    ModelUpdatePost,
+    DeleteProp
   },
 
   props: {
@@ -126,10 +145,11 @@ export default {
   margin-top: 15px;
   th,
   td {
-    width: 250px;
+    width: 260px !important;
   }
   tr {
-    height: 45px;
+    height: 55px !important;
+     
   }
   .table {
     font-size: 14px;
@@ -141,8 +161,10 @@ export default {
     tbody {
       tr {
         cursor: pointer;
-        height: 45px;
+        height: 55px;
         td:nth-child(1) {
+          height: 55px !important;
+          width: 100% !important;
           display: flex;
           justify-content: space-between;
           align-items: center;

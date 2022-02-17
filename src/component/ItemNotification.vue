@@ -69,6 +69,14 @@ export default {
         margin-top: 10px;
         text-align: left;
         font-size: 16px;
+
+    width:100%;
+    white-space: pre-wrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+     display: -webkit-box;
       }
     }
   }

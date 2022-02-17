@@ -76,7 +76,6 @@ export const COLUMNS = {
     ],
 
     posts: [
-    
       {
         key: "title",
         label: "Tiêu đề",
@@ -85,9 +84,31 @@ export const COLUMNS = {
         key: "content",
         label: "Nội dung",
       },
+      // {
+      //   key: "imgPost",
+      //   label: "Hình ảnh",
+      // },
       {
-        key: "imgPost",
-        label: "Hình ảnh",
+        key: "createdAt",
+        label: "Thời gian tạo",
+        formatter: (value) => {
+          return value.substring(0,10);
+        },
+      },
+      
+    ],
+    props: [
+      {
+        key: "bookNameProp",
+        label: "Tên sách",
+      },
+      {
+        key: "authorName",
+        label: "Tên tác giả",
+      },
+      {
+        key: "remark",
+        label: "Nhận xét",
       },
       {
         key: "createdAt",

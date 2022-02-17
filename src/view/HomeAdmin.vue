@@ -54,12 +54,17 @@ export default {
     ...mapActions({
       logout: "AUTH/logout",
     }),
+    ...mapActions({
+      infoUser: "AUTH/getInforUserById",
+    }),
     handleLogout() {
       this.logout();
     },
   },
     mounted() {
     this.getUser();
+    this.infoUser(JSON.parse(localStorage.getItem("userId")))
+
   },
 }
 </script>
@@ -72,7 +77,7 @@ export default {
             width: 20%;
             min-height: 100vh;
             background: #000;
-            border-right: 1px solid #fff;
+            // border-right: 1px solid #fff;
             .logo {
                 padding:5px 0 5px 0;
                 box-sizing: border-box;

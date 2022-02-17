@@ -68,6 +68,10 @@ export default {
 .containers {
   .content {
     margin-top: 50px;
+    a {
+      text-decoration: none;
+      color: #000;
+    }
   }
 }
 </style>

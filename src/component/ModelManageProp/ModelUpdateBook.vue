@@ -1,18 +1,22 @@
 <template>
-  <div class="addModal">
-    <b-button v-b-modal.modal-prevent class="bg-color">Thêm mới sách</b-button>
-    <b-modal
-      class="model modal-content wh"
-      id="modal-prevent"
-      ref="modal"
-      title="Create book"
-      cancel-variant="light"
-      ok-title="Save"
-      @hidden="resetModal"
-      @ok="handleOk"
-      hide-header-close
+  <div class="wrapper">
+    <b-icon
+      icon="pen"
+      aria-hidden="true"
+      variant="success"
+      @click="showUpdatePlaceModel(data.index, data.item)"
     >
-      <form @submit.prevent="">
+    </b-icon>
+    <b-modal
+      id="modal-update"
+      ref="UpdatePlaceModal"
+      title="Update account"
+      ok-title="Save"
+      cancel-variant="light"
+      hide-header-close
+      @ok.prevent="submitUpdatePlace"
+    >
+      <form @submit.prevent="submit">
         <div class="form-group">
           <label for="">Tên sách: </label>
           <input
@@ -25,7 +29,7 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.bookName.required">Bạn cần nhập tên sách</span>
+            <span v-if="!$v.bookName.required">Bạn cần nhập email</span>
           </div>
         </div>
 
@@ -126,8 +130,7 @@
           <div class="invalid-feedback"></div>
         </div>
 
-  
-        <div class="form-group">
+           <div class="form-group">
           <label for="">Link nội dung sách: </label>
 
           <b-form-textarea
@@ -151,19 +154,19 @@
     </b-modal>
   </div>
 </template>
+
 <script>
 import { required, maxLength } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 import axios from "axios";
-
 export default {
-  name: "ModelAddUser",
   data() {
     return {
       cates: [
-        { id: 1, name: "Cuộc sống" },
-        { id: 2, name: "Thể thao" },
-        { id: 3, name: "Truyện ngắn" },
+        { id: 1, name: "Truyện ngắn" },
+        { id: 2, name: "Du lịch" },
+        { id: 3, name: "Cổ tích" },
+        { id: 4, name: "Thơ" },
       ],
       bookId: "",
       bookName: "",
@@ -173,7 +176,6 @@ export default {
       linkBook: "",
       authorName: "",
       authorProfile: "",
-     
     };
   },
   validations: {
@@ -197,18 +199,45 @@ export default {
       required,
     },
   },
+  // computed: {
+  //   ...mapGetters({
+  //     account: "AUTH/getUserInfor",
+  //   }),
+  // },
+   props: {
+    data: {
+      type: Object,
+      require: true,
+    },
+  },
   methods: {
     ...mapActions({
-      createBook: "BOOK/createBook",
+      updateBook: "BOOK/updateInforBookById",
     }),
-    handleOk(bvModalEvt) {
-      bvModalEvt.preventDefault();
+
+    showUpdatePlaceModel(index, data) {
+      this.dataRow = JSON.parse(JSON.stringify(data));
+      this.bookId = this.dataRow.bookId;
+      this.bookName = this.dataRow.bookName;
+      this.cateId = this.dataRow.cateId;
+      this.imgBook = this.dataRow.imgBook;
+      this.description = this.dataRow.description;
+      this.linkBook = this.dataRow.linkBook;
+      this.authorName = this.dataRow.authorName;
+      this.authorProfile = this.dataRow.authorProfile;
+      this.$refs.UpdatePlaceModal.show();
+    },
+
+    submitUpdatePlace() {
+     
       this.$v.$touch();
       if (this.$v.$invalid) {
         return;
       }
-      this.createBook({
-      bookId: "",
+      let params= {
+        bookId:this.bookId,
+        obj:{
+          bookId: "",
       bookName: this.bookName,
       cateId: this.cateId,
       imgBook: this.imgBook,
@@ -216,28 +245,15 @@ export default {
       linkBook: this.linkBook,
       authorName: this.authorName,
       authorProfile: this.authorProfile,
-      });
+        }
+      }
+      this.updateBook(params);
 
       this.$nextTick(() => {
-        (this.bookName = ""),
-          (this.imgBook = ""),
-          (this.description = ""),
-           (this.linkBook = ""),
-          (this.authorName = ""),
-          (this.authorProfile = ""),
-          this.$bvModal.hide("modal-prevent");
+        this.$refs.UpdatePlaceModal.hide();
       });
     },
-    resetModal() {
-        (this.bookName = ""),
-          (this.imgBook = ""),
-          (this.description = ""),
-           (this.linkBook = ""),
-          (this.authorName = ""),
-          (this.authorProfile = ""),
-        this.$bvModal.hide("modal-prevent");
-    },
-    handleClickInputFile() {
+      handleClickInputFile() {
       this.$refs.fileInputImg.click();
     },
     onFileChange(e) {
@@ -251,45 +267,29 @@ export default {
         });
     },
   },
-  mounted() {},
 };
 </script>
-<style lang="scss" scoped>
-.bg-color {
-  background-color: #000;
-}
-.bg-color:hover,
-.bg-color:active,
-.bg-color:visited {
-  background-color: #000;
-}
 
+<style lang="scss" scoped>
 ::v-deep .modal-content {
   width: 800px;
   height: 600px;
   right: 140px;
   overflow: auto;
 }
-.mgtop {
-  margin-top: 15px !important;
-}
-
 form {
   width: 100%;
   margin: 0 auto;
-
   .form-group {
     display: flex;
     margin: 15px 0;
     flex-wrap: wrap;
-
-    .textarea {
+     .textarea {
       width: 523px;
     }
-
     .image {
       width: 520px;
-      height: 500px;
+      height: 200px;
       text-align: center;
       border: 1px solid black;
       position: relative;
