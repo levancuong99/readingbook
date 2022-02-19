@@ -1,10 +1,12 @@
 <template>
 <div class="content">
   <div class="wrapper">
-      <p>Tên sách: {{itemProp.bookNameProp}}</p>
-      <p>Tác giả: {{itemProp.authorName}}</p>
-      <p>Nhận xét:{{itemProp.remark}}</p>
-      <hr>
+     <hr>
+      <p><strong>Tên sách: </strong>{{itemProp.bookNameProp}}</p>
+      <p><strong>Tác giả:</strong> {{itemProp.authorName}}</p>
+      <p><strong>Nhận xét:</strong>{{itemProp.remark}}</p>
+      <p><strong>Thời gian tạo:</strong>{{itemProp.createdAt.substring(0,10) +" " +itemProp.createdAt.substring(11,19)}}</p>
+     
   </div>
 </div>
 </template>
@@ -32,7 +34,7 @@ export default {
 .content{
   width: 1000px !important;
   .wrapper {
-
+    text-align: left;
   }
 }
 </style>

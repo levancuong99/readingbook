@@ -161,10 +161,14 @@ export default {
   data() {
     return {
       cates: [
-        { id: 1, name: "Cuộc sống" },
-        { id: 2, name: "Thể thao" },
-        { id: 3, name: "Truyện ngắn" },
+        { id: 1, name: "Tâm Lý – Kỹ Năng Sống" },
+        { id: 2, name: " Y Học – Sức Khỏe " },
+        { id: 3, name: "Văn Hoá – Nghệ Thuật" },
+        { id: 4, name: "Kinh Tế – Quản Lý" },
+        { id: 5, name: " Học Ngoại Ngữ" },
+        { id: 6, name: "Marketing – Bán Hàng" },
       ],
+  
       bookId: "",
       bookName: "",
       cateId: 1,

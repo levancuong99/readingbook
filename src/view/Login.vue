@@ -3,7 +3,7 @@
     <div class="section">
       <div class="content">
           <div class="mybook">
-          <img src="../assets/logo.png" width="50px" height="50px"/>
+          <img src="../assets/newlogo.jpg" width="50px" height="50px"/>
           <h2>My book</h2>
         </div>
         <p>

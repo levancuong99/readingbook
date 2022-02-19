@@ -33,7 +33,6 @@
 
 
          <div class="hotbook">
-            <div class="container">
               <h2>Sách được yêu thích nhiều</h2>
               <hr />
               <div class="containerbook">
@@ -45,7 +44,6 @@
                     :to="{ name: 'bookdetail', params: { id: book.bookId } }"
                     ><item1 v-bind:bookItem="book"
                   /></router-link>
-                </div>
               </div>
 
                <b-pagination

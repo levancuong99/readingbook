@@ -43,8 +43,10 @@ export default {
   width: 150px;
   height: 50px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: rgb(221, 36, 36);
+  font-weight: 700;
   border: 1px solid lightgray;
+
 }
 .wrapper{
   overflow-x: hidden;

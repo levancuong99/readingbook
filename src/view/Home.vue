@@ -10,7 +10,7 @@
       />
       <div class="content">
         <div class="hotbook">
-          <h2>Sách đọc nhiều</h2>
+          <h2 class="bookbestviewer">Sách đọc nhiều</h2>
           <hr />
           <div class="containerbook">
             <div v-for="book in bookArray.books" :key="book.bookId">
@@ -60,6 +60,35 @@
 
             </div>
           </div>
+
+
+          <div class="hotbook">
+            <div class="container">
+              <h2>Sách mới nhất</h2>
+              <hr />
+              <div class="containerbook">
+                <div
+                  v-for="book in bookArrayNewest.books"
+                  :key="book.bookId"
+                >
+                  <router-link
+                    :to="{ name: 'bookdetail', params: { id: book.bookId } }"
+                    ><item1 v-bind:bookItem="book"
+                  /></router-link>
+                </div>
+              </div>
+
+               <b-pagination
+            size="md"
+            @change="getAllBookNewest($event)"
+            v-model="bookArrayNewest.currentPage"
+            :total-rows="bookArrayNewest.allRow"
+            :per-page="bookArrayNewest.numberRowCurrentpage"
+            align="center"
+          ></b-pagination>
+
+            </div>
+          </div>
       </div>
       <Footer />
     </div>
@@ -83,6 +112,12 @@ export default {
 
   methods: {
     ...mapActions({
+      booksNews: "BOOK/getAllBookNewest",
+    }),
+      getAllBookNewest(e) {
+      this.booksNews(e);
+    },
+    ...mapActions({
       booksBestViewer: "BOOK/getAllBookBestViewer",
     }),
     getAllBookBestViewer(e) {
@@ -98,6 +133,9 @@ export default {
    
   },
   computed: {
+     ...mapGetters({
+      bookArrayNewest: "BOOK/getAllBook",
+    }),
     ...mapGetters({
       bookArray: "BOOK/getAllBook",
     }),
@@ -108,6 +146,7 @@ export default {
   mounted() {
     this.getAllBookBestViewer(1);
     this.getAllBookBestLiker(1);
+    this.getAllBookNewest(1) ;
   },
 };
 </script>

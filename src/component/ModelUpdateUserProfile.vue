@@ -6,7 +6,7 @@
     <b-modal
       id="modal-update"
       ref="UpdatePlaceModal"
-      title="Update account"
+      title="Cập nhật thông tin"
       ok-title="Save"
       cancel-variant="light"
       hide-header-close

@@ -5,7 +5,7 @@
       <div class="containerdetail">
         <div class="content"></div>
         <div class="title">
-          <h2>Thông tin sách </h2>
+          <h2 class="marginBottom"></h2>
         </div>
         <div class="center_book">
           <div class="image">
@@ -18,41 +18,44 @@
           <div class="centerright">
             <p class="title_book mg">{{ getBook.bookName }}</p>
             <hr />
-             <p class="title_other">Tác giả: {{ getBook.authorName }}</p>
-            <p class="title_other">Thể loại:{{ getBook.cateName }}</p>
+             <p class="title_other">Tác giả: <span class="authorName"> {{ getBook.authorName }}</span></p>
+            <p class="title_other">Thể loại:<span class="cateName"></span>{{ getBook.cateName }}</p>
            
             <p class="title_other">Lượt xem: {{ getBook.numberView }}</p>
             <p class="title_other">Lượt thích: {{ getBook.numberLike }}</p>
             <div class="examine mg">
-              <div class="like" :class="{active:this.isLiked}" v-on:click="handleLike">
-                <p><i class="far fa-heart"></i>{{this.likeText}}</p>
-              </div>
-              <a href="#1" ><div class="comment1">
-                <p><i class="far fa-comment"></i>Bình luận</p>
-              </div></a>
-            </div>
-            <div class="mg" v-on:click="handleRead" >
+              <div v-on:click="handleRead" >
                  <modelreadbook v-bind:content="getBook.linkBook" />
             </div>
+              <div class="like" :class="{active:this.isLiked}" v-on:click="handleLike">
+                <p><i class="far fa-heart"></i><strong>{{this.likeText}}</strong></p>
+              </div>
+              <a href="#1" ><div class="comment1">
+                <p><i class="far fa-comment"></i><strong>Bình luận</strong></p>
+              </div></a>
+              
+            </div>
+            
            
           </div>
         </div>
         <div class="des">
-        <h2>Mô tả</h2>
+    
+         <p class="icondes"><i class="fas fa-book ">Mô tả</i></p>
         <hr />
-        <p>{{ getBook.description }}</p>
+        <p class="description">{{ getBook.description }}</p>
       </div>
     
       <div class="com">
-        <h2 id="1">Bình luận</h2>
+        <p class="icondes" id="1"><i class="far fa-comment">Bình luận</i></p>
         <hr />
         <div class="group">
           <b-form-textarea
           class="textarea"
           v-model="comment"
           placeholder="Nhập bình luận..."
-          rows="3"
-          max-rows="4"
+          rows="2"
+          max-rows="3"
         ></b-form-textarea>
 
          <b-button class="button"  v-on:click="handleComment" variant="primary">Gửi</b-button>
@@ -60,6 +63,17 @@
         <div class="listcmt" v-for="comment in commentArray.comments" :key="comment.id">
             <itemcmt v-bind:commentItem="comment"/>
         </div>
+
+         <b-pagination
+         class="paging"
+        size="md"
+        @change="getAllComment($event)"
+        v-model="commentArray.currentPage"
+        :total-rows="commentArray.allRow"
+        :per-page="commentArray.numberRowCurrentpage"
+      
+        align="center"
+      ></b-pagination>
       </div>
       </div>
       <Footer />
@@ -152,10 +166,10 @@ export default {
      ...mapActions({
       comments: "COMMENT/getAllComment",
     }),
-    getAllComment() {
+    getAllComment(e) {
       let params={
         bookId:this.id,
-        pageNumber:1
+        pageNumber:e
       }
       this.comments(params);
     },
@@ -189,14 +203,11 @@ export default {
         let token=localStorage.getItem('token');
       if(token!=null) {
       let param={
-        commentId:null,
         userId: localStorage.getItem('userId'),
         bookId:this.id,
         content:this.comment
       }
       this.create(param);
-      console.log(param.userId);
-      console.log("vo cmt");
       this.comment="";
       this.getAllComment();
       this.$router.go(0)
@@ -209,7 +220,7 @@ export default {
   mounted() {
     this.getIsLikedByUser();
     this.getBookById();
-    this.getAllComment();
+    this.getAllComment(1);
   },
 };
 </script>
@@ -221,6 +232,9 @@ export default {
       width: 1000px !important;
       margin: 0 auto;
       .title {
+        .marginBottom{
+          padding-top:30px ;
+        }
         margin: 30px 0 30px 0;
         h2 {
           text-align: left;
@@ -246,9 +260,17 @@ export default {
             font-size: 20px;
             font-weight: 500;
             margin: 10px 10px 10px 0;
+            .authorName{
+              color:rgb(41, 130, 172);
+              font-weight: 700;
+              
+              
+            }
+          
+            
           }
           .mg {
-            margin: 20px 0 0 0px;
+            margin: 40px 0 0 0px;
           }
           .authorProfile {
             width: 95%;
@@ -267,6 +289,7 @@ export default {
               }
             }
             .like {
+              margin-left: 30px;
               width: 150px;
               height: 50px;
               border: 1px solid lightgray;
@@ -284,7 +307,7 @@ export default {
             }
             .comment1 {
 
-              margin-left: 50px;
+              margin-left: 30px;
               width: 150px;
               height: 50px ;
               border: 1px solid lightgray;
@@ -303,18 +326,31 @@ export default {
           }
         }
       }
+       .icondes{
+            text-align: left !important;
+            color:rgb(52, 40, 161);
+            font-size: 35px;
+            font-weight: 600;
+          }
       .des{
           margin-top:100px;
+         
+          .description{
+            text-align: left;
+            font-size: 16px;
+            line-height: 20px;
+          }
           h2{
               font-size: 35px;
               font-weight: 500;
           }
       }
       .com{
-          
           margin-top:100px;
          padding-bottom: 100px;
-
+         .paging{
+           margin-top:50px ;
+         }
           h2{
               font-size: 35px;
               font-weight: 500;

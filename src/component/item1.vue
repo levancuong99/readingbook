@@ -37,24 +37,7 @@ export default {
     this.token = localStorage.getItem('token');
   },
     methods:{
-  //  goToHome(){
-  //    if(!this.token) {
-  //        this.$router.push("/login")
-  //    }else {
-
-    //  let temp=this.bookItem.bookId;
-    //  this.$router.push( {name: 'bookdetail', params: { id: temp}}).catch(err => {
-    // if (
-    //   err.name !== 'NavigationDuplicated' &&
-    //   !err.message.includes('Avoided redundant navigation to current location')
-    // ) {
-    //   // But print any other errors to the console
-    //   // logError(err);
-  //   }
-  // });
-
-  //     }
-  //  }
+ 
   }
   
 }
@@ -64,7 +47,7 @@ export default {
   margin: 20px !important;
   width: 260px !important;
   height: 400px !important;
-  border: 1px solid lightgray;
+  // border: 1px solid lightgray;
   .wrapper {
     padding:10px ;
     .image{

@@ -2,7 +2,7 @@
 <div class="content">
   <div class="wrapper">
   <div class="image">
-      <img src="../assets/logo.png" width="60px" height="60px"/>
+      <img :src=commentItem.imgAvt width="60px" height="60px"/>
   </div>
      <b-form-textarea
           class="textarea"
@@ -18,6 +18,7 @@
 </div>
 </template>
 <script>
+
 export default {
     name:"itemcmt",
      data() {
@@ -26,7 +27,6 @@ export default {
     
     };
   },
-
    props: {
     commentItem: {
       type:  Object,
@@ -34,8 +34,10 @@ export default {
       default: () => {},
     },
    },
-    methods:{
-  }
+  
+  
+    mounted() {
+  },
 }
 </script>
 <style lang="scss" scoped>

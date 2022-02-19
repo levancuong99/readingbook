@@ -2,8 +2,9 @@
     <div class="containers">
         <div class="wrapper">
             <div class="logo">
-                <img src="../assets/logo.png" width="20px" height="20px"/>
-                <p>My book</p>
+                <img src="../assets/newlogo.jpg" width="40px" height="40px"/>
+                 <p v-if= "!token"><router-link to = "/">my book</router-link></p>
+                  <p v-else><router-link to = "/homeuser">my book</router-link></p>
             </div>
             <div class="content">
                 <nav class="menu">
@@ -65,10 +66,6 @@ export default {
     this.token = localStorage.getItem('token');
   },
     methods: {
-    // getUser() {
-    //   this.fullName = this.account.fullName;
-    //   this.avt = this.account.img_avt;
-    // },
     ...mapActions({
       logout: "AUTH/logout",
     }),
@@ -81,7 +78,6 @@ export default {
   },
     mounted() {
     this.infoUser(JSON.parse(localStorage.getItem("userId")))
-    console.log(this.account);
   },
 }
 </script>
@@ -105,7 +101,9 @@ export default {
                 margin:0 !important;
                 padding:0 10px;
                 line-height: 50px;
-                color:greenyellow;
+                color:rgb(34, 197, 238);
+                font-size: 20px;
+                font-weight: 700;
             }
         }
         .content {
@@ -115,16 +113,18 @@ export default {
            
             .menu {
                 ul {
-                    li{
+                    li{  
+                      
                         float: left;
                         margin-left: 20px !important;
-                        a {
-                            color:#ffd;
+                        a { 
+                            font-size: 20px;
+                            color:rgb(248, 248, 233);
                             text-decoration: none;
                             font-weight: 700;
                         }
                         a:hover {
-                            color: #fff;
+                            color: rgb(224, 24, 24);
                         }
                     }
                 }

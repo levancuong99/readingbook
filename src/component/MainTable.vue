@@ -146,6 +146,14 @@ export default {
   th,
   td {
     width: 260px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    }
   }
   tr {
     height: 55px !important;

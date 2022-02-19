@@ -97,6 +97,14 @@
           </div>
 
       </div>
+       <b-pagination
+        size="md"
+        @change="getAllProp1($event)"
+        v-model="propsArray.currentPage"
+        :total-rows="propsArray.allRow"
+        :per-page="propsArray.numberRowCurrentpage"
+        align="center"
+      ></b-pagination>
     </div>
     <Footer />
   </div>
@@ -141,8 +149,11 @@ export default {
   methods: {
 
     ...mapActions({
-      getAllProp: "PROP/getAllProp",
+      getAllProp: "PROP/getAllPropPaging",
     }),
+    getAllProp1(e) {
+        this.getAllProp(e);
+    },
   ...mapActions({
       infoUser: "AUTH/getInforUserById",
     }),
@@ -190,9 +201,6 @@ export default {
         }
         this.updateAvatar(param);
         });
-     
-      
-
     },
   },
   computed: {
@@ -226,7 +234,7 @@ export default {
     this.getAllBookViewed(1);
     this.getAllBookLiked(1);
     this.infoUser(JSON.parse(localStorage.getItem("userId")))
-
+    this.getAllProp1(1);
 
   },
 };

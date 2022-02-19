@@ -244,6 +244,11 @@ const actions = {
       commit("setIsLiked", res.data);
     }).catch(() => { });
   },
+  getAllBookNewest({ commit },param1) {
+    http.get(`/books/newest/paging/${param1}`).then((result) => {
+      commit("setBooks", result.data);
+    }).catch(() => { });
+  },
 
 };
 export default {
