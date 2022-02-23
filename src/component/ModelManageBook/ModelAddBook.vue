@@ -5,7 +5,7 @@
       class="model modal-content wh"
       id="modal-prevent"
       ref="modal"
-      title="Create book"
+      title="Thêm sách mới"
       cancel-variant="light"
       ok-title="Save"
       @hidden="resetModal"
@@ -64,7 +64,7 @@
           <b-form-textarea
             class="textarea"
             v-model="description"
-            placeholder="Enter something..."
+            placeholder="Nhập mô tả sách"
             rows="3"
             max-rows="6"
             :class="{
@@ -100,7 +100,7 @@
           <b-form-textarea
             class="textarea"
             v-model="authorProfile"
-            placeholder="Enter something..."
+            placeholder="Nhập thông tin tác giả"
             rows="3"
             max-rows="6"
             :class="{

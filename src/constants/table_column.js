@@ -84,10 +84,6 @@ export const COLUMNS = {
         key: "content",
         label: "Nội dung",
       },
-      // {
-      //   key: "imgPost",
-      //   label: "Hình ảnh",
-      // },
       {
         key: "createdAt",
         label: "Thời gian tạo",

@@ -42,7 +42,7 @@
             v-model="content"
             placeholder="Nội dung thông báo..."
             rows="3"
-            max-rows="6"
+            max-rows="5"
             :class="{
               'is-invalid': $v.content.$error,
               'is-valid': !$v.content.$invalid,

@@ -5,8 +5,6 @@ const state = {
 };
 const getters = {
   getAllCate() {
-    console.log("aaa:");
-    console.log(state.cates);
     return state.cates;
   },
 };

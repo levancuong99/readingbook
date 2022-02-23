@@ -3,8 +3,8 @@
     <div class="section">
       <div class="content">
         <div class="mybook">
-          <img src="../assets/logo.png" width="50px" height="50px"/>
-          <h2>My book</h2>
+          <img src="../assets/newlogo.jpg" width="50px" height="50px" style="border-radius:50%"/>
+          <h2>MY_BOOK</h2>
         </div>
         <p>
           Việc đọc sách rất quan trọng. Nếu bạn biết cách đọc, cả thế giới sẽ mở
@@ -144,7 +144,7 @@
         </div>
 
          <div redirectLogin>
-         <p>Bạn đã có tài khoản ? <router-link to = "/" class="linkToLogin">Đăng nhập tại đây </router-link></p> 
+         <p>Bạn đã có tài khoản ? <router-link to = "/login" class="linkToLogin">Đăng nhập tại đây </router-link></p> 
         </div>
 
       </div>

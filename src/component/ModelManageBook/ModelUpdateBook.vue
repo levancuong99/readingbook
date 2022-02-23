@@ -10,7 +10,7 @@
     <b-modal
       id="modal-update"
       ref="UpdatePlaceModal"
-      title="Update account"
+      title="Chỉnh sửa thông tin sách"
       ok-title="Save"
       cancel-variant="light"
       hide-header-close
@@ -68,7 +68,7 @@
           <b-form-textarea
             class="textarea"
             v-model="description"
-            placeholder="Enter something..."
+            placeholder="Nhập mô tả sách"
             rows="3"
             max-rows="6"
             :class="{
@@ -104,7 +104,7 @@
           <b-form-textarea
             class="textarea"
             v-model="authorProfile"
-            placeholder="Enter something..."
+            placeholder="Nhập thông tin tác giả"
             rows="3"
             max-rows="6"
             :class="{

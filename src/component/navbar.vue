@@ -2,9 +2,9 @@
     <div class="containers">
         <div class="wrapper">
             <div class="logo">
-                <img src="../assets/newlogo.jpg" width="40px" height="40px"/>
-                 <p v-if= "!token"><router-link to = "/">my book</router-link></p>
-                  <p v-else><router-link to = "/homeuser">my book</router-link></p>
+                <img src="../assets/newlogo.jpg" width="40px" height="40px" style="border-radius:50%"/>
+                 <p v-if= "!token"><router-link to = "/">MY_BOOK</router-link></p>
+                  <p v-else><router-link to = "/homeuser">MY_BOOK</router-link></p>
             </div>
             <div class="content">
                 <nav class="menu">
@@ -34,9 +34,11 @@
                         <b-dropdown-item>
                         <router-link to="/profile" class="text">Trang cá nhân</router-link>
                         </b-dropdown-item>
-                         <b-dropdown-item>
-                        <router-link to="/profile" class="text">Đề xuất sách</router-link>
-                        </b-dropdown-item>
+                         <!-- <b-dropdown-item> -->
+                           <!-- <p>    <model-update-user-profile  /> </p> -->
+                        
+                        <!-- <router-link to="/profile" class="text">Đề xuất sách</router-link> -->
+                        <!-- </b-dropdown-item> -->
                         <b-dropdown-item v-on:click="handleLogout">Đăng xuất</b-dropdown-item>
                     </b-dropdown>
                     </div>
@@ -49,6 +51,8 @@
 
 <script>
 import { mapActions,mapGetters } from "vuex";
+// import ModelUpdateUserProfile from "./ModelUpdateUserProfile.vue";
+
 export default {
     name:"navbar",
     data(){
@@ -56,6 +60,9 @@ export default {
             token:'',
             avt:""
         }
+    },
+    components:{
+      // ModelUpdateUserProfile
     },
      computed: {
     ...mapGetters({
@@ -97,6 +104,7 @@ export default {
         .logo {
             display: flex;
             align-items: center;
+            
             p{
                 margin:0 !important;
                 padding:0 10px;
@@ -104,6 +112,12 @@ export default {
                 color:rgb(34, 197, 238);
                 font-size: 20px;
                 font-weight: 700;
+                a{
+                  text-decoration: none;
+                }
+                 a:hover{
+                  color: red;
+                }
             }
         }
         .content {

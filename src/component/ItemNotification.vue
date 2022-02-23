@@ -37,9 +37,9 @@ export default {
   },
   props: {
     postItem: {
-      type: Array,
+      type: Object,
       require: true,
-      default: () => [],
+      default: () => {},
     },
   },
 };

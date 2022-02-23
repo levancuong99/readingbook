@@ -17,7 +17,7 @@
         </div>
 
          <div class="row date"> 
-          <p>Đăng bởi admin: Ngày đăng {{post.createdAt.substring(0,10) +" " +post.createdAt.substring(11,19) }}</p>
+          <p>Đăng bởi admin: Ngày đăng {{ post.createdAt}}</p>
         </div>
        
 
@@ -68,6 +68,7 @@ export default {
     
   mounted() {
     this.getPost(this.id);
+    // this.createdAt=(this.post.createdAt).substr(0,10) +" " +(this.post.createdAt).substr(11,19);
   },
 };
 </script>

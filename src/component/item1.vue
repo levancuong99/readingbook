@@ -12,8 +12,8 @@
   </div>
 
   <div class="icon">
-    <i  class="fas fa-eye icon1">{{bookItem.numberView}}</i>
-    <i  class="fas fa-heart icon2">{{bookItem.numberLike}}</i>
+    <i  class="fas fa-eye icon1"><span>{{bookItem.numberView}}</span></i>
+    <i  class="fas fa-heart icon2"><span>{{bookItem.numberLike}}</span></i>
   </div>
 
    </div>
@@ -67,12 +67,13 @@ export default {
       color: gray;
     }
     .icon {
+      span{margin: 0 5px;}
         .icon1 {
-          padding:5px;
+          padding:10px;
           color: green;
         }
         .icon2 {
-          padding: 5px;
+          padding: 10px;
           color: red;
         }
     }

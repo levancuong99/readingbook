@@ -32,45 +32,60 @@ const router = new Router({
       component: Profile,
     },
     { path: "/homeadmin", component: HomeAdmin,
+    meta: {
+      requiresAuth: true,
+    },
     children: [
+      
       {
         name: "manageaccount",
         path: "/manageaccount",
         component: ManageAccount,
+        meta: {
+          not_system_user: true,
+        },
       },
       {
         name: "managerepobook",
         path: "/managerepobook",
         component: ManageRepoBook,
+        meta: {
+          not_system_user: true,
+        },
       },
       {
         name: "manageproposebook",
         path: "/manageproposebook",
         component: ManageProposeBook,
+        meta: {
+          not_system_user: true,
+        },
       },
       {
         name: "managepost",
         path: "/managepost",
         component: ManagePost,
+        meta: {
+          not_system_user: true,
+        },
       },
     ], },
   ],
 });
 
 // router.beforeEach((to, from, next) => {
-//   // let userInfo = JSON.parse(localStorage.getItem('user'))
 //   if (to.matched.some((record) => record.meta.requiresAuth)) {
 //     if (!localStorage.getItem('token')) {
 //       next('/')
 //     }
-//     //  else {
-//     //   if (to.matched.some((record) => record.meta.not_system_user)) {
-//     //     if (userInfo.role_id != 1 && to.matched.some((record) => record.name == 'accountmanagement')) {
-//     //       next('/404')
-//     //     }
-//     //   }
-//     //   next()
-//     // }
+//      else {
+//       if (to.matched.some((record) => record.meta.not_system_user)) {
+//         // if (localStorage.getItem("roleId") != 1 && to.matched.some((record) => record.name == 'accountmanagement')) {
+//         //   next('/404')
+//         // }
+//       }
+//       next()
+//     }
 //     next();
 //   } else {
 //     if(!localStorage.getItem('token')) {

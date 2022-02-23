@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div>
   
   <b-button  variant="light"  @click="showUpdatePlaceModel()">Cập nhật thông tin</b-button>
 

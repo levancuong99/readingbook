@@ -10,8 +10,7 @@
       />
       <div class="content">
         <div class="hotbook">
-          <h2 class="bookbestviewer">Sách đọc nhiều</h2>
-          <hr />
+          <h2 class="bookbestviewer">Sách đọc nhiều >></h2>
           <div class="containerbook">
             <div v-for="book in bookArray.books" :key="book.bookId">
               <router-link
@@ -32,11 +31,9 @@
 
          
         </div>
-
+          <hr>
          <div class="hotbook">
-            <div class="container">
-              <h2>Sách được yêu thích nhiều</h2>
-              <hr />
+              <h2>Sách được yêu thích nhiều>></h2>
               <div class="containerbook">
                 <div
                   v-for="book in bookArrayBestLiker.books"
@@ -48,7 +45,6 @@
                   /></router-link>
                 </div>
               </div>
-
                <b-pagination
             size="md"
             @change="getAllBookBestLiker($event)"
@@ -57,15 +53,11 @@
             :per-page="bookArrayBestLiker.numberRowCurrentpage"
             align="center"
           ></b-pagination>
-
-            </div>
           </div>
 
-
+           <hr>
           <div class="hotbook">
-            <div class="container">
-              <h2>Sách mới nhất</h2>
-              <hr />
+              <h2>Sách mới nhất>></h2>
               <div class="containerbook">
                 <div
                   v-for="book in bookArrayNewest.books"
@@ -92,7 +84,6 @@
       </div>
       <Footer />
     </div>
-  </div>
 </template>
 
 <script>
@@ -134,7 +125,7 @@ export default {
   },
   computed: {
      ...mapGetters({
-      bookArrayNewest: "BOOK/getAllBook",
+      bookArrayNewest: "BOOK/getAllBookNewest",
     }),
     ...mapGetters({
       bookArray: "BOOK/getAllBook",
@@ -165,10 +156,11 @@ export default {
         font-size: 30px;
         font-weight: 700;
         text-align: left;
+        padding-top:20px;
+        padding-left:20px;
+        font-family:  serif;
       }
-      hr {
-        background-color: blue;
-      }
+    
       .containerbook {
         display: flex;
         flex-wrap: wrap;

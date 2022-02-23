@@ -11,6 +11,7 @@
         :per-page="perPage"
         :current-page="currentPage"
         :filter="infoSearch"
+        :sort-by="fullName"
         ref="mainTable">
           <template v-slot:cell(fullName)="data">
            <span>

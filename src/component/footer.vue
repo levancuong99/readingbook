@@ -9,9 +9,11 @@
 
 <script>
 export default {
-    name:"footer",
+    name:"footers",
     data(){
-       return {}  
+       return {
+           a:1
+       }  
     },
  
 }

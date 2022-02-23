@@ -56,9 +56,10 @@ const actions = {
   createProp({ dispatch }, params) {
     http.post(`/props/create`, params).then(() => {
       dispatch("getAllPost");
+      alert("Tạo đề xuất thành công");
     })
       .catch((err) => {
-        alert("Create post fail !");
+        alert("Tạo đề xuất thất bại");
         console.log(err);
       });
   },

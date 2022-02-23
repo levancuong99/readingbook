@@ -32,7 +32,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content{
-  width: 1000px !important;
+  width: 1200px !important;
   .wrapper {
     text-align: left;
   }

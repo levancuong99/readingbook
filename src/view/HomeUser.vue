@@ -9,9 +9,8 @@
         height="300"
       />
       <div class="content">
-        <div class="hotbook">
-            <h2>Sách đọc nhiều</h2>
-            <hr />
+        <div class="hotbook bg1">
+            <h2>Sách phổ biến >></h2>
           <div class="containerbook">
               <div v-for="book in bookArray.books"  :key="book.bookId">
                 <router-link :to="{name:'bookdetail',params:{id:book.bookId}}"><item1 v-bind:bookItem="book" /></router-link>
@@ -32,9 +31,8 @@
         </div>
 
 
-         <div class="hotbook">
-              <h2>Sách được yêu thích nhiều</h2>
-              <hr />
+         <div class="hotbook bg2">
+              <h2>Sách được yêu thích nhiều >></h2>
               <div class="containerbook">
                 <div
                   v-for="book in bookArrayBestLiker.books"
@@ -46,6 +44,9 @@
                   /></router-link>
               </div>
 
+            
+
+            </div>
                <b-pagination
             size="md"
             @change="getAllBookBestLiker($event)"
@@ -54,9 +55,32 @@
             :per-page="bookArrayBestLiker.numberRowCurrentpage"
             align="center"
           ></b-pagination>
+          </div>
+            
+           <div class="hotbook">
+              <h2>Sách mới nhất >></h2>
+              <div class="containerbook">
+                <div
+                  v-for="book in bookArrayNewest.books"
+                  :key="book.bookId"
+                >
+                  <router-link
+                    :to="{ name: 'bookdetail', params: { id: book.bookId } }"
+                    ><item1 v-bind:bookItem="book"
+                  /></router-link>
+                </div>
+              </div>
+
+               <b-pagination
+            size="md"
+            @change="getAllBookNewest($event)"
+            v-model="bookArrayNewest.currentPage"
+            :total-rows="bookArrayNewest.allRow"
+            :per-page="bookArrayNewest.numberRowCurrentpage"
+            align="center"
+          ></b-pagination>
 
             </div>
-          </div>
 
       </div>
       <Footer />
@@ -78,6 +102,12 @@ export default {
   },
   components: { navbar,item1,Footer },
   methods: {
+     ...mapActions({
+      booksNews: "BOOK/getAllBookNewest",
+    }),
+      getAllBookNewest(e) {
+      this.booksNews(e);
+    },
     ...mapActions({
       booksBestViewer: "BOOK/getAllBookBestViewer",
     }),
@@ -93,6 +123,9 @@ export default {
   
   },
   computed: {
+      ...mapGetters({
+      bookArrayNewest: "BOOK/getAllBookNewest",
+    }),
     ...mapGetters({
       bookArray: "BOOK/getAllBook",
     }),
@@ -103,6 +136,7 @@ export default {
   mounted() {
     this.getAllBookBestViewer(1);
     this.getAllBookBestLiker(1);
+     this.getAllBookNewest(1) ;
   },
 };
 </script>
@@ -115,12 +149,25 @@ export default {
   .content {
     width: 1200px;
     margin: 0 auto;
+    // .bg1{
+    //   background: rgb(238, 238, 215);
+    // }
+    // .bg2{
+    //   background: rgb(176, 238, 235);
+    // }
     .hotbook {
-      margin-top: 50px;
+      .pagination{
+        margin-bottom: 0 !important;
+        padding-bottom: 20px;
+      } 
       h2 {
         font-size: 30px;
         font-weight: 700;
         text-align: left;
+        padding-top:20px;
+        padding-left:20px;
+        font-family:  serif;
+       
       }
       hr {
         background-color: blue;

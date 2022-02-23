@@ -4,14 +4,14 @@
       <navbar />
       <img
         src="../assets/imagesbook.jpg"
-        alt="no n0"
+        alt="no no"
         width="100%"
         height="300"
       />
       <div class="content">
         <div class="info">
           <div class="avt">
-            <img :src=account.img_avt width="200px" height="200px" />
+            <img :src="account.img_avt" width="200px" height="200px" />
             <div class="position_cam" v-on:click="handleClickInputFile">
               <i class="fa fa-camera"></i>
             </div>
@@ -25,34 +25,33 @@
           />
           <div class="name">
             <p class="title">Tên người dùng</p>
-            <p>{{account.fullName}}</p>
+            <p>{{ account.fullName }}</p>
             <div class="updateInfo">
-               <model-update-user-profile  />
+              <model-update-user-profile />
             </div>
-           
           </div>
           <div class="email">
             <p class="title">Email</p>
-            <p>{{account.email}}</p>
-             <div class="updateInfo">
-               <model-add-prop  />
+            <p>{{ account.email }}</p>
+            <div class="updateInfo">
+              <model-add-prop />
             </div>
           </div>
           <div class="dateofbirth">
             <p class="title">Địa chỉ</p>
-            <p>{{account.address}}</p>
+            <p>{{ account.address }}</p>
           </div>
         </div>
       </div>
 
-      <div class="container_book">
-        <h2>Sách đã đọc</h2>
-        <hr>
+      <div class="container_book mg">
+        <h2>Sách đã đọc >></h2>
         <div class="containerbook">
           <div v-for="book in bookArray.books" :key="book.id">
-             <router-link
-                    :to="{ name: 'bookdetail', params: { id: book.bookId } }"
-                    ><item1 v-bind:bookItem="book" /></router-link>
+            <router-link
+              :to="{ name: 'bookdetail', params: { id: book.bookId } }"
+              ><item1 v-bind:bookItem="book"
+            /></router-link>
           </div>
         </div>
       </div>
@@ -60,44 +59,43 @@
       <b-pagination
         size="md"
         @change="getAllBookViewed($event)"
-        v-model="currentPageV"
-        :total-rows="totalV"
-        :per-page="perPageV"
+        v-model="bookArray.currentPage"
+        :total-rows="bookArray.allRow"
+        :per-page="bookArray.numberRowCurrentpage"
         align="center"
       ></b-pagination>
-
-     
+       <hr />
       <div class="container_book">
-        <h2>Sách đã thích</h2>
-         <hr>
+        <h2>Sách đã thích >></h2>
+       
         <div class="containerbook">
           <div v-for="book in bookArraysLike.books" :key="book.bookId">
-             <router-link
-                    :to="{ name: 'bookdetail', params: { id: book.bookId } }"
-                    ><item1 v-bind:bookItem="book" /></router-link>
+            <router-link
+              :to="{ name: 'bookdetail', params: { id: book.bookId } }"
+              ><item1 v-bind:bookItem="book"
+            /></router-link>
             <div class="style"></div>
           </div>
         </div>
       </div>
 
-       <b-pagination
+      <b-pagination
         size="md"
         @change="getAllBookLiked($event)"
-        v-model="currentPageL"
-        :total-rows="totalL"
-        :per-page="perPageL"
+        v-model="bookArraysLike.currentPage"
+        :total-rows="bookArraysLike.allRow"
+        :per-page="bookArraysLike.numberRowCurrentpage"
         align="center"
       ></b-pagination>
-
+         <hr />
       <div class="container_book">
-          <h2>Sách đã đề xuất</h2>
+        <h2>Sách đã đề xuất >></h2>
 
-           <div v-for="prop in propsArray.proposals" :key="prop.propId">
-                    <itemprop v-bind:itemProp="prop" />
-          </div>
-
+        <div v-for="prop in propsArray.proposals" :key="prop.propId">
+          <itemprop v-bind:itemProp="prop" />
+        </div>
       </div>
-       <b-pagination
+      <b-pagination
         size="md"
         @change="getAllProp1($event)"
         v-model="propsArray.currentPage"
@@ -143,41 +141,29 @@ export default {
     Footer,
     ModelUpdateUserProfile,
     ModelAddProp,
-    itemprop
+    itemprop,
   },
- 
-  methods: {
 
+  methods: {
     ...mapActions({
       getAllProp: "PROP/getAllPropPaging",
+      infoUser: "AUTH/getInforUserById",
+      books: "BOOK/getAllBookViewed",
+      updateAvatar: "AUTH/updateAvt",
+      bookliked: "BOOK/getAllBookLiked",
     }),
     getAllProp1(e) {
-        this.getAllProp(e);
+      this.getAllProp(e);
     },
-  ...mapActions({
-      infoUser: "AUTH/getInforUserById",
-    }),
-  
-  
-    
-    ...mapActions({
-      books: "BOOK/getAllBookViewed",
-    }),
+
     getAllBookViewed(e) {
       let params = {
         userId: localStorage.getItem("userId"),
         pageNumber: e,
       };
       this.books(params);
-   
-
     },
-     ...mapActions({
-      updateAvatar: "AUTH/updateAvt",
-    }),
-    ...mapActions({
-      bookliked: "BOOK/getAllBookLiked",
-    }),
+
     getAllBookLiked(e) {
       let params = {
         userId: localStorage.getItem("userId"),
@@ -192,56 +178,40 @@ export default {
       let form = new FormData();
       form.append("file", e.target.files[0]);
       form.append("upload_preset", "qjxf98ek");
-      axios.post("https://api.Cloudinary.com/v1_1/dja5fb2gg/image/upload", form)
+      axios
+        .post("https://api.Cloudinary.com/v1_1/dja5fb2gg/image/upload", form)
         .then((res) => {
           this.account.img_avt = res.data.url;
-          console.log("avtbe",this.account.img_avt);
+          console.log("avtbe", this.account.img_avt);
           let param = {
-          avt: this.account.img_avt
-        }
-        this.updateAvatar(param);
+            avt: this.account.img_avt,
+          };
+          this.updateAvatar(param);
         });
     },
   },
   computed: {
-       ...mapGetters({
+    ...mapGetters({
       propsArray: "PROP/getAllProp",
-    }),
-     ...mapGetters({
       account: "AUTH/getUserInfor",
-    }),
-    ...mapGetters({
       bookArray: "BOOK/getAllBookViewed",
-    }),
-    ...mapGetters({
       bookArraysLike: "BOOK/getAllBookLiked",
-    }),
- 
-      ...mapGetters({
-      currentPageV: "BOOK/getCurrentPageV",
-      totalV: "BOOK/getTotalV",
-      perPageV: "BOOK/getPerPageV",
-
-    }),
-       ...mapGetters({
-      currentPageL: "BOOK/getCurrentPageL",
-      totalL: "BOOK/getTotalL",
-      perPageL: "BOOK/getPerPageL",
-
     }),
   },
   mounted() {
     this.getAllBookViewed(1);
     this.getAllBookLiked(1);
-    this.infoUser(JSON.parse(localStorage.getItem("userId")))
+    this.infoUser(JSON.parse(localStorage.getItem("userId")));
     this.getAllProp1(1);
-
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .containers {
+  hr {
+    width: 89%;
+  };
   .content {
     .info {
       width: 1000px;
@@ -279,8 +249,8 @@ export default {
       .title {
         color: gray;
       }
-      .updateInfo{
-        margin-top:50px;
+      .updateInfo {
+        margin-top: 50px;
       }
       .name {
         width: 230px;
@@ -301,18 +271,22 @@ export default {
       }
     }
   }
-  .container_book {
+  .mg {
     padding-top: 150px;
-    width: 1000px;
+  }
+  .container_book {
+    width: 1200px;
     margin: 0 auto;
-    h2{
+    h2 {
+      font-size: 30px;
+      font-weight: 700;
       text-align: left;
-      margin-left: 15px;
+      padding-top: 20px;
+      font-family: serif;
     }
     .containerbook {
       display: flex;
       flex-wrap: wrap;
-      // justify-content: space-between;
       .style {
         margin-left: 20px;
       }

@@ -3,8 +3,8 @@
     <div class="section">
       <div class="content">
           <div class="mybook">
-          <img src="../assets/newlogo.jpg" width="50px" height="50px"/>
-          <h2>My book</h2>
+          <img src="../assets/newlogo.jpg" width="50px" height="50px" style="border-radius:50%"/>
+          <h2>MY_BOOK</h2>
         </div>
         <p>
          Đọc sách hay cũng giống như trò chuyện với các bộ óc tuyệt vời nhất của những thế kỷ đã trôi qua

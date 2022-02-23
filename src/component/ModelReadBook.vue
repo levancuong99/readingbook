@@ -2,10 +2,12 @@
  <div class="wrapper">
   <b-button id="show-btn" variant="light" @click="$bvModal.show('bv-modal-example')">Đọc sách</b-button>
 
-  <b-modal id="bv-modal-example" hide-footer>
+  <b-modal id="bv-modal-example" hide-footer hide-header-close>
     <template #modal-title>
+       <button type="button" aria-label="Close" class="close" v-on:click="handleClose">×</button>
       Nội dung sách
     </template>
+   
     <div class="d-block text-center" >
       <iframe :src=content width="100%" height="610" allow="autoplay"></iframe>
     </div>
@@ -23,7 +25,11 @@ export default {
   },
  
   methods: {
-    
+    handleClose() {
+       this.$router.go(0);
+       this.$bvModal.hide("bv-modal-example") 
+      
+    }
   },
    props: ["content"],
   mounted() {
@@ -43,16 +49,15 @@ export default {
   width: 150px;
   height: 50px;
   border-radius: 10px;
-  background-color: rgb(221, 36, 36);
+  background-color: rgb(218, 93, 93);
   font-weight: 700;
   border: 1px solid lightgray;
 
 }
+.close{
+  background: blue;
+}
 .wrapper{
   overflow-x: hidden;
-  // overflow: hidden;
-
-
-
 }
 </style>
