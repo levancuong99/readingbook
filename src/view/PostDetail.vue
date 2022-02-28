@@ -17,7 +17,7 @@
         </div>
 
          <div class="row date"> 
-          <p>Đăng bởi admin: Ngày đăng {{ post.createdAt}}</p>
+          <p>Đăng bởi admin: Ngày đăng {{ (post.createdAt).substring(0,10)}}</p>
         </div>
        
 

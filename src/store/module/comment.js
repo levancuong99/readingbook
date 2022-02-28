@@ -25,6 +25,11 @@ const actions = {
       dispatch("getAllComment");
     }).catch(() => { });
   },
+  deleteCommentById({ dispatch },param) {
+    http.delete(`/comments/${param}`).then(() => {
+      dispatch("getAllComment");
+    }).catch(() => { });
+  },
 };
 export default {
   namespaced: true,

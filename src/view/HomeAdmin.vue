@@ -3,7 +3,7 @@
         <div class="wrapper">
             <div class="section">
                 <div class="logo">
-                    <img src="../assets/logo.png"  width="40px" height="40px"/>
+                    <img src="../assets/newlogo.jpg"  width="40px" height="40px"/>
                     <h2>My book</h2>
                 </div>
                 <hr>

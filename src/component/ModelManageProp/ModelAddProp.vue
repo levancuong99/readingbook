@@ -125,6 +125,7 @@ export default {
         (this.bookNameProp = ""),
           (this.authorName = ""),
           (this.remark = ""),
+          this.$router.go(0);
         this.$bvModal.hide("modal-prevent");
     },
   },
@@ -143,7 +144,7 @@ export default {
 
 ::v-deep .modal-content {
   width: 800px;
-  height: 520px;
+  height: 470px;
   right: 140px;
   overflow: auto;
 }

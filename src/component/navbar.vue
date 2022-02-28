@@ -51,7 +51,6 @@
 
 <script>
 import { mapActions,mapGetters } from "vuex";
-// import ModelUpdateUserProfile from "./ModelUpdateUserProfile.vue";
 
 export default {
     name:"navbar",
