@@ -8,7 +8,11 @@
         width="100%"
         height="300"
       />
+      <div class="direction">
+          <router-link to="/">Trang chủ </router-link>
+      </div>
       <div class="content">
+   
         <div class="hotbook">
           <h2 class="bookbestviewer">Sách đọc nhiều >></h2>
           <div class="containerbook">
@@ -145,6 +149,23 @@ export default {
 .containers {
   .condition {
     margin-top: 50px !important;
+  }
+
+  .direction {
+     width: 1200px;
+     margin: 0 auto;
+     text-align: left;
+     padding-left: 15px;
+     margin-top: 50px;
+     a{
+       font-size: 18px;
+       font-weight: 600;
+       text-decoration: none;
+       color: #000 !important;
+     }
+     a:hover {
+       color: rgb(33, 45, 214) !important;
+     }
   }
 
   .content {

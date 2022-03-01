@@ -8,6 +8,11 @@
         width="100%"
         height="300"
       />
+
+       <div class="direction">
+          <router-link to="/homeuser">Trang chủ </router-link>
+      </div>
+
       <div class="content">
         <div class="hotbook bg1">
             <h2>Sách phổ biến >></h2>
@@ -146,6 +151,22 @@ export default {
     margin-top:50px !important;
   }
 
+  .direction {
+     width: 1200px;
+     margin: 0 auto;
+     text-align: left;
+     padding-left: 15px;
+     margin-top: 50px;
+     a{
+       font-size: 18px;
+       font-weight: 600;
+       text-decoration: none;
+       color: #000 !important;
+     }
+     a:hover {
+       color: rgb(33, 45, 214) !important;
+     }
+  }
   .content {
     width: 1200px;
     margin: 0 auto;

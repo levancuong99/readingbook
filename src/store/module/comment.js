@@ -8,10 +8,16 @@ const getters = {
   getAllComment() {
     return state.comments;
   },
+  getComment() {
+    return state.comment;
+  },
 };
 const mutations = {
   setAllComment(state, data) {
     state.comments = data;
+  },
+  setComment(state, data) {
+    state.comment = data;
   },
 };
 const actions = {
@@ -28,6 +34,13 @@ const actions = {
   deleteCommentById({ dispatch },param) {
     http.delete(`/comments/${param}`).then(() => {
       dispatch("getAllComment");
+    }).catch(() => { });
+  },
+  updateComment({commit, dispatch },params) {
+    http.put(`/comments/${params.id}`,params.obj).then((res) => {
+      commit("setComment",res.data);
+      dispatch("getAllComment");
+     
     }).catch(() => { });
   },
 };

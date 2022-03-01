@@ -2,6 +2,11 @@
   <div class="containers">
     <div class="wrapper">
       <navbar />
+
+        <div class="direction">
+         <span v-if="!token"><router-link  to="/">Trang chủ </router-link><span class="seperate">></span><router-link  to="/post">Blog</router-link> </span> 
+         <span v-else><router-link  to="/homeuser">Trang chủ </router-link><span class="seperate">></span><router-link  to="/post">Blog</router-link> </span> 
+      </div>
       <div class="content">
         <div class="container">
           <div class="row">
@@ -42,7 +47,9 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "post",
   data() {
-    return {};
+    return {
+      token:""
+    };
   },
   components: { navbar, ItemNotification, Footer },
 
@@ -62,10 +69,32 @@ export default {
   mounted() {
     this.getAllPosts(1);
   },
+   created() {
+    this.token = localStorage.getItem("token");
+  },
 };
 </script>
 <style lang="scss" scoped>
 .containers {
+   .direction {
+     width: 1200px;
+     margin: 0 auto;
+     text-align: left;
+     padding-left: 15px;
+     margin-top: 50px;
+     a{
+       font-size: 18px;
+       font-weight: 600;
+       text-decoration: none;
+       color: #000 !important;
+     }
+     a:hover {
+       color: rgb(33, 45, 214) !important;
+     }
+     .seperate{
+       margin:0 5px;
+     }
+  }
   .content {
     margin-top: 50px;
     a {

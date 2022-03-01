@@ -2,6 +2,10 @@
   <div class="contain">
     <div class="wrapper">
       <navbar />
+       <div class="direction">
+         <span v-if="!token"><router-link  to="/">Trang chủ </router-link><span class="seperate">></span><router-link  to="/post">Blog</router-link><span class="seperate">></span><router-link  :to="link">Chi tiết Blog</router-link> </span> 
+         <span v-else><router-link  to="/homeuser">Trang chủ </router-link><span class="seperate">></span><router-link  to="/post">Blog</router-link>  <span class="seperate">></span><router-link  :to="link">Chi tiết Blog</router-link></span> 
+      </div>
       <div class="container">
         <div class="row">
            <img
@@ -43,7 +47,9 @@ export default {
     title:"",
     content:"",
     imgPost:"",
-    createdAt:""
+    createdAt:"",
+    token:"",
+    link:""
     };
   },
   components: {
@@ -59,14 +65,19 @@ export default {
   },
   props: ["id"],
   methods: {
-
+     
      ...mapActions({
       getPost: "POST/getPost",
     }),
     },
+
+       created() {
+    this.token = localStorage.getItem("token");
+  },
     
     
   mounted() {
+    this.link="/postdetail/"+this.id;
     this.getPost(this.id);
     // this.createdAt=(this.post.createdAt).substr(0,10) +" " +(this.post.createdAt).substr(11,19);
   },
@@ -75,6 +86,25 @@ export default {
 
 <style lang="scss" scoped>
 .contain {
+  .direction {
+     width: 1200px;
+     margin: 0 auto;
+     text-align: left;
+     padding-left: 15px;
+     margin-top: 50px;
+     a{
+       font-size: 18px;
+       font-weight: 600;
+       text-decoration: none;
+       color: #000 !important;
+     }
+     a:hover {
+       color: rgb(33, 45, 214) !important;
+     }
+     .seperate{
+       margin:0 5px;
+     }
+  }
   .wrapper {
     .container {
       margin-top:100px;

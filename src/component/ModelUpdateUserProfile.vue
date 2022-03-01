@@ -121,7 +121,7 @@ export default {
       this.updateUser(params);
       this.$router.go(0);
       this.$nextTick(() => {
-        this.$refs.UpdatePlaceModal.hide();
+      this.$refs.UpdatePlaceModal.hide();
       });
     },
    

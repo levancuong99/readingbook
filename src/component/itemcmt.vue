@@ -15,9 +15,9 @@
 
    </div>
    <div class="bottom">
-     <span class="name">{{commentItem.fullName}}</span>-<span class="date">{{(commentItem.createdAt).substring(0,10)+" "+(commentItem.createdAt).substring(11,19)}}</span>-
+     <span class="name">{{commentItem.fullName}}</span><span class="date">{{(commentItem.createdAt).substring(0,10)+" "+(commentItem.createdAt).substring(11,19)}}</span>
      <span v-if="commentItem.userId==this.userId">
-       <span v-on:click="handleUpdate" class="update">Sửa</span> |  <span v-on:click="handleDelete" class="delete"><a>Xóa</a></span>
+       <span v-if="isShow" v-on:click="handleUpdate" class="update">Sửa</span> <span v-if="isShow" >| </span>  <span  v-if="isShow" v-on:click="handleDelete" class="delete">Xóa</span>
      </span>
      <div class="gr_btn" v-if="!this.isDisable">
       <b-button class="btn-cancel" variant="light" v-on:click="handleCancel">Hủy</b-button>
@@ -36,6 +36,7 @@ export default {
       comment:"this is commentthis is comment",
       userId:"",
       isDisable:true,
+      isShow:true,
       temp:""
   
     
@@ -48,14 +49,12 @@ export default {
       default: () => {},
     },
    },
-  //  deleteCommentById
-  //    computed: {
-  //   ...mapGetters({
-  //     account: "AUTH/getUserInfor",
-  //   }),
-  // },
+
 
     methods: {
+        ...mapActions({
+      updateComment: "COMMENT/updateComment",
+    }),
      ...mapActions({
       delete: "COMMENT/deleteCommentById",
     }),
@@ -65,25 +64,34 @@ export default {
     },
     handleUpdate() {
        this.isDisable=false;
+       this.isShow=false;
        this.temp=this.commentItem.content;
-       
     },
     handleCancel() {
-       this.isDisable=true;
        this.commentItem.content=this.temp;
-    }
+       this.isDisable=true;
+       this.isShow=true;
+    },
+      handleSave() {
+       let params= {
+         id:this.commentItem.commentId,
+         obj: {
+           userId:this.commentItem.userId,
+           bookId:this.commentItem.bookId,
+           content:this.commentItem.content
+         }
+       }
+       this.updateComment(params);
+        this.isDisable=true;
+        this.isShow=true;
+         this.$router.go(0);
+    },
   },
-
-  
-  
     mounted() {
-      
   },
      created() {
     this.userId = localStorage.getItem('userId');
   },
-
-
 }
 </script>
 <style lang="scss" scoped>
@@ -107,18 +115,29 @@ export default {
     height: 40px;
     background: rgb(250, 250, 250);
     text-align: left;
-    .name,.date,
+    .name{
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .date {
+        margin-left:5px;
+      font-weight: 600;
+    }
     .update{
-      margin-left:5px;
+      margin-left:15px;
+    }
+    .update:hover{
+      font-size: 18px;
+      font-weight: 700;
+      color:rgb(47, 0, 255);
     }
     .delete{
       margin-left:5px;
-      a {
-        text-decoration: none;
-      }
-      a :hover{
-        color: red;
-      }
+    }
+    .delete:hover{
+       font-size: 18px;
+      font-weight: 700;
+      color:rgb(255, 0, 0);
     }
     .gr_btn{
       float: right;   

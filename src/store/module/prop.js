@@ -35,7 +35,7 @@ const actions = {
     }).catch(() => { });
   },
   getAllPropPaging({ commit },param) {
-    http.get(`/props/paging/${param}`).then((result) => {
+    http.get(`/props/paging/${param.userId}/${param.pageNumber}`).then((result) => {
       commit("setAllProp", result.data);
     }).catch(() => { });
   },
@@ -47,6 +47,17 @@ const actions = {
       })
       .catch((err) => {
         alert("Delete prop fail !");
+        console.log(err);
+      });
+  },
+
+  updatePropById({ dispatch }, params) {
+    http.put(`/props/${params.id}`,params.obj)
+      .then(() => {
+        dispatch("getAllProp");
+      })
+      .catch((err) => {
+        alert("update prop fail !");
         console.log(err);
       });
   },

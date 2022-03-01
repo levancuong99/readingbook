@@ -2,6 +2,11 @@
   <div class="contain">
     <div class="wrapper">
       <navbar />
+
+        <div class="direction">
+         <span v-if="!token"><router-link  to="/">Trang chủ </router-link><span class="seperate">></span><router-link  to="/book">Kho sách</router-link><span class="seperate">></span><router-link  :to="link">Chi tiết sách</router-link> </span> 
+         <span v-else><router-link  to="/homeuser">Trang chủ </router-link><span class="seperate">></span><router-link  to="/book">Kho sách</router-link>  <span class="seperate">></span><router-link  :to="link">Chi tiết sách</router-link></span> 
+      </div>
       <div class="containerdetail">
         <div class="content"></div>
         <div class="title">
@@ -118,6 +123,8 @@ export default {
       cateName: "",
       comment: "",
       bookItem: {},
+      token:"",
+      link:""
     };
   },
   components: {
@@ -267,6 +274,10 @@ export default {
     this.getIsLikedByUser();
     this.getBookById();
     this.getAllComment(1);
+    this.link="/bookdetail/"+this.id
+  },
+    created() {
+    this.token = localStorage.getItem("token");
   },
 };
 </script>
@@ -274,6 +285,25 @@ export default {
 <style lang="scss" scoped>
 .contain {
   .wrapper {
+    .direction {
+     width: 1200px;
+     margin: 0 auto;
+     text-align: left;
+     padding-left: 115px;
+     margin-top: 50px;
+     a{
+       font-size: 18px;
+       font-weight: 600;
+       text-decoration: none;
+       color: #000 !important;
+     }
+     a:hover {
+       color: rgb(33, 45, 214) !important;
+     }
+     .seperate{
+       margin:0 5px;
+     }
+  }
     .containerdetail {
       width: 1000px !important;
       margin: 0 auto;

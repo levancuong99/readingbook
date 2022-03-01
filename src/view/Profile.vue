@@ -95,7 +95,7 @@
           <itemprop v-bind:itemProp="prop" />
         </div>
       </div>
-      <b-pagination
+      <b-pagination class="last_mg"
         size="md"
         @change="getAllProp1($event)"
         v-model="propsArray.currentPage"
@@ -153,7 +153,11 @@ export default {
       bookliked: "BOOK/getAllBookLiked",
     }),
     getAllProp1(e) {
-      this.getAllProp(e);
+       let params = {
+        userId: localStorage.getItem("userId"),
+        pageNumber: e,
+      };
+      this.getAllProp(params);
     },
 
     getAllBookViewed(e) {
@@ -273,6 +277,9 @@ export default {
   }
   .mg {
     padding-top: 150px;
+  }
+  .last_mg{
+    margin-bottom: 50px;
   }
   .container_book {
     width: 1200px;

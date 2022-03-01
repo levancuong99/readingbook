@@ -1,9 +1,9 @@
 <template>
   <div class="addModal">
-    <b-button v-b-modal.modal-prevent variant="light" >Đề xuất sách</b-button>
+    <b-button v-b-modal.modal-prevent1 variant="light" >Đề xuất sách</b-button>
     <b-modal
       class="model modal-content wh"
-      id="modal-prevent"
+      id="modal-prevent1"
       ref="modal"
       title="Đề xuất sách"
       cancel-variant="light"
@@ -50,7 +50,7 @@
 
           <b-form-textarea
             class="textarea"
-            v-model="remark"
+            v-model="itemProp.remark"
             placeholder="Nhập nhận xét..."
             rows="5"
             max-rows="5"
@@ -65,8 +65,6 @@
             >
           </div>
         </div>
-  
-      
       </form>
     </b-modal>
   </div>
@@ -100,7 +98,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      createProp: "PROP/createProp",
+      updateProp: "PROP/updatePropById",
     }),
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault();
@@ -108,29 +106,43 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
-      this.createProp({
-      userId: localStorage.getItem("userId"),
-      bookName: this.bookNameProp,
-      authorName: this.authorName,
-      remark: this.remark,
-      });
-
-      this.$nextTick(() => {
-        (this.bookNameProp = ""),
-          (this.authorName = ""),
-          (this.remark = ""),
-          this.$bvModal.hide("modal-prevent");
-      });
+      let params= {
+        id:this.itemProp.propId,
+        obj: {
+          userId: localStorage.getItem("userId"),
+          bookName: this.bookNameProp,
+          authorName: this.authorName,
+          remark: this.remark,
+        }
+      }
+      console.log("id:",params.id);
+      this.updateProp(params);
+       this.$router.go(0);
+          this.$bvModal.hide("modal-prevent1");
+      // });
     },
     resetModal() {
-        (this.bookNameProp = ""),
-          (this.authorName = ""),
-          (this.remark = ""),
-          this.$router.go(0);
-        this.$bvModal.hide("modal-prevent");
+      console.log("hh:",this.itemProp.propId);
+        // (this.bookNameProp = ""),
+        //   (this.authorName = ""),
+        //   (this.remark = ""),
+          // this.$router.go(0);
+        // this.$bvModal.hide("modal-prevent1");
     },
   },
-  mounted() {},
+  mounted() {
+    this.bookNameProp=this.itemProp.bookNameProp;
+    this.authorName=this.itemProp.authorName;
+    this.remark=this.itemProp.remark;
+    console.log(this.itemProp);
+  },
+   props: {
+    itemProp: {
+      type:  Object,
+      require: true,
+      default: () => {},
+    },
+   },
 };
 </script>
 <style lang="scss" scoped>

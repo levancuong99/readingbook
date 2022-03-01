@@ -8,7 +8,11 @@
         width="100%"
         height="300"
       />
-
+      <div class="direction">
+         <span v-if="!token"><router-link  to="/">Trang chủ </router-link><span class="seperate">></span><router-link  to="/book">Kho sách</router-link> </span> 
+         <span v-else><router-link  to="/homeuser">Trang chủ </router-link><span class="seperate">></span><router-link  to="/book">Kho sách</router-link> </span> 
+     
+      </div>
       <div class="content">
         <div class="category">
           <div class="drop">
@@ -72,6 +76,7 @@ export default {
     return {
       selected: "0",
       text: "",
+      token:""
     };
   },
   components: { navbar, item1, Footer },
@@ -122,10 +127,33 @@ export default {
     this.getAllBooks(1);
     this.getAllCates();
   },
+   created() {
+    this.token = localStorage.getItem("token");
+  },
 };
 </script>
 <style lang="scss" scoped>
 .containers {
+  
+  .direction {
+     width: 1200px;
+     margin: 0 auto;
+     text-align: left;
+     padding-left: 15px;
+     margin-top: 50px;
+     a{
+       font-size: 18px;
+       font-weight: 600;
+       text-decoration: none;
+       color: #000 !important;
+     }
+     a:hover {
+       color: rgb(33, 45, 214) !important;
+     }
+     .seperate{
+       margin:0 5px;
+     }
+  }
   .content {
     .sub_content {
       width: 1200px;

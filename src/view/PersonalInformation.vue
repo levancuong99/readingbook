@@ -64,7 +64,6 @@
         </div>
       </div>
 
-
       <div class="info">
           <label class="title" for="name">Xác nhận mật khẩu:</label>
         <div class="form-group">
@@ -83,9 +82,6 @@
              <span v-if="(password && !$v.retypePassword.sameAsPassword) && $v.retypePassword.required">Password and Confirm Password should match</span>
           </div>
         </div>
-        
-      
-       
       </div>
       <div class="info">
           <label class="title" for="name">Địa chỉ:</label>
