@@ -85,7 +85,7 @@
             <itemcmt v-bind:commentItem="comment" />
           </div>
 
-          <b-pagination
+          <b-pagination v-if="commentArray.comments.length!=0"
             class="paging"
             size="md"
             @change="getAllComment($event)"

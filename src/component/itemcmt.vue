@@ -127,7 +127,6 @@ export default {
       margin-left:15px;
     }
     .update:hover{
-      font-size: 18px;
       font-weight: 700;
       color:rgb(47, 0, 255);
     }
@@ -135,7 +134,6 @@ export default {
       margin-left:5px;
     }
     .delete:hover{
-       font-size: 18px;
       font-weight: 700;
       color:rgb(255, 0, 0);
     }

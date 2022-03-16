@@ -55,7 +55,6 @@
           </div>
         </div>
       </div>
-
       <b-pagination
         size="md"
         @change="getAllBookViewed($event)"
