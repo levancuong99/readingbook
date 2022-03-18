@@ -26,7 +26,7 @@ const actions = {
       commit("setPost", result.data);
     })
       .catch(() => {
-        alert("Dont get infor post by id!");
+        alert("Lấy thông tin bài viết thất bạn!");
       });
   },
   getAllPost({ commit }) {
@@ -43,10 +43,10 @@ const actions = {
     http.put(`/post/${params.id}`, params.obj).then((result) => {
       commit("setPost", result.data);
       dispatch("getAllPost");
+      alert("Cập nhật bài đăng thành công!");
     })
-      .catch((err) => {
-        alert("Update post fail!");
-        console.log(err);
+      .catch(() => {
+        alert("Cập nhật bài đăng thất bại!");
       });
   },
   deletePostById({ dispatch }, params) {
@@ -54,9 +54,8 @@ const actions = {
       .then(() => {
         dispatch("getAllPost");
       })
-      .catch((err) => {
-        alert("Delete post fail !");
-        console.log(err);
+      .catch(() => {
+        alert("Xóa bài đăng thất bại !");
       });
   },
 
@@ -65,10 +64,10 @@ const actions = {
   createPost({ dispatch }, params) {
     http.post(`/post/create`, params).then(() => {
       dispatch("getAllPost");
+      alert("Tạo mới bài viết thành công !");
     })
-      .catch((err) => {
-        alert("Create post fail !");
-        console.log(err);
+      .catch(() => {
+        alert("Tạo mới bài viết thất bại !");
       });
   },
 

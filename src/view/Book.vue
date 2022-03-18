@@ -6,7 +6,7 @@
         src="../assets/imagesbook.jpg"
         alt="no no"
         width="100%"
-        height="300"
+        height="150"
       />
       <div class="direction">
          <span v-if="!token"><router-link  to="/">Trang chủ </router-link><span class="seperate">></span><router-link  to="/book">Kho sách</router-link> </span> 
@@ -171,6 +171,7 @@ export default {
       .drop {
         position: relative;
         z-index: 1;
+        margin-top: 14px;
       }
       .search {
         width: 800px;

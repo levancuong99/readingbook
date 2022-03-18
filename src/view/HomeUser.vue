@@ -6,7 +6,7 @@
         src="../assets/imagesbook.jpg"
         alt="no n0"
         width="100%"
-        height="300"
+        height="150"
       />
 
        <div class="direction">
@@ -15,7 +15,7 @@
 
       <div class="content">
         <div class="hotbook bg1">
-            <h2>Sách phổ biến >></h2>
+            <h2>Sách đọc nhiều</h2>
           <div class="containerbook">
               <div v-for="book in bookArray.books"  :key="book.bookId">
                 <router-link :to="{name:'bookdetail',params:{id:book.bookId}}"><item1 v-bind:bookItem="book" /></router-link>
@@ -35,9 +35,9 @@
          
         </div>
 
-
+          <hr>
          <div class="hotbook bg2">
-              <h2>Sách được yêu thích nhiều >></h2>
+              <h2>Sách được yêu thích nhiều</h2>
               <div class="containerbook">
                 <div
                   v-for="book in bookArrayBestLiker.books"
@@ -61,9 +61,9 @@
             align="center"
           ></b-pagination>
           </div>
-            
+            <hr>
            <div class="hotbook">
-              <h2>Sách mới nhất >></h2>
+              <h2>Sách mới nhất </h2>
               <div class="containerbook">
                 <div
                   v-for="book in bookArrayNewest.books"

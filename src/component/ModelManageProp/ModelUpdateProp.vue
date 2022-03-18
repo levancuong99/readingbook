@@ -74,7 +74,7 @@ import { required, maxLength } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 
 export default {
-  name: "ModelAddUser",
+  name: "ModelShowProp",
   data() {
     return {
       propId: "",
@@ -119,16 +119,10 @@ export default {
       this.updateProp(params);
        this.$router.go(0);
           this.$bvModal.hide("modal-prevent1");
+          return;
       // });
     },
-    resetModal() {
-      console.log("hh:",this.itemProp.propId);
-        // (this.bookNameProp = ""),
-        //   (this.authorName = ""),
-        //   (this.remark = ""),
-          // this.$router.go(0);
-        // this.$bvModal.hide("modal-prevent1");
-    },
+  
   },
   mounted() {
     this.bookNameProp=this.itemProp.bookNameProp;

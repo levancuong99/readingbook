@@ -29,7 +29,6 @@ const actions = {
       localStorage.setItem("roleId",res.data.roleId);
       http.post("/user/token", res.data.token).then((result) => {
         commit("setInforUserById", result.data);
-        console.log(result.data);
         if(res.data.roleId==1) {
           router.push("/manageaccount");
         }else {
@@ -37,10 +36,8 @@ const actions = {
         }
       });
     })
-      .catch((err) => {
-        console.log(err);
-        // localStorage.setItem("historyAccount", JSON.stringify(params));
-        alert("Wrong username or password !");
+      .catch(() => {
+        alert("Sai email hoặc mật khẩu!");
       });
   },
   logout() {
@@ -50,20 +47,22 @@ const actions = {
   getInforByToken({ commit }, params) {
     http.post("/user/token", params).then((result) => {
       commit("setInforUserById", result.data);
-    })
-      .catch((err) => {
-        console.log(err);
-        localStorage.clear();
-        router.push("/");
+    }).catch(() => {
+       localStorage.clear();
+       router.push("/");
       });
   },
   getInforUserById({ commit }, params) {
     http.get(`/users/${params}`).then((result) => {
       commit("setInforUserById", result.data);
-      localStorage.setItem("users", JSON.stringify(result.data));
+      let obj={
+        "email": result.data.email,
+       "fullName": result.data.fullName,
+        "address": result.data.address
+        }
+      localStorage.setItem("users", JSON.stringify(obj));
     })
       .catch(() => {
-        // alert("Dont get infor user by id!");
       });
   },
   getAllUser({ commit }) {
@@ -74,10 +73,10 @@ const actions = {
   updateInforUserById({ dispatch }, params) {
     http.put(`/users/${params.id}`,  params.obj).then(() => {
       dispatch("getAllUser");
+      alert("Cập nhật thông tin thành công!");
     })
-      .catch((err) => {
-        alert("Update user fail!");
-        console.log(err);
+      .catch(() => {
+        alert("Cập nhật thông tin thất bại!");
       });
   },
   deleteUserById({ dispatch }, params) {
@@ -85,53 +84,48 @@ const actions = {
       .then(() => {
         dispatch("getAllUser");
       })
-      .catch((err) => {
-        alert("Delete user fail !");
-        console.log(err);
+      .catch(() => {
+        alert(" Xóa tài khoản thất bại!");
       });
   },
 
   updateUsersByAdmin({ dispatch }, params) {
     http.put(`/user/${params.id}`, params.obj).then(() => {
       dispatch("getAllUser");
+      alert("Cập nhật thông tin tài khoản thành công!");
     })
-      .catch((err) => {
-        alert("update user fail !");
-        console.log(err);
+      .catch(() => {
+        alert("Cập nhật thông tin thất bại!");
       });
   },
   updateAvt({dispatch},param) {
-    http.put(`/user/avt/${localStorage.getItem("userId")}`,param).then((res) => {
-      console.log("ss");
-      console.log("acc",res);
-
+    http.put(`/user/avt/${localStorage.getItem("userId")}`,param).then(() => {
       dispatch("getAllUser");
     })
-      .catch((err) => {
-        alert("update avtuser fail !");
-        console.log(err);
+      .catch(() => {
+        alert("Cập nhật avt thất bại!");
       });
   },
 
   createUsers({ dispatch }, params) {
     http.post(`/users/create`, params).then(() => {
       dispatch("getAllUser");
+      alert("Tạo tài khoản mới thành công !");
     })
       .catch((err) => {
-        alert("Create user fail !");
+        alert("Tạo tài khoản thất bại !");
         console.log(err);
       });
   },
 
   registerUsers({ dispatch }, params) {
     http.post(`/users/register`, params).then(() => {
-      dispatch("getAllUser");
+      dispatch("Đăng ký tài khoản thành công !");
       router.push("/login");
 
     })
-      .catch((err) => {
-        alert("Register user fail !");
-        console.log(err);
+      .catch(() => {
+        alert("Đăng ký tài khoản thất bại !");
       });
   },
 };

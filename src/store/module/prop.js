@@ -61,8 +61,18 @@ const actions = {
         console.log(err);
       });
   },
+  
+  deleteAllProp({ dispatch }) {
+    http.delete(`/props/deleteall`)
+      .then(() => {
+        dispatch("getAllProp");
+      })
+      .catch((err) => {
+        alert("Delete prop fail !");
+        console.log(err);
+      });
+  },
 
- 
 
   createProp({ dispatch }, params) {
     http.post(`/props/create`, params).then(() => {

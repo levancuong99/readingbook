@@ -6,7 +6,7 @@
         src="../assets/imagesbook.jpg"
         alt="no n0"
         width="100%"
-        height="300"
+        height="150"
       />
       <div class="direction">
           <router-link to="/">Trang chủ </router-link>
@@ -14,7 +14,7 @@
       <div class="content">
    
         <div class="hotbook">
-          <h2 class="bookbestviewer">Sách đọc nhiều >></h2>
+          <h2 class="bookbestviewer">Sách đọc nhiều</h2>
           <div class="containerbook">
             <div v-for="book in bookArray.books" :key="book.bookId">
               <router-link
@@ -37,7 +37,7 @@
         </div>
           <hr>
          <div class="hotbook">
-              <h2>Sách được yêu thích nhiều>></h2>
+              <h2>Sách được yêu thích nhiều</h2>
               <div class="containerbook">
                 <div
                   v-for="book in bookArrayBestLiker.books"
@@ -61,7 +61,7 @@
 
            <hr>
           <div class="hotbook">
-              <h2>Sách mới nhất>></h2>
+              <h2>Sách mới nhất</h2>
               <div class="containerbook">
                 <div
                   v-for="book in bookArrayNewest.books"
@@ -172,7 +172,7 @@ export default {
     width: 1200px;
     margin: 0 auto;
     .hotbook {
-      margin-top: 50px;
+      margin-top: 10px;
       h2 {
         font-size: 30px;
         font-weight: 700;
@@ -180,6 +180,7 @@ export default {
         padding-top:20px;
         padding-left:20px;
         font-family:  serif;
+        text-decoration-line: underline;
       }
     
       .containerbook {

@@ -52,8 +52,8 @@
             class="textarea"
             v-model="remark"
             placeholder="Nhập nhận xét..."
-            rows="5"
-            max-rows="5"
+            rows="7"
+            max-rows="7"
             :class="{
               'is-invalid': $v.remark.$error,
               'is-valid': !$v.remark.$invalid,
@@ -163,7 +163,7 @@ form {
     flex-wrap: wrap;
 
     .textarea {
-      width: 523px;
+      width: 537px;
     }
 
     .image {

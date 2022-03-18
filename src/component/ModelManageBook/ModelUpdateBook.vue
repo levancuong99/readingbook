@@ -29,7 +29,7 @@
             }"
           />
           <div class="invalid-feedback">
-            <span v-if="!$v.bookName.required">Bạn cần nhập email</span>
+            <span v-if="!$v.bookName.required">Bạn cần nhập tên sách</span>
           </div>
         </div>
 
@@ -62,7 +62,7 @@
           </div>
         </div>
 
-        <div class="form-group mgtop">
+        <div class="form-group mgtop1" style="padding-top:20px">
           <label for="">Mô tả: </label>
 
           <b-form-textarea
@@ -119,11 +119,12 @@
           </div>
         </div>
 
+        
         <div class="form-group">
           <label for="">Thể loại:</label>
           <select class="red" name="" id="cate" v-model="cateId">
-            <option v-for="cate in cates" v-bind:value="cate.id" :key="cate.id">
-              {{ cate.name }}
+            <option v-for="cate in cates" v-bind:value="cate.cateId" :key="cate.cateId">
+              {{ cate.cateName }}
             </option>
           </select>
 
@@ -157,19 +158,12 @@
 
 <script>
 import { required, maxLength } from "vuelidate/lib/validators";
-import { mapActions } from "vuex";
+import { mapActions ,mapGetters} from "vuex";
 import axios from "axios";
 export default {
   data() {
     return {
-      cates: [
-        { id: 1, name: "Tâm Lý – Kỹ Năng Sống" },
-        { id: 2, name: " Y Học – Sức Khỏe " },
-        { id: 3, name: "Văn Hoá – Nghệ Thuật" },
-        { id: 4, name: "Kinh Tế – Quản Lý" },
-        { id: 5, name: " Học Ngoại Ngữ" },
-        { id: 6, name: "Marketing – Bán Hàng" },
-      ],
+     
       bookId: "",
       bookName: "",
       cateId: 1,
@@ -179,6 +173,13 @@ export default {
       authorName: "",
       authorProfile: "",
     };
+  },
+   computed: {
+    ...mapGetters({
+      cates: "CATE/getAllCate",
+      listcates: "CATE/getAllCate",
+
+    }),
   },
   validations: {
     bookName: {
@@ -201,11 +202,7 @@ export default {
       required,
     },
   },
-  // computed: {
-  //   ...mapGetters({
-  //     account: "AUTH/getUserInfor",
-  //   }),
-  // },
+
    props: {
     data: {
       type: Object,
@@ -269,6 +266,10 @@ export default {
         });
     },
   },
+  mounted(){
+     this.listcates();
+
+  }
 };
 </script>
 
@@ -282,6 +283,9 @@ export default {
 form {
   width: 100%;
   margin: 0 auto;
+  .mgtop1{
+    padding-top:20px !important;
+  }
   .form-group {
     display: flex;
     margin: 15px 0;

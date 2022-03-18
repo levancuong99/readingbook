@@ -118,7 +118,7 @@ export default {
           text-decoration: none;
         }
         a:hover {
-          color: red;
+          color: rgb(0, 4, 255);
         }
       }
     }
@@ -139,7 +139,7 @@ export default {
               font-weight: 700;
             }
             a:hover {
-              color: rgb(224, 24, 24);
+                color: rgb(78, 81, 236);
             }
           }
         }

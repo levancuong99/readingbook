@@ -9,9 +9,7 @@
       <p><strong>Thời gian tạo:</strong>{{itemProp.createdAt.substring(0,10) +" " +itemProp.createdAt.substring(11,19)}}</p>
      </div>
     <div class="right">
-       
             <i class="fas fa-ellipsis-v icon"></i>
-            
             <b-dropdown right>
               <b-dropdown-item>
                <span class="update">Sửa</span> 
@@ -19,19 +17,18 @@
               </b-dropdown-item>
               <b-dropdown-item v-on:click="handleDeleteProp">Xóa
                 
-    <b-modal
-      ref="editDelete"
-      title="Xác nhận xóa"
-      hide-header-close
-      cancel-variant="light"
-      ok-title="Delete"
-      ok-variant="danger"
-      @ok.prevent="submitEditPlace"
-    >
-      <p>Bạn có muốn xóa mọi thứ ?</p>
-    </b-modal>    
-                </b-dropdown-item
-          >
+                      <b-modal
+                        ref="editDelete"
+                        title="Xác nhận xóa"
+                        hide-header-close
+                        cancel-variant="light"
+                        ok-title="Delete"
+                        ok-variant="danger"
+                        @ok.prevent="submitEditPlace"
+                      >
+                        <p>Bạn có muốn xóa mọi thứ ?</p>
+                      </b-modal>    
+              </b-dropdown-item>
             </b-dropdown>
           
     </div>

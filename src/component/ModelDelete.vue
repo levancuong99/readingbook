@@ -15,7 +15,7 @@
       ok-variant="danger"
       @ok.prevent="submitEditPlace"
     >
-      <p>Bạn có muốn xóa mọi thứ ?</p>
+      <p>Bạn có xác nhận xóa ?</p>
     </b-modal>
   </div>
 </template>

@@ -6,7 +6,7 @@
         src="../assets/imagesbook.jpg"
         alt="no no"
         width="100%"
-        height="300"
+        height="150"
       />
       <div class="content">
         <div class="info">
@@ -40,6 +40,9 @@
           <div class="dateofbirth">
             <p class="title">Địa chỉ</p>
             <p>{{ account.address }}</p>
+             <div class="updateInfo">
+              <deletehistory />
+            </div>
           </div>
         </div>
       </div>
@@ -111,6 +114,7 @@
 import navbar from "../component/navbar.vue";
 import item1 from "../component/item1.vue";
 import itemprop from "../component/itemprop.vue";
+import deletehistory from "../component/deletehistory.vue";
 import { mapGetters, mapActions } from "vuex";
 import Footer from "../component/footer.vue";
 import ModelUpdateUserProfile from "../component/ModelUpdateUserProfile.vue";
@@ -141,6 +145,7 @@ export default {
     ModelUpdateUserProfile,
     ModelAddProp,
     itemprop,
+    deletehistory
   },
 
   methods: {
@@ -223,7 +228,7 @@ export default {
       border: 1px solid gray;
       border-radius: 20px;
       position: absolute;
-      top: 270px;
+      top: 120px;
       left: 190px;
       z-index: 1;
       background: #fff;

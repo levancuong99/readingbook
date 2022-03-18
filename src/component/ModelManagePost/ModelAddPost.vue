@@ -1,6 +1,6 @@
 <template>
   <div class="addModal">
-    <b-button v-b-modal.modal-prevent class="bg-color">Thêm thông báo mới</b-button>
+    <b-button v-b-modal.modal-prevent class="bg-color">Tạo bài viết mới</b-button>
     <b-modal
       class="model modal-content wh"
       id="modal-prevent"

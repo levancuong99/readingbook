@@ -118,8 +118,8 @@
         <div class="form-group">
           <label for="">Thể loại:</label>
           <select class="red" name="" id="cate" v-model="cateId">
-            <option v-for="cate in cates" v-bind:value="cate.id" :key="cate.id">
-              {{ cate.name }}
+            <option v-for="cate in cates" v-bind:value="cate.cateId" :key="cate.cateId">
+              {{ cate.cateName }}
             </option>
           </select>
 
@@ -153,22 +153,13 @@
 </template>
 <script>
 import { required, maxLength } from "vuelidate/lib/validators";
-import { mapActions } from "vuex";
+import { mapActions ,mapGetters} from "vuex";
 import axios from "axios";
 
 export default {
   name: "ModelAddUser",
   data() {
     return {
-      cates: [
-        { id: 1, name: "Tâm Lý – Kỹ Năng Sống" },
-        { id: 2, name: " Y Học – Sức Khỏe " },
-        { id: 3, name: "Văn Hoá – Nghệ Thuật" },
-        { id: 4, name: "Kinh Tế – Quản Lý" },
-        { id: 5, name: " Học Ngoại Ngữ" },
-        { id: 6, name: "Marketing – Bán Hàng" },
-      ],
-  
       bookId: "",
       bookName: "",
       cateId: 1,
@@ -179,6 +170,11 @@ export default {
       authorProfile: "",
      
     };
+  },
+  computed: {
+    ...mapGetters({
+      cates: "CATE/getAllCate",
+    }),
   },
   validations: {
     bookName: {
@@ -204,6 +200,7 @@ export default {
   methods: {
     ...mapActions({
       createBook: "BOOK/createBook",
+      listcates: "CATE/getAllCate",
     }),
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault();
@@ -255,7 +252,9 @@ export default {
         });
     },
   },
-  mounted() {},
+  mounted() {
+     this.listcates();
+  },
 };
 </script>
 <style lang="scss" scoped>

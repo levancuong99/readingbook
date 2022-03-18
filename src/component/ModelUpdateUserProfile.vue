@@ -76,6 +76,7 @@ export default {
       fullName: "",
       email: "",
       address:"",
+      user:{}
     };
   },
   
@@ -124,16 +125,20 @@ export default {
       this.$refs.UpdatePlaceModal.hide();
       });
     },
-   
-    
   },
 
    mounted() {
      this.infoUser(JSON.parse(localStorage.getItem("userId")));
-     this.fullName=this.account.fullName;
-     this.email=this.account.email;
-     this.address=this.account.address;
+     localStorage.setItem("users", JSON.stringify(this.account));
+     this.fullName=this.user.fullName;
+     this.email=this.user.email;
+     this.address=this.user.address;
     },
+     created() {
+     this.user=JSON.parse(localStorage.getItem("users"));
+    },
+    
+
 };
 </script>
 

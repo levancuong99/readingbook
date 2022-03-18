@@ -30,7 +30,7 @@ export const COLUMNS = {
         key: "createdAt",
         label: "Ngày đăng ký",
         formatter: (value) => {
-          return value.substring(0,10);
+          return value.substring(0,10)+" "+value.substring(11,19);
         },
       },
       
@@ -73,6 +73,13 @@ export const COLUMNS = {
         key: "numberLike",
         label: "Số lượng thích",
       },
+      {
+        key: "createdAt",
+        label: "Thời gian tạo",
+        formatter: (value) => {
+          return value.substring(0,10)+" "+value.substring(11,19);
+        },
+      },
     ],
 
     posts: [
@@ -88,7 +95,7 @@ export const COLUMNS = {
         key: "createdAt",
         label: "Thời gian tạo",
         formatter: (value) => {
-          return value.substring(0,10);
+          return value.substring(0,10)+" "+value.substring(11,19);
         },
       },
       
@@ -105,6 +112,10 @@ export const COLUMNS = {
       {
         key: "remark",
         label: "Nhận xét",
+      },
+      {
+        key: "fullNameProp",
+        label: "Người đề xuất",
       },
       {
         key: "createdAt",

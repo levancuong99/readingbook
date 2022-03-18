@@ -14,7 +14,6 @@ const getters = {
     return state.isLiked;
   },
   getBookInfor() {
-    console.log(state.bookInfo);
     return state.bookInfo;
   },
   getAllBookBestLiker() {
@@ -65,7 +64,7 @@ const actions = {
         commit("setInfoBookById", result.data);
       })
       .catch(() => {
-        alert("Dont get infor book by id!");
+        alert("Không thể lấy được thông tin sách!");
       });
   },
   getAllBook({ commit }) {
@@ -90,10 +89,10 @@ const actions = {
       .then((result) => {
         commit("setInfoBookById", result.data);
         dispatch("getAllBook");
+        alert("Cập nhật thông tin sách thành công !");
       })
-      .catch((err) => {
-        alert("Update user fail!");
-        console.log(err);
+      .catch(() => {
+        alert("Cập nhật thông tin sách thất bại !");
       });
   },
   deleteBookById({ dispatch }, params) {
@@ -102,9 +101,8 @@ const actions = {
       .then(() => {
         dispatch("getAllBook");
       })
-      .catch((err) => {
-        alert("Delete user fail !");
-        console.log(err);
+      .catch(() => {
+        alert("Xóa thất bại!");
       });
   },
   createBook({ dispatch }, params) {
@@ -112,10 +110,10 @@ const actions = {
       .post(`/books/create`, params)
       .then(() => {
         dispatch("getAllBook");
+        alert("Thêm mới sách thành công!");
       })
-      .catch((err) => {
-        alert("Create user fail !");
-        console.log(err);
+      .catch(() => {
+        alert("Thêm mới sách thất bại!");
       });
   },
   getAllBookViewed({ commit }, param1) {
@@ -196,9 +194,7 @@ const actions = {
   bookAlreadyLikeByUser({ dispatch }, params) {
     http.post(`/books/liked/create/${params.idUser}/${params.bookId}`)
       .then(() => {
- 
             dispatch("getAllBook");
-      
       })
       .catch(() => {});
   },
@@ -214,6 +210,26 @@ const actions = {
         commit("setIsLiked", res.data);
       })
       .catch(() => {});
+  },
+  deleteAllBookViewed({ dispatch }) {
+    http.delete(`/books/viewed/deleteall`)
+      .then(() => {
+        dispatch("getAllBook");
+        alert("Xóa tất cả sách đã đọc thành công!");
+      })
+      .catch(() => {
+        alert("Xóa tất cả sách đã đọc thất bại!");
+      });
+  },
+  deleteAllBookLiked({ dispatch }) {
+    http.delete(`/books/liked/deleteall`)
+      .then(() => {
+        dispatch("getAllBook");
+        alert("Xóa tất cả sách đã yêu thích thành công!");
+      })
+      .catch(() => {
+        alert("Xóa tất cả sách đã yêu thích thất bại!");
+      });
   },
 };
 export default {

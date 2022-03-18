@@ -11,7 +11,6 @@
         :per-page="perPage"
         :current-page="currentPage"
         :filter="infoSearch"
-        :sort-by="fullName"
         ref="mainTable">
           <template v-slot:cell(fullName)="data">
            <span>
@@ -52,6 +51,7 @@
             {{ data.value }}
           </span>
           <div>
+            <ModelShowProp :data="data" />
             <DeleteProp :data="data" />
           </div>
         </template>
@@ -95,6 +95,9 @@ import ModelUpdatePost from "./ModelManagePost/ModelUpdatePost.vue";
 import ModelUpdateUser from "./ModelManageUser/ModelUpdateUser.vue";
 import ModelUpdateBook from "./ModelManageBook/ModelUpdateBook.vue";
 import DeleteProp from "./ModelManageProp/DeleteProp.vue";
+import ModelShowProp from "./ModelManageProp/ModelShowProp.vue";
+
+
 
 export default {
   name: "MainTable",
@@ -105,7 +108,8 @@ export default {
     ModelUpdateBook,
     DeletePost,
     ModelUpdatePost,
-    DeleteProp
+    DeleteProp,
+    ModelShowProp
   },
 
   props: {
