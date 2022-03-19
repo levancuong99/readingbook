@@ -106,11 +106,11 @@
 
           <div class="gender">
             <div class="boy">
-               <input type="radio" name="gender" id="nam" value="false" checked/>
+               <input type="radio" name="gender" id="nam"  value="0" checked/>
               <label for="nam">Nam</label>
             </div>
             <div class="girl">
-                <input type="radio" name="gender" id="nu" value="true" />
+                <input type="radio" name="gender" id="nu" value="1" />
                 <label for="nu">Nữ</label>
             </div>
             
@@ -171,7 +171,7 @@ export default {
       password: "",
       retypePassword: "",
       dateOfBirth: "",
-      gender: "",
+      gender: 0,
       address: "",
       roleId:2
     };
@@ -229,13 +229,12 @@ export default {
 
 <style lang="scss" scoped>
 .containers {
-  // background: rgb(241, 241, 241);
    background-image: url(../assets/newimg3.jpeg);
-   background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
+   background-position: center; 
+   background-repeat: no-repeat; 
    background-size: 100% 100%;
-  height: 100vh;
-  display: flex;
+   height: 100vh;
+   display: flex;
   .section {
     width: 50%;
     .content {
@@ -248,10 +247,9 @@ export default {
         font-size: 45px;
         color: blue;
         font-weight: 800;
-        
+        font-family:  serif;
       }
       }
-     
       p {
         padding-top: 30px;
         font-size: 28px;

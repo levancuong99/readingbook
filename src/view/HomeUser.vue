@@ -8,11 +8,9 @@
         width="100%"
         height="150"
       />
-
        <div class="direction">
           <router-link to="/homeuser">Trang chủ </router-link>
       </div>
-
       <div class="content">
         <div class="hotbook bg1">
             <h2>Sách đọc nhiều</h2>
@@ -20,7 +18,6 @@
               <div v-for="book in bookArray.books"  :key="book.bookId">
                 <router-link :to="{name:'bookdetail',params:{id:book.bookId}}"><item1 v-bind:bookItem="book" /></router-link>
               </div>
-            
           </div>
 
         <b-pagination
@@ -31,7 +28,6 @@
         :per-page="bookArray.numberRowCurrentpage"
         align="center"
       ></b-pagination>
-
          
         </div>
 
@@ -48,9 +44,6 @@
                     ><item1 v-bind:bookItem="book"
                   /></router-link>
               </div>
-
-            
-
             </div>
                <b-pagination
             size="md"

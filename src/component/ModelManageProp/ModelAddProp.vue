@@ -52,8 +52,8 @@
             class="textarea"
             v-model="remark"
             placeholder="Nhập nhận xét..."
-            rows="7"
-            max-rows="7"
+            rows="5"
+            max-rows="5"
             :class="{
               'is-invalid': $v.remark.$error,
               'is-valid': !$v.remark.$invalid,

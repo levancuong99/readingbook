@@ -90,7 +90,7 @@ export default {
      width: 1200px;
      margin: 0 auto;
      text-align: left;
-     padding-left: 15px;
+     padding-left: 25px;
      margin-top: 50px;
      a{
        font-size: 18px;
@@ -107,7 +107,7 @@ export default {
   }
   .wrapper {
     .container {
-      margin-top:100px;
+      margin-top:50px;
       .title{
         margin-top:50px;
         font-size: 35px;

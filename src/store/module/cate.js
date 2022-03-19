@@ -19,6 +19,15 @@ const actions = {
       commit("setAllCate", result.data);
     }).catch(() => { });
   },
+  createCate({dispatch},param) {
+    http.post("/cate/create",param).then(() => {
+      dispatch("getAllCate");
+      alert("Thêm thể loại thành công");
+    }).catch(() => { 
+      alert("Thêm thể loại thất bại");
+
+    });
+  }
 };
 export default {
   namespaced: true,

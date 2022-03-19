@@ -11,10 +11,6 @@
     <div class="right">
             <i class="fas fa-ellipsis-v icon"></i>
             <b-dropdown right>
-              <b-dropdown-item>
-               <span class="update">Sửa</span> 
-                <ModelUpdateProp v-bind:itemProp="itemProp" />
-              </b-dropdown-item>
               <b-dropdown-item v-on:click="handleDeleteProp">Xóa
                 
                       <b-modal
@@ -38,7 +34,6 @@
 </template>
 <script>
 import { mapActions } from "vuex";
-import ModelUpdateProp from './ModelManageProp/ModelUpdateProp.vue'
 export default {
     name:"itemprop",
      data() {
@@ -46,9 +41,7 @@ export default {
     
     };
   },
-  components:{
-    ModelUpdateProp
-  },
+
 
    props: {
     itemProp: {
@@ -93,16 +86,13 @@ export default {
             .update{
               position: absolute !important;
                   left: 60px;
-                  top: 8px;
+                  top: 0px;
             }
             .addModal {
               height: 29px !important;
-              // background: red;
             }
-            // background: #fff;
             position: absolute;
             right: 49px;
-            // transform: translate(-50%, 0%);
             .text {
               text-decoration: none;
               color: black;

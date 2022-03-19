@@ -21,7 +21,6 @@ export const COLUMNS = {
             gender = "Nữ";
           } else {
             gender = "Nam";
-            
           }
           return gender;
         },
@@ -121,7 +120,7 @@ export const COLUMNS = {
         key: "createdAt",
         label: "Thời gian tạo",
         formatter: (value) => {
-          return value.substring(0,10);
+          return value.substring(0,10)+" "+value.substring(11,19);
         },
       },
       

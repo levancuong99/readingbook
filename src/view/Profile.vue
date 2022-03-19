@@ -48,7 +48,7 @@
       </div>
 
       <div class="container_book mg">
-        <h2>Sách đã đọc >></h2>
+        <h2>Sách đã đọc</h2>
         <div class="containerbook">
           <div v-for="book in bookArray.books" :key="book.id">
             <router-link
@@ -68,7 +68,7 @@
       ></b-pagination>
        <hr />
       <div class="container_book">
-        <h2>Sách đã thích >></h2>
+        <h2>Sách đã thích</h2>
        
         <div class="containerbook">
           <div v-for="book in bookArraysLike.books" :key="book.bookId">
@@ -91,7 +91,7 @@
       ></b-pagination>
          <hr />
       <div class="container_book">
-        <h2>Sách đã đề xuất >></h2>
+        <h2>Sách đã đề xuất</h2>
 
         <div v-for="prop in propsArray.proposals" :key="prop.propId">
           <itemprop v-bind:itemProp="prop" />
@@ -283,7 +283,7 @@ export default {
     padding-top: 150px;
   }
   .last_mg{
-    margin-bottom: 50px;
+    padding: 30px 0;
   }
   .container_book {
     width: 1200px;
@@ -294,6 +294,8 @@ export default {
       text-align: left;
       padding-top: 20px;
       font-family: serif;
+      text-decoration-line: underline;
+
     }
     .containerbook {
       display: flex;

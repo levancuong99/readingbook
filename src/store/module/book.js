@@ -215,7 +215,6 @@ const actions = {
     http.delete(`/books/viewed/deleteall`)
       .then(() => {
         dispatch("getAllBook");
-        alert("Xóa tất cả sách đã đọc thành công!");
       })
       .catch(() => {
         alert("Xóa tất cả sách đã đọc thất bại!");

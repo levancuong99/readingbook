@@ -121,8 +121,8 @@ const actions = {
   registerUsers({ dispatch }, params) {
     http.post(`/users/register`, params).then(() => {
       dispatch("Đăng ký tài khoản thành công !");
+      alert("Đăng ký tài khoản thành công !");
       router.push("/login");
-
     })
       .catch(() => {
         alert("Đăng ký tài khoản thất bại !");

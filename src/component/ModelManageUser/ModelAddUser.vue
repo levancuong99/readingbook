@@ -105,11 +105,11 @@
           <div class="form-group">
             <label>Giới tính:</label>
             <div class="boy">
-               <input  type="radio" name="gender" id="nam" value="false" checked/>
+               <input  type="radio" name="gender" id="nam" value="0"  checked/>
                <label class="mg" for="nam">Nam</label>
             </div>
             <div class="girl">
-                <input type="radio" name="gender" id="nu" value="true" />
+                <input type="radio" name="gender" id="nu" value="1" />
                 <label class="mg" for="nu">Nữ</label>
             </div>
             
@@ -146,7 +146,7 @@ export default {
       password: "",
       address:"",
       dateOfBirth: "",
-      gender: true,
+      gender: 0,
       roles: [
         { id: 1, name: "Quản trị viên" },
         { id: 2, name: "Người dùng" },

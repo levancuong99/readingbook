@@ -80,7 +80,7 @@ export default {
      width: 1200px;
      margin: 0 auto;
      text-align: left;
-     padding-left: 15px;
+     padding-left: 40px;
      margin-top: 50px;
      a{
        font-size: 18px;
@@ -96,7 +96,7 @@ export default {
      }
   }
   .content {
-    margin-top: 50px;
+    margin-top: 20px;
     a {
       text-decoration: none;
       color: #000;

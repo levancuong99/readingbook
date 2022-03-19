@@ -9,7 +9,7 @@
           v-model="infoSearch"
         ></b-form-input>
       </div>
-
+      <ModelAddCate />
       <ModelAddBook />
     </div>
 
@@ -28,6 +28,7 @@ import MainTable from "../component/MainTable";
 import { COLUMNS } from "../constants/table_column";
 import {mapActions ,mapGetters} from "vuex";
 import ModelAddBook from "../component/ModelManageBook/ModelAddBook.vue";
+import ModelAddCate from "../component/ModelManageBook/ModelAddCate.vue";
 export default {
   name: "books",
   data() {
@@ -39,7 +40,8 @@ export default {
   },
   components: {
     MainTable,
-    ModelAddBook
+    ModelAddBook,
+    ModelAddCate
   },
   computed: {
     ...mapGetters({

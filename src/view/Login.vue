@@ -56,7 +56,7 @@
         </div>
 
         <div class="forgotPass">
-          <router-link to = "/#">Quên mật khẩu ? </router-link>
+          <router-link to = "/#" style="display:none">Quên mật khẩu ? </router-link>
         </div>
 
         <hr/>
@@ -130,6 +130,7 @@ export default {
         font-size: 45px;
         color: blue;
         font-weight: 800;
+        font-family:  serif;
         
       }
       }

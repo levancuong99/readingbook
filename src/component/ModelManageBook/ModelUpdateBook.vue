@@ -177,7 +177,6 @@ export default {
    computed: {
     ...mapGetters({
       cates: "CATE/getAllCate",
-      listcates: "CATE/getAllCate",
 
     }),
   },
@@ -211,7 +210,9 @@ export default {
   },
   methods: {
     ...mapActions({
+
       updateBook: "BOOK/updateInforBookById",
+        listcates: "CATE/getAllCate",
     }),
 
     showUpdatePlaceModel(index, data) {

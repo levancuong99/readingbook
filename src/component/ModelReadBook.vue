@@ -28,7 +28,6 @@ export default {
     handleClose() {
        this.$router.go(0);
        this.$bvModal.hide("bv-modal-example") 
-      
     }
   },
    props: ["content"],
@@ -55,7 +54,11 @@ export default {
 
 }
 .close{
-  background: blue;
+  background: rgb(53, 23, 224);
+  height: 50px;
+  margin-top: -9px !important;
+  padding-top: 7px !important;
+  margin-left: 1085px !important;
 }
 .wrapper{
   overflow-x: hidden;

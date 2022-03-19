@@ -56,6 +56,16 @@
             disabled
           />
         </div>
+         <div class="form-group">
+          <label for="">Thời gian tạo: </label>
+          <input
+            class="form-control"
+            type="text"
+            v-model="createdAt"
+            disabled
+          />
+        </div>
+        
 
       </form>
     </b-modal>
@@ -71,6 +81,7 @@ export default {
       authorName: "",
       remark:"",
       fullNameProp:"",
+      createdAt:"",
       dataRow: {},
     };
   },
@@ -89,6 +100,7 @@ export default {
       this.authorName = this.dataRow.authorName;
       this.remark = this.dataRow.remark;
       this.fullNameProp = this.dataRow.fullNameProp;
+      this.createdAt=this.dataRow.createdAt.substring(0,10)+" "+this.dataRow.createdAt.substring(11,19);
       this.$refs.UpdatePlaceModal.show();
     },
 

@@ -85,7 +85,7 @@
             <itemcmt v-bind:commentItem="comment" />
           </div>
 
-          <b-pagination v-if="commentArray.comments.length!=0"
+          <b-pagination 
             class="paging"
             size="md"
             @change="getAllComment($event)"
@@ -274,7 +274,8 @@ export default {
     this.getIsLikedByUser();
     this.getBookById();
     this.getAllComment(1);
-    this.link="/bookdetail/"+this.id
+    this.link="/bookdetail/"+this.id;
+    console.log(this.commentArray);
   },
     created() {
     this.token = localStorage.getItem("token");
